@@ -1,3 +1,5 @@
+theme: plainwhite
+
 title: Giseop Kim Blog
 url: "https://gsk1m.github.io"
 author: Giseop Kim
@@ -56,7 +58,7 @@ plainwhite:
 # - about.md
 
 # Build settings
-theme: plainwhite
+# theme: plainwhite
 
 plugins:
   - jekyll-seo-tag
