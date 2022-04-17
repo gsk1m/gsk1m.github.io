@@ -49,6 +49,13 @@
           </li>
         </a>
         {%- endif -%}
+        {%- if site.plainwhite.social_links.scholar -%}
+        <a href="https://scholar.google.com/citations?user={{ site.plainwhite.social_links.scholar }}" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a>
+        {%- endif -%}
         {%- if site.plainwhite.social_links.linkedIn -%}
         <a href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}" target="_blank">
           <li>

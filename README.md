@@ -1,3 +1,7 @@
+# Customizing ..
+- modify `_config.yml` and do `$ sudo gem install plainwhite`
+  - then, `$ jekyll s` to visualize the updated version at local host. 
+
 # plainwhite
 
 Simplistic jekyll portfolio-style theme for writers.
