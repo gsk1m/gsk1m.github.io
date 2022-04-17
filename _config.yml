@@ -31,19 +31,20 @@ plainwhite:
   # generate social links in footer
   social_links:
     # twitter: samarsault
-    github:  gisbi-kim
+    youtube: channel/UCrmVMJ3KEFbDD9EtnAmDT6g
     linkedIn: in/giseop-kim-71683088
+    github:  gisbi-kim
     #dribbble: jekyll
     #flickr:   jekyll
     #instagram: jekyll
     #pinterest: jekyll
-    #youtube: jekyll
+    notion: bit.ly/giseopkim
     scholar: 9mKOLX8AAAAJ&hl=ko&oi=ao
     #facebook: jekyll
     #soundcloud: jekyll
     #telegram: jekyll
     #gitlab: jekyll
-    email: giseop.kim@naverlabs.com
+    # email: giseop.kim@naverlabs.com
 
     # Mastodon instances
     # mastodon:

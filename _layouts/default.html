@@ -35,6 +35,24 @@
       {% capture footer %}
       {%- if site.plainwhite.social_links != '' -%}
       <ul class="social about-footer {{condensed_class}}">
+
+        {%- if site.plainwhite.social_links.linkedIn -%}
+        <a href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a>
+        {%- endif -%}
+
+        {%- if site.plainwhite.social_links.scholar -%}
+        <a href="https://scholar.google.com/citations?user={{ site.plainwhite.social_links.scholar }}" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a>
+        {%- endif -%}
+
+        
         {%- if site.plainwhite.social_links.github -%}
         <a href="https://github.com/{{ site.plainwhite.social_links.github }}" target="_blank">
           <li>
@@ -46,20 +64,6 @@
         <a href="https://gitlab.com/{{ site.plainwhite.social_links.gitlab }}" target="_blank">
           <li>
             <i class="icon-gitlab"></i>
-          </li>
-        </a>
-        {%- endif -%}
-        {%- if site.plainwhite.social_links.scholar -%}
-        <a href="https://scholar.google.com/citations?user={{ site.plainwhite.social_links.scholar }}" target="_blank">
-          <li>
-            <i class="ai ai-google-scholar"></i>
-          </li>
-        </a>
-        {%- endif -%}
-        {%- if site.plainwhite.social_links.linkedIn -%}
-        <a href="https://www.linkedin.com/{{ site.plainwhite.social_links.linkedIn }}" target="_blank">
-          <li>
-            <i class="icon-linkedin-squared"></i>
           </li>
         </a>
         {%- endif -%}
@@ -84,6 +88,16 @@
           </li>
         </a>
         {%- endif -%}
+        {%- if site.plainwhite.social_links.notion -%}
+        <a href="https://{{ site.plainwhite.social_links.notion }}" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a>
+        {%- endif -%}
+ 
         {%- if site.plainwhite.social_links.youtube -%}
         <a href="https://youtube.com/{{ site.plainwhite.social_links.youtube }}" target="_blank">
           <li>
@@ -91,7 +105,7 @@
           </li>
         </a>
         {%- endif -%}
-        {%- if site.plainwhite.social_links.pinterest -%}
+       {%- if site.plainwhite.social_links.pinterest -%}
         <a href="https://pinterest.com/{{ site.plainwhite.social_links.pinterest }}" target="_blank">
           <li>
             <i class="icon-pinterest-squared"></i>
