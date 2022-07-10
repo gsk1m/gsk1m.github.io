@@ -1,16 +1,10 @@
 ---
 layout: post
 title:  "Blog Redesign"
-date:   2022-04-16 21:03:36 +0530
-categories: Init
+date:   2022-07-01 21:03:36 +0530
+categories: 일상
 ---
-<br> 
-
-# 한글 폰트 모양 테스트
-
-## Title 타이틀
-- 본문입니다 
-    - 본문입니다
 
 
-### Subtitle 
+# 개요
+- [기존 블로그 https://gisbi-kim.github.io/](https://gisbi-kim.github.io/) 보다 이 블로그 디자인이 좀 더 수려한 듯 하여... 블로그 글을 작성할 때에는 여기에 추가해나가고자 함. 

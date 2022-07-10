@@ -1,3 +1,30 @@
+
+# Readme myself
+
+## Update logs 
+
+## Build issues
+### 2022.07.10
+- 새로운 우분투에서 `$ jekyll s` 실행하려니 아래와 같은 에러가 나서 
+    ```
+    Traceback (most recent call last):
+	    13: from /usr/bin/jekyll:9:in `<main>'
+	    12: from /usr/lib/ruby/vendor_ruby/jekyll/plugin_manager.rb:50:in `require_from_bundler'
+	    11: from /usr/lib/ruby/2.7.0/bundler.rb:149:in `setup'
+	    10: from /usr/lib/ruby/2.7.0/bundler/runtime.rb:20:in `setup'
+	     9: from /usr/lib/ruby/2.7.0/bundler/runtime.rb:101:in `block in definition_method'
+	     8: from /usr/lib/ruby/2.7.0/bundler/definition.rb:226:in `requested_specs'
+	     7: from /usr/lib/ruby/2.7.0/bundler/definition.rb:237:in `specs_for'
+	     6: from /usr/lib/ruby/2.7.0/bundler/definition.rb:170:in `specs'
+	     5: from /usr/lib/ruby/2.7.0/bundler/definition.rb:258:in `resolve'
+	     4: from /usr/lib/ruby/2.7.0/bundler/resolver.rb:22:in `resolve'
+	     3: from /usr/lib/ruby/2.7.0/bundler/resolver.rb:49:in `start'
+	     2: from /usr/lib/ruby/2.7.0/bundler/resolver.rb:258:in `verify_gemfile_dependencies_are_found!'
+	     1: from /usr/lib/ruby/2.7.0/bundler/resolver.rb:258:in `each'
+    /usr/lib/ruby/2.7.0/bundler/resolver.rb:290:in `block in verify_gemfile_dependencies_are_found!': Could not find gem 'rake (~> 12.0)' in any of the gem sources listed in your Gemfile. (Bundler::GemNotFound) 
+    ```
+- `gem install rake && bundle install` 해서 solve하였음. 
+
 # Customizing ..
 - modify `_config.yml` and do `$ sudo gem install plainwhite`
   - then, `$ jekyll s` to visualize the updated version at local host. 
