@@ -13,7 +13,7 @@
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Blog Redesign | Giseop Kim Blog</title>
-<meta name="generator" content="Jekyll v3.8.6" />
+<meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="Blog Redesign" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
@@ -36,6 +36,30 @@
 
 <!-- fabicon -->
 <link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
 </head><body>
   <main class="container">
     <section class="about">
@@ -89,6 +113,7 @@
   <a class="post-link" href="/%EC%9D%BC%EC%83%81/2022/07/02/init.html">
     <h2 class="post-title">Blog Redesign</h2>
   </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>Jul 2, 2022</div><ul class="post-categories"><li>일상</li></ul></div>
   <div class="post">
@@ -97,7 +122,9 @@
   <li><a href="https://gisbi-kim.github.io/">기존 블로그 https://gisbi-kim.github.io/</a> 보다 이 블로그 디자인이 좀 더 수려한 듯 하여… 블로그 글을 작성할 때에는 여기에 추가해나가고자 함.</li>
 </ul>
 
-  </div><div id="disqus_thread" style="margin-top:25px"></div>
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
   <script>
     var disqus_config = function () {
       this.page.url = 'http://localhost:4000/%EC%9D%BC%EC%83%81/2022/07/02/init.html';

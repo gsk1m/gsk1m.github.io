@@ -25,6 +25,7 @@ layout: default
 
     {%- for post in site.posts -%}
       <li>
+        <hr style="border:1px foo rgb(193, 198, 200)">
         {%- assign date_format = site.plainwhite.date_format | default: "%b %-d, %Y" -%}
         <a class="post-link" href="{{ post.url | relative_url }}">
           <h2 class="post-title">{{ post.title | escape }}</h2>
@@ -45,6 +46,9 @@ layout: default
         <div class="post">
           {%- if site.show_excerpts -%}
             {{ post.excerpt }}
+            <a class="post-link" href="{{ post.url | relative_url }}">
+              <p> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp ... read more  </p>
+            </a>
           {%- endif -%}
         </div>
       </li>

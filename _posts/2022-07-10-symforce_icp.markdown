@@ -5,7 +5,7 @@ date:   2022-07-09 21:03:36 +0000
 categories: SLAM
 ---
 
----
+<!-- --- -->
 # SymForce 란?
 - 최근 RSS 2022 에서 [SymForce](https://symforce.org/){:target="_blank"} 라는 framework 이 공개되었다. 
 - Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. 
@@ -152,11 +152,4 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
 - Cauchy kernel 을 씌워서 loss function 을 from scratch로 구현해보자. 그리고 noisy 한 correspondences pairs 가 주어졌을 때 robust kernel 여부에 따른 강건성 차이를 실습해보자. 그리고 [GncOptimizer](https://symforce.org/search.html?q=gnc)도 사용해보자. 
 - Automatically generated C++ code 기준 Ceres 와의 속도차이를 실제로 테스트해보자. 
 
----
-
-
-
-
-
-
-
+<!-- --- -->

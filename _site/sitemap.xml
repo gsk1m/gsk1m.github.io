@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-07-11T01:02:04+09:00</lastmod>
+	    <lastmod>2022-07-11T01:38:22+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>http://localhost:4000/slam/2022/07/10/symforce_icp.html</loc>

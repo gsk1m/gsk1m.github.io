@@ -6,6 +6,7 @@ layout: default
   <a class="post-link" href="{{ page.url | relative_url }}">
     <h2 class="post-title">{{ page.title | escape }}</h2>
   </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">
     <div class="post-date"><i class="icon-calendar"></i>{{ page.date | date: date_format }}</div>
     {%- if page.categories.size > 0 -%}
@@ -19,6 +20,9 @@ layout: default
   <div class="post">
     {{ content }}
   </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)">
+
   {%- if site.plainwhite.disqus_shortname -%}
   <div id="disqus_thread" style="margin-top:25px"></div>
   <script>
