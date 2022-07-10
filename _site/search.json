@@ -1,0 +1,27 @@
+[
+  
+    {
+      "title"    : "SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기",
+      "title-lower"    : "symforce를 이용해서 nonlinear icp 밑바닥부터 구현해보기",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2022/07/10/symforce_icp.html",
+      "date"     : "2022-07-10 06:03:36 +0900",
+      "content"     : "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다.  Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결..."
+    } ,
+  
+    {
+      "title"    : "Blog Redesign",
+      "title-lower"    : "blog redesign",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "일상",
+      "tags"     : "",
+      "url"      : "/%EC%9D%BC%EC%83%81/2022/07/02/init.html",
+      "date"     : "2022-07-02 00:33:36 +0900",
+      "content"     : "개요  기존 블로그 https://gisbi-kim.github.io/ 보다 이 블로그 디자인이 좀 더 수려한 듯 하여… 블로그 글을 작성할 때에는 여기에 추가해나가고자 함."
+    } 
+  
+]

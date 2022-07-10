@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>Giseop Kim Blog</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Giseop Kim Blog | Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
+<meta name="generator" content="Jekyll v3.8.6" />
+<meta property="og:title" content="Giseop Kim Blog" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<meta property="og:description" content="Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description." />
+<link rel="canonical" href="http://localhost:4000/" />
+<meta property="og:url" content="http://localhost:4000/" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="website" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="Giseop Kim Blog" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Giseop Kim"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Giseop Kim Blog","name":"Giseop Kim Blog","url":"http://localhost:4000/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header ">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer "><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer ">&copy;
+        2022</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      
+<ul class="posts">
+    <li class="posts-labelgroup" id="posts-labelgroup">
+      <h1 id="posts-label">posts</h1>
+      
+      <div class="search-container">
+        <div class="search-section">
+          <i class="icon-search"></i>
+          <input type="text" name="search" id="searchbar" autocomplete="off" aria-label="search in posts">
+        </div>
+        <div class="search-results" id="search-results" data-placeholder="No Results" style="display: none;"></div>
+      </div>
+      
+    </li><li><a class="post-link" href="/slam/2022/07/10/symforce_icp.html">
+          <h2 class="post-title">SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Jul 10, 2022
+          </div><ul class="post-categories"><li>SLAM</li></ul></div>
+        <div class="post"><hr />
+<h1 id="symforce-란">SymForce 란?</h1>
+<ul>
+  <li>최근 RSS 2022 에서 <a href="https://symforce.org/" target="_blank">SymForce</a> 라는 framework 이 공개되었다.</li>
+  <li>Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.</li>
+  <li>Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 <a href="https://youtu.be/ncZmnfIRIWE" target="_blank">멋진 결과들도 보여주고 있어서</a>, 이들의 기술력은 어떤 수준일지 궁금했었다.</li>
+  <li><a href="https://arxiv.org/abs/2204.07889" target="_blank">SymForce 논문</a>을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 <strong>symbolic 기반</strong> 의 미분이 더 좋다고 주장하고 있다.
+    <ul>
+      <li>원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다.</li>
+    </ul>
+  </li>
+  <li>그래서 한 번 공부할겸 써보았다.</li>
+</ul>
+
+</div>
+      </li><li><a class="post-link" href="/%EC%9D%BC%EC%83%81/2022/07/02/init.html">
+          <h2 class="post-title">Blog Redesign</h2>
+        </a>
+        <div class="post-meta">
+          <div class="post-date">
+            <i class="icon-calendar"></i>
+            Jul 2, 2022
+          </div><ul class="post-categories"><li>일상</li></ul></div>
+        <div class="post"><h1 id="개요">개요</h1>
+<ul>
+  <li><a href="https://gisbi-kim.github.io/">기존 블로그 https://gisbi-kim.github.io/</a> 보다 이 블로그 디자인이 좀 더 수려한 듯 하여… 블로그 글을 작성할 때에는 여기에 추가해나가고자 함.</li>
+</ul>
+</div>
+      </li></ul>
+
+  <!-- <p class="feed-subscribe"><svg class="svg-icon orange">
+		<use xlink:href="/assets/minima-social-icons.svg#rss"></use>
+	</svg><a href="/feed.xml">Subscribe</a></p> -->
+    </section>
+    <footer class="">
+      <ul class="social about-footer "><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer ">&copy;
+        2022</p><div class="about-footer ">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
