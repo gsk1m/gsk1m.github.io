@@ -4,6 +4,11 @@
 ## Update logs 
 
 ## Build issues
+### 2022.07.16
+- m1 macbook pro 에 작업환경을 구축하고자 함 
+- https://choijaegwon.github.io/githubblog/GithubBlog1/ 를 참고하였음 
+- 설치 이후 bundle exec jekyll serve 해주면 됨. 
+
 ### 2022.07.10
 - 새로운 우분투에서 `$ jekyll s` 실행하려니 아래와 같은 에러가 나서 
     ```
