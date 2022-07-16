@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기"
+title:  "🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기"
 date:   2022-07-09 21:03:36 +0000
 categories: SLAM
 ---

@@ -1,8 +1,20 @@
 [
   
     {
-      "title"    : "SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기",
-      "title-lower"    : "symforce를 이용해서 nonlinear icp 밑바닥부터 구현해보기",
+      "title"    : "🌈 원격작업을 도와주는 3가지 방법",
+      "title-lower"    : "🌈 원격작업을 도와주는 3가지 방법",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "생산성",
+      "tags"     : "",
+      "url"      : "/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html",
+      "date"     : "2022-07-16 06:03:36 +0900",
+      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      jupyter notebook 이용      directory mount 와 vscode를 이용      0) disk mount  먼저, 작업할..."
+    } ,
+  
+    {
+      "title"    : "🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기",
+      "title-lower"    : "🌈 symforce를 이용해서 nonlinear icp 밑바닥부터 구현해보기",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
@@ -13,8 +25,8 @@
     } ,
   
     {
-      "title"    : "Blog Redesign",
-      "title-lower"    : "blog redesign",
+      "title"    : "🌈 Blog Redesign",
+      "title-lower"    : "🌈 blog redesign",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "일상",

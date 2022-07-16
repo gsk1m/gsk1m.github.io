@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>🌈 원격작업을 도와주는 3가지 방법</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>🌈 원격작업을 도와주는 3가지 방법 | Giseop Kim Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="🌈 원격작업을 도와주는 3가지 방법" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="원격작업 생산성 향상을 위하여 미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다. ssh 접속 후 백그라운드에서 실행 후 빠져나오기 jupyter notebook 이용 directory mount 와 vscode를 이용" />
+<meta property="og:description" content="원격작업 생산성 향상을 위하여 미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다. ssh 접속 후 백그라운드에서 실행 후 빠져나오기 jupyter notebook 이용 directory mount 와 vscode를 이용" />
+<link rel="canonical" href="http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html" />
+<meta property="og:url" content="http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-16T06:03:36+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="🌈 원격작업을 도와주는 3가지 방법" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-16T06:03:36+09:00","datePublished":"2022-07-16T06:03:36+09:00","description":"원격작업 생산성 향상을 위하여 미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다. ssh 접속 후 백그라운드에서 실행 후 빠져나오기 jupyter notebook 이용 directory mount 와 vscode를 이용","headline":"🌈 원격작업을 도와주는 3가지 방법","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html"},"url":"http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html">
+    <h2 class="post-title">🌈 원격작업을 도와주는 3가지 방법</h2>
+  </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jul 16, 2022</div><ul class="post-categories"><li>생산성</li></ul></div>
+  <div class="post">
+    <h1 id="원격작업-생산성-향상을-위하여">원격작업 생산성 향상을 위하여</h1>
+<ul>
+  <li>미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.
+    <ol>
+      <li>ssh 접속 후 백그라운드에서 실행 후 빠져나오기</li>
+      <li>jupyter notebook 이용</li>
+      <li>directory mount 와 vscode를 이용</li>
+    </ol>
+  </li>
+</ul>
+
+<h2 id="0-disk-mount">0) disk mount</h2>
+<ul>
+  <li>먼저, 작업할 코드와 데이터들이 저장되는 원격 directory 를 로컬(주로 이 경우 노트북, 집의 데스크탑 등)에 마운트 함</li>
+  <li>이러면 아래에서 소개할 3가지 방법에서 모두 도움이 된다.</li>
+  <li>방법
+    <ul>
+      <li>/etc/fstab 에 …</li>
+      <li>TBA</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="1-ssh-접속-후-백그라운드에서-실행-후-빠져나오기">1) ssh 접속 후 백그라운드에서 실행 후 빠져나오기</h2>
+<ul>
+  <li>(주로 시간이 오래걸리는) <strong>shell script 를 실행을 시작시키고, 빠져나오기</strong> 위해 사용중이다.</li>
+  <li>그 중에서도, <strong>도커 컨테이너</strong>와 <strong>tmux</strong> 를 이용한 방법을 사용 중이다.</li>
+  <li>요약하면 다음과 같다.
+    <ol>
+      <li>docker 안에서는 tmux 를 디태치모드로 실행한다.</li>
+      <li>docker 를 디태치한다.</li>
+      <li>ssh로 접속한 terminal을 exit한다.</li>
+    </ol>
+  </li>
+  <li>Detail:
+    <ul>
+      <li>예를 들어 (커맨드예시), <br />
+  <code class="language-plaintext highlighter-rouge">$ ssh {ID}@{IP}</code> <br />
+  <code class="language-plaintext highlighter-rouge">$ # 도커컨테이너 실행, 예를 들어 $ docker run ...</code> <br />
+  <code class="language-plaintext highlighter-rouge">$ tmux new-session -d -A -s {process_name} {command}</code> 
+        <ul>
+          <li>이 때 <code class="language-plaintext highlighter-rouge">command</code> 는 예를 들어 <code class="language-plaintext highlighter-rouge">sh your_cmd.sh</code> 같은게 될 수 있겠다.</li>
+        </ul>
+      </li>
+      <li>여기까지 하면 도커 컨테이너 안에서 tmux process 가 background 로 실행된다.</li>
+      <li><code class="language-plaintext highlighter-rouge">$ tmux ls</code> 하면 방금 실행한 tmux process 가 존재하는지 확인할 수 있다.</li>
+      <li><code class="language-plaintext highlighter-rouge">$ tmux attach -t {process_name}</code> 하면 방금 실행한 프로세스에 다시 들어가서, 거기에서 나오는 stdout 출력을 볼 수 있다.
+        <ul>
+          <li>다시 빠져나가려면 control+b 이후 d 를 해주면 된다.</li>
+        </ul>
+      </li>
+      <li>따라서 도커 컨테이너를 이제 디태치(==백그라운드로 실행하도록 놔두고 나오기) 해주면 된다. 디폴트로는 control+p+q 를 해주면 빠져나올 수 있다.
+        <ul>
+          <li>다시 들어가고 싶으면 <code class="language-plaintext highlighter-rouge">$ docker exec -ti {your_ps_id} bash</code> 해주면 된다 (이 때 the ps id 는 <code class="language-plaintext highlighter-rouge">docker ps</code> 하면 알 수 있다).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>작업이 다 끝나면 mount 한 directory 에서 바로 파일을 copy 해와도 되고, <br />
+  혹은 <code class="language-plaintext highlighter-rouge">$ scp -r {ID}${IP}:{ABSOLUTE_PATH} {YOUR_LOCAL_PATH}</code> 와 같이 복사해와서 결과물을 확인할 수 있겠다.</li>
+</ul>
+
+<h2 id="2-jupyter-notebook-이용">2) jupyter notebook 이용</h2>
+<ul>
+  <li><strong>좀 더 interactive 한 개발을 할 때</strong> 사용 중이다.</li>
+  <li>TBA</li>
+</ul>
+
+<h2 id="3-directory-mount-와-vscode를-이용">3) directory mount 와 vscode를 이용</h2>
+<ul>
+  <li><strong>원격에서 코드를 좀 더 빠르게 훑어보고 작성하고 수정할 때,</strong> <br />
+  여기서 소개 할 vscode 에서 원격 ip를 마운트하는 방법을 이용하면 유용했다.</li>
+  <li>TBA</li>
+</ul>
+
+
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html';
+      this.page.identifier = 'http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://robotics.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
