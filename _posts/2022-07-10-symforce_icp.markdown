@@ -119,8 +119,15 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
         p_src        = sf.V3.symbolic("p_src")     # p means a single 3D point 
         p_tgt        = sf.V3.symbolic("p_tgt") 
         p_tgt_est    = (rotmat * p_src) + transvec # The constraint: R*p + t == p'
-        error_model  = p_tgt_est - p_tgt           # this is our loss function to minimize 
-        # error_model = p_tgt - p_tgt_est          # it would have same result as the above (test yourself!)
+
+        error_val = p_tgt_est - p_tgt
+
+        def loss(error_V3):
+            for i in range(3):
+                error_V3[i] = sf.sqrt(error_V3[i]*error_V3[i])
+            return error_V3 
+
+        error_model = loss(error_val)
 
         # residual jacobian
         #  this is the powerful moment of symforce. It automatically generate the Jacobian equations explicitly. 
@@ -138,6 +145,7 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
          <img src="/assets/data/2022-07-10-symforce_icp/result.png" width="650"/>
     </p>
     - `diff_SE3` 값을 달리해가면서 체험해보길 바란다! 그래도 늘 같은 값을 잘 예측하는 것을 알 수 있다. 
+      - [여기 유튜브 영상](https://youtu.be/FG6bi5bAbTY)에서 수렴과정을 시각화하였다. 
 
 # 결론 
 ## 요약

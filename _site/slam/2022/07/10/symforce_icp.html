@@ -11,7 +11,7 @@
 
 <title>🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기</title>
 
-<!-- Begin Jekyll SEO tag v2.8.0 -->
+<!-- Begin Jekyll SEO tag v2.7.1 -->
 <title>🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기 | Giseop Kim Blog</title>
 <meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기" />
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다.","headline":"🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"}</script>
+{"@type":"BlogPosting","headline":"🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기","dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html","author":{"@type":"Person","name":"Giseop Kim"},"description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다.","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -261,9 +261,16 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </span>  <span class="n">p_src</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_src"</span><span class="p">)</span>     <span class="c1"># p means a single 3D point 
 </span>  <span class="n">p_tgt</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_tgt"</span><span class="p">)</span> 
   <span class="n">p_tgt_est</span>    <span class="o">=</span> <span class="p">(</span><span class="n">rotmat</span> <span class="o">*</span> <span class="n">p_src</span><span class="p">)</span> <span class="o">+</span> <span class="n">transvec</span> <span class="c1"># The constraint: R*p + t == p'
-</span>  <span class="n">error_model</span>  <span class="o">=</span> <span class="n">p_tgt_est</span> <span class="o">-</span> <span class="n">p_tgt</span>           <span class="c1"># this is our loss function to minimize 
-</span>  <span class="c1"># error_model = p_tgt - p_tgt_est          # it would have same result as the above (test yourself!)
 </span>
+  <span class="n">error_val</span> <span class="o">=</span> <span class="n">p_tgt_est</span> <span class="o">-</span> <span class="n">p_tgt</span>
+
+  <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">error_V3</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+          <span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="k">return</span> <span class="n">error_V3</span> 
+
+  <span class="n">error_model</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="n">error_val</span><span class="p">)</span>
+
   <span class="c1"># residual jacobian
 </span>  <span class="c1">#  this is the powerful moment of symforce. It automatically generate the Jacobian equations explicitly. 
 </span>  <span class="n">Je_trans_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">transvec</span><span class="p">)</span>
@@ -289,7 +296,11 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
        <img src="/assets/data/2022-07-10-symforce_icp/result.png" width="650" />
   </p>
     <ul>
-      <li><code class="language-plaintext highlighter-rouge">diff_SE3</code> 값을 달리해가면서 체험해보길 바란다! 그래도 늘 같은 값을 잘 예측하는 것을 알 수 있다.</li>
+      <li><code class="language-plaintext highlighter-rouge">diff_SE3</code> 값을 달리해가면서 체험해보길 바란다! 그래도 늘 같은 값을 잘 예측하는 것을 알 수 있다.
+        <ul>
+          <li><a href="https://youtu.be/FG6bi5bAbTY">여기 유튜브 영상</a>에서 수렴과정을 시각화하였다.</li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
