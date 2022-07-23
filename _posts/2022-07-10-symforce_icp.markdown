@@ -33,7 +33,7 @@ categories: SLAM
 - 이렇게 jet, dual 등의 구조체로 두 값을 관리하면서 계산그래프를 형성하는 식의 autodiff 가 robotics 와 deep learning 분야 모두에 대해서 널리 쓰이고 있는 (Ceres, autodiff, tinyAD, jax, pytorch, tensorflow 등등등) 요즘이지만 ... 
 - SymForce 는 Symbolic 기반이라고 한다. 즉, 임의의 cost function 이 주어질 때, 이것의 자코비안을 명시적으로 식으로 딱 계산해준다. 그리고 이 계산이 최적화되도록 해준다. 
     - 그리고 [python 으로 수식을 적으면 c++ code 를 생성](https://symforce.org/tutorials/codegen_tutorial.html){:target="_blank"}해주기까지 한다!  
-- 예를 들어, ICP에서 cost function 은 다음과 같다. 3D point $p_0$ 과 point $p_1$이 주어질 때, loss $=\left( R \\{ \theta \\}*p_0 + t \right) - p_1 $ 를 최소화하는 transformation parameter $\theta$ 와 $t$ 를 찾는 것이 목표이다. 
+- 예를 들어, ICP에서 cost function 은 다음과 같다. 3D point $p_0$ 과 point $p_1$이 주어질 때, loss $= \|\|\left( R \\{ \theta \\}*p_0 + t \right) - p_1 \|\| _2$ 를 최소화하는 transformation parameter $\theta$ 와 $t$ 를 찾는 것이 목표이다. 
     - 이 때 자연스럽게 그러면 다음과 같은 질문(멘붕)에 빠지게 된다. $\frac{\partial\text{loss}}{\partial\bf{\theta}}$ 와 $\frac{\partial\text{loss}}{\partial{t}}$를 어떻게 계산하지 ..???!? 
     - 이 때 이걸 계산그래프로 묶어서 값을 주면 autodiff 이고.. 명시적으로 (수작업 기준)복잡한 수식을 찾아주는 게 symbolic 이라고 일단 이해하고 있다 (더 공부 필요) 
     - 즉, SymForce 에게 이 작업을 맡기면 $\frac{\partial\text{loss}}{\partial\bf{\theta}}$이 다음과 같이 아래 그림처럼 나온다 (너무 길어서 다 옮길 수가 없어서 캡처로 대신한다. 전체 식은 [여기 jupyter notebook](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb)를 참고).     

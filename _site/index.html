@@ -11,7 +11,7 @@
 
 <title>Giseop Kim Blog</title>
 
-<!-- Begin Jekyll SEO tag v2.7.1 -->
+<!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>Giseop Kim Blog | Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.</title>
 <meta name="generator" content="Jekyll v4.2.2" />
 <meta property="og:title" content="Giseop Kim Blog" />
@@ -22,10 +22,11 @@
 <link rel="canonical" href="http://localhost:4000/" />
 <meta property="og:url" content="http://localhost:4000/" />
 <meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Giseop Kim Blog" />
 <script type="application/ld+json">
-{"@type":"WebSite","headline":"Giseop Kim Blog","url":"http://localhost:4000/","author":{"@type":"Person","name":"Giseop Kim"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","name":"Giseop Kim Blog","@context":"https://schema.org"}</script>
+{"@context":"https://schema.org","@type":"WebSite","author":{"@type":"Person","name":"Giseop Kim"},"description":"Write an awesome description for your new site here. You can edit this line in _config.yml. It will appear in your document head meta (for Google search results) and in your feed.xml site description.","headline":"Giseop Kim Blog","name":"Giseop Kim Blog","url":"http://localhost:4000/"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -122,7 +123,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       
     </li><li>
         <hr style="border:1px foo rgb(193, 198, 200)"><a class="post-link" href="/slam/2022/07/23/sim3-tutorial.html">
-          <h2 class="post-title">🌈 SLAM에서 Sim(3) 최적화에 대해 알아보자 </h2>
+          <h2 class="post-title">🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 </h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
@@ -130,6 +131,14 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
             Jul 23, 2022
           </div><ul class="post-categories"><li>SLAM</li></ul></div>
         <div class="post"><h1 id="sim3-optimization-이란">Sim(3) Optimization 이란?</h1>
+<ul>
+  <li>$\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다.</li>
+  <li>monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다.
+    <ul>
+      <li>카메라 하나로 SLAM을 하는 경우 (i.e., monocular visual SLAM or SfM), keyframe 및 local map 들의 true scale 을 알 수 없기 때문이다 (up-to-scale 이라고 불린다).</li>
+    </ul>
+  </li>
+</ul>
 
             <a class="post-link" href="/slam/2022/07/23/sim3-tutorial.html">
               <p> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp ... read more  </p>

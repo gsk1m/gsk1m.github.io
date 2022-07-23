@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-07-24T00:16:53+09:00</lastmod>
+	    <lastmod>2022-07-24T02:18:44+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>http://localhost:4000/slam/2022/07/23/sim3-tutorial.html</loc>

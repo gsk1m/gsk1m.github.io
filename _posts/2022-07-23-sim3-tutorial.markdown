@@ -1,17 +1,79 @@
 ---
 layout: post
-title:  "🌈 SLAM에서 Sim(3) 최적화에 대해 알아보자 "
+title:  "🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 "
 date:   2022-07-22 21:03:36 +0000
 categories: SLAM 
 ---
 
 # Sim(3) Optimization 이란?
+- $\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다. 
+- monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다.
+    - 카메라 하나로 SLAM을 하는 경우 (i.e., monocular visual SLAM or SfM), keyframe 및 local map 들의 true scale 을 알 수 없기 때문이다 (up-to-scale 이라고 불린다).
 
-# 밑바닥부터 구현해보기 (Feat. SymForce)
+## Visual SLAM 에서의 관련 논문
+- 가장 유명한 ORB-SLAM: a versatile and accurate monocular SLAM system 논문을 보면 `scale-aware loop closing` 이란 말이 계속 나오므로 ctrl+f 로 scale이라고 검색해서 나오는 부분 위주로 보면 된다. 
+- 보다보면 Scale Drift-Aware Large Scale Monocular SLAM (RSS, 2010) 논문이 $\text{Sim}(3)$ optimization 을 visual SLAM에 적용한 파이오니어 논문임을 알 수 있다. 따라서 Sim(3) 에 관한 자세한 설명은 이 쪽에 좀 더 자세히 잘 되어 있다. 
+    - 다만 이를 기본적으로 이해하기 위해서는 rotation 에 관한 (초심자에게 어려워보이는) 수식들이 난무한다는 점이 약간 장벽이 될 수 있는데... 이 포스트에서 이야기하고자 하는 바는, SymForce 가 그 부분에 대한 장벽을 직접 구현할 때에 있어서 (물론 rotation 미분 수식 자체에 대해 이해는 해야하겠지만) 상당 부분 해소해주고 있다는 것이다. 즉, rotation의 세 가지 representation (1. angle-axis or also called rotation vector, 2. $\text{SO}(3)$ or also called rotation matrix, 3. Quaternion) 이 있다는 정도만 알고, SymForce 가 구해주는 Jacobian값을 이용해서, 바로 실전 optimization project 를 구성해볼 수 있다는 데에 장점이 있다. 
+    - 더욱이 위의 논문에서 처럼 (visual) SLAM을 한다는 건 front-end 에서 observation model 을 만드는 것과 (예: image projection loss 등등..) back-end에서 pose-graph 의 Sim(3)를 푸는 것처럼 다양한 residual 들이 존재하는데, SymForce를 사용하면 이런 다양한 loss 들을 모두 쉽게 구성할 수 있게 된다. 
+        - ps. 사실 이런 일(쉬운 최적화)들은 Ceres 가 이미 충분히 잘 해주고 있던 부분이긴 하다. 
+            - SymForce 저자들은, Ceres 와 같은 Auto-diff 류 (Jet이라는 이원수 struct 로 value 와 gradient 를 동시에 관리) 보다 Real-time의 저전력 계산이 필요한 robotics 문제에 Symbolic으로 Jacobian을 계산하는 게 더 좋다고 주장하고 있는 것. 
+            - 그나저나 개인적으로는 python에서 nonlinear optimization 을 자유자재로 해볼 수 있다는 것에 (Ceres 에서 좀 하기 어렵던 부분..) SymForce를 사용하는 재미를 느끼고 있다 ..
+- 암튼 위의 RSS 2010 논문의 그림을 보면 왜 Sim(3) 최적화가 필요하고, 이게 어떤 before-and-after 효과를 가져오는지 쉽게 알 수 있으니, 보는 것을 추천한다. 한번 직접가져와보았다. 
+    <p align="center">
+        <img src="/assets/data/2022-07-22-sim3_tuto/sim3.png" width="650"/>
+    </p>    
+    - Mono camera 는 lidar 센서와 달리 3D 를 직접 측정하는 것이 아니기 때문에 scale 을 추론할 수 없고 (하지만 있기는 해야 하므로... 예를 들어, 1.0으로 세팅해서 시작할 수 있겠다), 따라서 주행이 지속되면서 이 scale 값에 drift 가 발생하게 되고.. (a)처럼 구간마다 공간의 크기가 마치 다른 것처럼 느껴진다. 이것을 해소해주는 것이 Scale-aware pose-graph optimization 으로 불리는 것. 여기서 7-dim optimization이라고 부르는 이유는 Sim(3) 에서 최적화해야 하는 변수가 7-dim vector 이기 때문이다. 3 for translation, 3 for rotation, 1 for scale 이므로 총 7 dim. 
+        - ps. 그리고 매번 적는 듯 하지만 rotation 의 matrix 표현인 SO(3) 공간은 nonlinear 하기 때문에 이것의 tangent space (는 vector space이다)로 내려와서 최적화를 하게 되고 ... 그 공간에 사는 아이가 rotation vector 이고, 물리적 의미로는 angle-axis 이고 .. 암튼 그러해서 rotation 의 minimal 한 representation인 rotvec을 사용하므로 rotation도 3 dim이 된다. 
 
-# Applications 
 
-## Registration 
+# 직접 구현해보기 (Feat. SymForce)
+- 여기 [2_nonlinear_icp_Sim3/nonlinear_icp_Sim3.ipynb](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp/2_nonlinear_icp_Sim3/nonlinear_icp_Sim3.ipynb) 에 코드가 있다.
+- 교육용 예제이기 때문에 간단하고 유명한 [Stanford 3D Scanning model](http://graphics.stanford.edu/data/3Dscanrep/) 로 실습해보았다. 위의 리포에 데이터도 함께 있다. 
 
-## Visual SLAM
+## 코드 
+- 앞서 [SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기]({{ site.baseurl }}{% post_url 2022-07-10-symforce_icp %}) 에서 nonlinear model 을 이렇게 정의했었다. 
+    - ```python
+        p_tgt_est = (rotmat * p_src) + transvec # The constraint: (R*p) + t == p'
+    ```
+    - 여기에서 그저 scalar 값 하나만 추가 해주면 된다. 
+        - ```python
+            scale = sf.V1.symbolic("s")
+            p_tgt_est = (rotmat * p_src)*scale + transvec # The constraint: (sR*p) + t == p'
+        ```
+    - 너무 쉽다. 그리고 다음과 같이 scale 에 대해서도 미분해주고 
+        - ```python
+            Je_scale_model = error_model.jacobian(scale)
+        ```
+    - 아래와 같이 update 할 때 Jacobian이 기존의 6 dim (for $\text{SE}(3)$) 에서 7-dim 이 되도록 scale 에 대한 미분값을 append해주면 된다. 
+        - ```python
+            J = np.hstack((Je_rot, Je_trans, Je_scale)) 
+        ```
+        - 나머지 Gauss-Newton 과정은 앞의 블로그 포스트와 완전 동일하다 (자세한 ICP routine 은 [앞의 블로그]({{ site.baseurl }}{% post_url 2022-07-10-symforce_icp %}) 및 [코드](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp/2_nonlinear_icp_Sim3/nonlinear_icp_Sim3.ipynb)) 참고)!
+
+## 실습
+### 실험세팅 
+- true correspondence 를 사용하고, true transformation 에 noise 를 충분히 주어 initial guess 로 사용하였다. 
+
+### 결과 
+- 여기서는 true correspondence 를 사용하였기 때문에, 잘 수렴하는 것을 알 수 있다. 아래가 그 결과를 보여주는 영상이다. 
+<p align="center">
+    <iframe width="760" height="465" src="https://www.youtube.com/embed/FG6bi5bAbTY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen> video </iframe>
+</p>    
+
+## 이 Sim(3) nonlinear ICP를 실전에 쓰기 위해서는 ...
+- 위에서는 Jacobian만 SymForce가 계산해주고, 이외의 Gauss-newton을 포함한 모든 과정을 from-scratch 로 구현하였기 때문에.. 실전에서 쓰이기 위해서는 여전히 개선해야 할 부분들이 존재한다 (사실 이미 상용 library들은 이미 이런것들이 잘 구현되어있다. 하지만 직접 구현해보는 것과 그냥 갖다 쓰는 건 다르다고 생각한다ㅎㅎ)
+- **병렬화로 시간 가속** 
+    - per-point 로 error와 jacobian을 계산하는 일은 하나의 iteration 안에서는 point 사이에서는 독립적인 작업이다 (race condition이 없는). 따라서 2_nonlinear_icp_Sim3 의 `icp_once()` 함수에서 num_pts 를 for loop 도는 부분을 병렬화하면 (H를 더해나가는 부분에만 lock을 해주면 되겠다. 혹은 $\textbf{H}(i)$ 에 대한 array를 미리 메모리에 잡아놓고 쓰게 하면 되겠다..) 전체 시간 향상이 있을 수 있겠다 (특히 numba 등을 사용해서 GPU로 이 병렬작업을 수행해주면 수만개 정도 되는 대규모 point cloud registration 에서도 빠른 a single iteration을 구현할 수 있을 것이다). 
+    - 같은 개념으로 Generalized-icp 류에서는 point 의 covariance 를 계산해야 한다. 이 역시 per-point 마다 병렬화될 수 있는 부분이다. 그래서 VGICP ([fast_gicp](https://github.com/SMRT-AIST/fast_gicp)) 와 같은 CUDA기반으로 covariance 계산을 가속화한 ICP library들도 존재한다. 
+    - ps. 실제로 open3d 의 icp 를 실행해보면 multi core cpu 의 경우 (별도로 cpu사용량을 제한하지 않으면) 모든 core 를 사용하는 것을 볼 수 있다 (htop 등으로 확인할 수 있다).
+- **Robust loss 사용** 
+    - 위 Sim(3) 예제에서는 true correspondence 를 사용했기 때문에 최종적으로 매우 깔끔한 수렴에 이를 수 있었다. 하지만 현실데이터는 그렇지 않은 법 ... per point jacobian 마다 weight 를 다르게 걸어주는 방법이 사용될 수 있다. $\textbf{H}$ 에 information (inverse of covariance) 의 sqrt 를 곱해주면 된다. 
+        - 이 과정을 whitening 이라고도 하고 자세한 건 Factor Graphs for Robot Perception (2017) 책의 섹션 2.3 을 보면 잘 설명되어 있다. 이 weight 의 정도를 결정해주는 방식에 따라 Cauchy 니 Huber 니 GemanMcClur 하는 유명한 타입들이 존재한다. 
+            - 이는 [Parameter Estimation Techniques: A Tutorial with Application to Conic Fitting (1995)](https://hal.inria.fr/inria-00074015/document) 논문에 정말 잘 정리되어 있다. 
+            - 이 논문의 Fig 4 를 보면 여러 m-estimator 들의 cost function (첫번째 row) 와 그것의 미분값 (두번째 row) 들이 시각화 되어 있다. 재밌는 것이, cost function 에서 보면 생김새가 그렇게 다르지 않은 것 같지만 (정도의 차이만 있는 것 같지만), Huber 나 Cauchy loss 를 도입하게 되면 큰 에러 (중앙에서 멀어지는)를 가지는 correspondence 에 대해서는 미분값이 상한이 존재하거나 (Huber) 거의 0으로 수렴해버린다는 (Cauchy) 것이다. 결과적으로 J~0 또는 J < a small constant 가 되므로 잘못 update 되지 않거나 잘못 update 되는 양에 제한이 생긴다. 따라서 false correspondence 에 대해서도 안전하게 대응할 수 있게 되는 효과를 가진다. 방금한 말을 그림에 정리해보면 대충 이렇겠다. influence function 이나 이런 용어에 대해서는 위의 논문을 참고바람. 
+        <p align="center">
+            <img src="/assets/data/2022-07-22-sim3_tuto/robust.png" width="850"/>
+        </p>    
+- **dimension 나눠서 풀기**
+    - 최근 TEASER++: fast & certifiable 3D registration 같은 논문들을 보면 scale 먼저 풀고, 그 다음 rotation 풀고, .. 이런식으로 transformation 들을 나눠서 푸는 방법들에 대해서도 이야기하고 있다. 경우에 따라 이런 접근을 구현하는 것도 좋을 것이다. SymForce 로 이런 구현을 작성하는 것도 역시 매우 편할 듯하다.  
 
