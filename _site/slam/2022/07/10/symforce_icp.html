@@ -193,7 +193,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </p>
 
 <ul>
-  <li>위의 구조를 python으로 옮기면 다음과 같이 된다. (전체 코드는 <a href="https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb">여기 https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb</a> 서 볼 수 있다).
+  <li>위의 구조를 python으로 옮기면 다음과 같이 된다. (전체 코드는 <a href="https://github.com/gisbi-kim/symforce-tutorials/tree/main/nonlinear_icp/1_nonlinear_icp_SE3">여기 symforce-tutorials</a> 서 볼 수 있다).
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">icp</span><span class="p">(</span><span class="n">src</span><span class="p">,</span> <span class="n">tgt</span><span class="p">,</span> <span class="n">tf_init</span><span class="p">,</span> <span class="n">max_iter</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
 
   <span class="n">tf</span> <span class="o">=</span> <span class="n">tf_init</span> <span class="c1"># 6 dim
@@ -226,7 +226,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <ul>
       <li>note: 이 때 <code class="language-plaintext highlighter-rouge">src_pt</code>와 <code class="language-plaintext highlighter-rouge">tgt_pt</code> 는 실제로 같은 지점의 포인트여야 한다. 즉, correspondence 여야 한다.
         <ul>
-          <li>ps. 이번 튜토리얼은 교육용으로 작성해본 것 (1. SymForce를 이용해서 자동으로 Jacobian을 심볼릭 기반으로 계산해보기 2. 이를 이용해서 nonlinear optimization 의 update 부분 from scratch로 구현해보기) 이기 때문에… point cloud $\text{pcd}_0$(위의 리포에서 <a href="https://github.com/gisbi-kim/symforce-tutorials/tree/main/nonlinear_icp_from_scratch/data"><code class="language-plaintext highlighter-rouge">data/251371071.pcd</code></a>)를 로드하고 임의의 $\text{SE(3)}$ transformation 을 가해주어서 $\text{pcd}_1$ 을 생성하고 있다. 따라서 point 의 순서가 보존되므로 <code class="language-plaintext highlighter-rouge">src_pt</code>와 <code class="language-plaintext highlighter-rouge">tgt_pt</code> 모두 동일한 인덱스 <code class="language-plaintext highlighter-rouge">pt_idx</code> 로 가져오면 correspondence 가 성립된다. 실제 세계 문제에서는 <a href="https://pcl.readthedocs.io/projects/tutorials/en/latest/fpfh_estimation.html">FPFH local feature</a> 등의 방법으로 correspondence 를 먼저 찾고, 잘 associate 된 pair 를 위의 icp 알고리즘에 넣어주어야 한다.</li>
+          <li>ps. 이번 튜토리얼은 교육용으로 작성해본 것 (1. SymForce를 이용해서 자동으로 Jacobian을 심볼릭 기반으로 계산해보기 2. 이를 이용해서 nonlinear optimization 의 update 부분 from scratch로 구현해보기) 이기 때문에… point cloud $\text{pcd}_0$(위의 리포에서 <code class="language-plaintext highlighter-rouge">data/251371071.pcd</code>를 로드하고 임의의 $\text{SE(3)}$ transformation 을 가해주어서 $\text{pcd}_1$ 을 생성하고 있다. 따라서 point 의 순서가 보존되므로 <code class="language-plaintext highlighter-rouge">src_pt</code>와 <code class="language-plaintext highlighter-rouge">tgt_pt</code> 모두 동일한 인덱스 <code class="language-plaintext highlighter-rouge">pt_idx</code> 로 가져오면 correspondence 가 성립된다. 실제 세계 문제에서는 <a href="https://pcl.readthedocs.io/projects/tutorials/en/latest/fpfh_estimation.html">FPFH local feature</a> 등의 방법으로 correspondence 를 먼저 찾고, 잘 associate 된 pair 를 위의 icp 알고리즘에 넣어주어야 한다.</li>
         </ul>
       </li>
       <li>위의 루틴은 특별히 어려울 것은 없다. Robotics 문제에서 ICP뿐 아니라 어떤 알고리즘이 되더라도 결국 위의 모습을 하게 된다.</li>

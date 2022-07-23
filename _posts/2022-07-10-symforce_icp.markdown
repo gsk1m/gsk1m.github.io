@@ -53,7 +53,7 @@ categories: SLAM
      <img src="/assets/data/2022-07-10-symforce_icp/gn_octave.png" width="650"/>
 </p>
 
-- 위의 구조를 python으로 옮기면 다음과 같이 된다. (전체 코드는 [여기 https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb) 서 볼 수 있다). 
+- 위의 구조를 python으로 옮기면 다음과 같이 된다. (전체 코드는 [여기 symforce-tutorials](https://github.com/gisbi-kim/symforce-tutorials/tree/main/nonlinear_icp/1_nonlinear_icp_SE3) 서 볼 수 있다). 
 ```python
 def icp(src, tgt, tf_init, max_iter=5, verbose=False):
 
@@ -85,7 +85,7 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
     return tf
 ```
     - note: 이 때 `src_pt`와 `tgt_pt` 는 실제로 같은 지점의 포인트여야 한다. 즉, correspondence 여야 한다. 
-        - ps. 이번 튜토리얼은 교육용으로 작성해본 것 (1. SymForce를 이용해서 자동으로 Jacobian을 심볼릭 기반으로 계산해보기 2. 이를 이용해서 nonlinear optimization 의 update 부분 from scratch로 구현해보기) 이기 때문에... point cloud $\text{pcd}_0$(위의 리포에서 [`data/251371071.pcd`](https://github.com/gisbi-kim/symforce-tutorials/tree/main/nonlinear_icp_from_scratch/data))를 로드하고 임의의 $\text{SE(3)}$ transformation 을 가해주어서 $\text{pcd}_1$ 을 생성하고 있다. 따라서 point 의 순서가 보존되므로 `src_pt`와 `tgt_pt` 모두 동일한 인덱스 `pt_idx` 로 가져오면 correspondence 가 성립된다. 실제 세계 문제에서는 [FPFH local feature](https://pcl.readthedocs.io/projects/tutorials/en/latest/fpfh_estimation.html) 등의 방법으로 correspondence 를 먼저 찾고, 잘 associate 된 pair 를 위의 icp 알고리즘에 넣어주어야 한다. 
+        - ps. 이번 튜토리얼은 교육용으로 작성해본 것 (1. SymForce를 이용해서 자동으로 Jacobian을 심볼릭 기반으로 계산해보기 2. 이를 이용해서 nonlinear optimization 의 update 부분 from scratch로 구현해보기) 이기 때문에... point cloud $\text{pcd}_0$(위의 리포에서 `data/251371071.pcd`를 로드하고 임의의 $\text{SE(3)}$ transformation 을 가해주어서 $\text{pcd}_1$ 을 생성하고 있다. 따라서 point 의 순서가 보존되므로 `src_pt`와 `tgt_pt` 모두 동일한 인덱스 `pt_idx` 로 가져오면 correspondence 가 성립된다. 실제 세계 문제에서는 [FPFH local feature](https://pcl.readthedocs.io/projects/tutorials/en/latest/fpfh_estimation.html) 등의 방법으로 correspondence 를 먼저 찾고, 잘 associate 된 pair 를 위의 icp 알고리즘에 넣어주어야 한다. 
     - 위의 루틴은 특별히 어려울 것은 없다. Robotics 문제에서 ICP뿐 아니라 어떤 알고리즘이 되더라도 결국 위의 모습을 하게 된다. 
     - 이 때 그러면 위의 루틴에서 Jacobian을 계산해주는 `evaluate_error_and_jacobian` 함수를 디자인하는 것이 로보틱스 엔지니어의 역할이 된다. 그런데 그것을 이제 SymForce가 수행해준다. 아래 코드처럼 정의된 모델에 해당 데이터포인트에서의 값을 넣어주기만 하면된다. 이 역할을 하는 것이 SymForce 에서 `.subs` method 인데 substitution 을 의미한다. 
     ```python
