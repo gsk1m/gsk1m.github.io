@@ -258,7 +258,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
                   <li>이는 본인이 사용하는 센서의 품질에 따라 달리 적용해야 한다. 예를 들어 odometry로 wheel odometer 를 사용하는데 그것의 품질이 좋지 않다면 odometry residual에 대해서는 높은 noise 를 부여할 수 있겠다. 반면, 고정밀의 lidar 센서 scan 을 통해 loop closing 을 수행한다면 loop closure residual에 대해서는 낮은 noise (==높은 신뢰도) 를 사용할 수 있겠다.</li>
                 </ul>
               </li>
-              <li>또한 loop closure factor 를 추가하기 이전에, loop closure detection (or aka place recognition) 이라는 과정을 수행해야 하는데, 이것이 100% 항상 맞지가 않다. 따라서 odometry factor 와 달리 loop closure factor 에 대해서는 robust kernel 을 씌워주는 작업 등이 요구되기도 한다.
+              <li>또한 loop closure factor 를 추가하기 이전에, loop closure detection (or aka place recognition) 이라는 과정을 수행해야 하는데, 이것이 100% 항상 올바르다는 <a href="https://threadreaderapp.com/thread/1443044133937942533.htmlj">보장이 없다</a>. 따라서 odometry factor 와 달리 loop closure factor 에 대해서는 robust kernel 을 씌워주는 작업 등이 요구되기도 한다.
                 <ul>
                   <li><a href="https://github.com/gisbi-kim/SC-A-LOAM/blob/main/src/laserPosegraphOptimization.cpp#L298">여기에서 GTSAM의 Cauchy kernel 을 사용한 예제</a> 를 참고바람.</li>
                 </ul>
@@ -339,7 +339,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <h3 id="dataset-generation">Dataset generation</h3>
 <ul>
-  <li>먼저 토이 데이터셋을 직접 만들어보자. 자세한 건 [코드를 참고[(https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb)바람.</li>
+  <li>먼저 토이 데이터셋을 직접 만들어보자. 자세한 건 <a href="https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb">코드를 참고 (링크)</a>바람.</li>
   <li><code class="language-plaintext highlighter-rouge">move()</code> 함수를 통해 정다각형 모양의 trajectory를 구성하는 n개의 pose 를 생성한다. 예시는 아래와 같다.</li>
 </ul>
 <p align="center">
@@ -357,7 +357,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </code></pre></div>    </div>
     <ol>
       <li>prior 의 경우 어짜피 제일 첫 노드에만 부여할 것이며, 전체 trajectory 가 흔들리지 않아야 하므로 (==gauge problem에 빠지지 않아야 하므로) 아주 작은 값으로 설정하였다.</li>
-      <li>odometry 는 적당한 값으로 설정하였다.
+      <li>odometry 는 (rad와 meter 라는 단위를 고려하여) 적당한 값으로 설정하였다.
         <ul>
           <li>ps. 이 때 이 값은 std일수도 있고 covariance (std의 제곱) 일수도 있는데, library마다 다를 수 있으므로 문맥상 파악하여야 한다. 예를 들어 GTSAM에서는 covariance 이다.
             <ul>
@@ -496,7 +496,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 <ul>
   <li>직접 제작한 toy example 에 대해서 해보았으니, <a href="https://lucacarlone.mit.edu/datasets/">SLAM 논문들에서 많이 쓰이는 데이터셋</a> 에 대해서도 실험을 해보자.
     <ul>
-      <li>이 때 잘못된 (사실은 loop가 아닌데) loop closure factors 들이 많이 삽입될 때, 어떻게 방어할 수 있는지 알아보자.</li>
+      <li>이 때 잘못된 (사실은 loop가 아닌데) loop closure factors 들이 많이 삽입될 때, <a href="https://github.com/gisbi-kim/toy-robust-backend-slam">어떻게 방어할 수 있는지</a> 알아보자.</li>
     </ul>
   </li>
 </ul>

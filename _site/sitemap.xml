@@ -6,7 +6,7 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-08-01T01:19:20+09:00</lastmod>
+	    <lastmod>2022-08-01T01:42:57+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
                 <loc>http://localhost:4000/slam/2022/07/31/pgo-toy.html</loc>

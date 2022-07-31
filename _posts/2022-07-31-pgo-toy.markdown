@@ -97,7 +97,7 @@ categories: SLAM
         - 다만 분리해서 이야기하는 것이 좋은 이유는, 
             - odometry와 loop closure 에는 noise scale 을 다르게 적용하는 것이 현실 문제를 풀 때에 도움이 되기 때문이다. 
                 - 이는 본인이 사용하는 센서의 품질에 따라 달리 적용해야 한다. 예를 들어 odometry로 wheel odometer 를 사용하는데 그것의 품질이 좋지 않다면 odometry residual에 대해서는 높은 noise 를 부여할 수 있겠다. 반면, 고정밀의 lidar 센서 scan 을 통해 loop closing 을 수행한다면 loop closure residual에 대해서는 낮은 noise (==높은 신뢰도) 를 사용할 수 있겠다. 
-            - 또한 loop closure factor 를 추가하기 이전에, loop closure detection (or aka place recognition) 이라는 과정을 수행해야 하는데, 이것이 100% 항상 맞지가 않다. 따라서 odometry factor 와 달리 loop closure factor 에 대해서는 robust kernel 을 씌워주는 작업 등이 요구되기도 한다. 
+            - 또한 loop closure factor 를 추가하기 이전에, loop closure detection (or aka place recognition) 이라는 과정을 수행해야 하는데, 이것이 100% 항상 올바르다는 [보장이 없다](https://threadreaderapp.com/thread/1443044133937942533.htmlj). 따라서 odometry factor 와 달리 loop closure factor 에 대해서는 robust kernel 을 씌워주는 작업 등이 요구되기도 한다. 
                 - [여기에서 GTSAM의 Cauchy kernel 을 사용한 예제](https://github.com/gisbi-kim/SC-A-LOAM/blob/main/src/laserPosegraphOptimization.cpp#L298) 를 참고바람.  
         - 따라서 프랙티컬하게는 loop closure factor 와 odometry factor 를 분리해서 생각하는 편이 좋다.
 - 설명 2 
@@ -150,7 +150,7 @@ categories: SLAM
 - 암튼 사설이 길었는데 실험은 다음과 같다. 
 
 ### Dataset generation 
-- 먼저 토이 데이터셋을 직접 만들어보자. 자세한 건 [코드를 참고[(https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb)바람. 
+- 먼저 토이 데이터셋을 직접 만들어보자. 자세한 건 [코드를 참고 (링크)](https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb)바람. 
 - `move()` 함수를 통해 정다각형 모양의 trajectory를 구성하는 n개의 pose 를 생성한다. 예시는 아래와 같다. 
 <p align="center">
      <img src="/assets/data/2022-07-31-pgo-toy/toy_data.png" width="900"/>
@@ -166,7 +166,7 @@ categories: SLAM
     loop_diagonal_sigmas = odometry_diagonal_sigmas * 0.1
     ```
 1. prior 의 경우 어짜피 제일 첫 노드에만 부여할 것이며, 전체 trajectory 가 흔들리지 않아야 하므로 (==gauge problem에 빠지지 않아야 하므로) 아주 작은 값으로 설정하였다. 
-2. odometry 는 적당한 값으로 설정하였다. 
+2. odometry 는 (rad와 meter 라는 단위를 고려하여) 적당한 값으로 설정하였다. 
         - ps. 이 때 이 값은 std일수도 있고 covariance (std의 제곱) 일수도 있는데, library마다 다를 수 있으므로 문맥상 파악하여야 한다. 예를 들어 GTSAM에서는 covariance 이다. 
             - 하지만 그것보다 더 중요한 건 어짜피 적정 스케일은 실험적으로도 파악하는 것이 요구된다. 
             - 이 예제에서는 앞서 `sfT.cast(sf.V6, sf.M.diag(diagonal_sigmas.to_flat_list()).inv() * sf.V6(tangent_error))` 와 같이 error 에 noise 의 inverse 를 바로 곱해주는 형태로 구현되었다. 
@@ -269,7 +269,7 @@ optimizer = Optimizer(
 
 ## TODO
 - 직접 제작한 toy example 에 대해서 해보았으니, [SLAM 논문들에서 많이 쓰이는 데이터셋](https://lucacarlone.mit.edu/datasets/) 에 대해서도 실험을 해보자. 
-    - 이 때 잘못된 (사실은 loop가 아닌데) loop closure factors 들이 많이 삽입될 때, 어떻게 방어할 수 있는지 알아보자. 
+    - 이 때 잘못된 (사실은 loop가 아닌데) loop closure factors 들이 많이 삽입될 때, [어떻게 방어할 수 있는지](https://github.com/gisbi-kim/toy-robust-backend-slam) 알아보자. 
     
         
 
