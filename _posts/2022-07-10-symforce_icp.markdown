@@ -155,7 +155,7 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
     - ps. 이 부분을 추상화하지 않으면, 매번 너무 쉬운 예제만을 다루게 되므로 로보틱스 실전 문제 중 항상 일부만 다루게 되므로 + 2D space 에 한정되므로 .. 아쉽다.. (e.g., 2D에서의 differential wheel motion 등)
 
 
-## TODO
+## <a name="todo"></a>TODO
 - 공부삼아 Gauss-Newton update 과정을 구성해보았지만, 아마 optimizer 라는 class 로 이런 과정들이 이미 wrapping 되어있는 듯 하다. SymForce 가 제공하는 [조금 더 high-level에서의 optim API](https://github.com/symforce-org/symforce#build-an-optimization-problem)를 사용해보자
 - Cauchy kernel 을 씌워서 loss function 을 from scratch로 구현해보자. 그리고 noisy 한 correspondences pairs 가 주어졌을 때 robust kernel 여부에 따른 강건성 차이를 실습해보자. 그리고 [GncOptimizer](https://symforce.org/search.html?q=gnc)도 사용해보자. 
 - Automatically generated C++ code 기준 Ceres 와의 속도차이를 실제로 테스트해보자. 

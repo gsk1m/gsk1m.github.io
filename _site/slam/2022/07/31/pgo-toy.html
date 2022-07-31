@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example) | Giseop Kim Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자." />
+<meta property="og:description" content="Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자." />
+<link rel="canonical" href="http://localhost:4000/slam/2022/07/31/pgo-toy.html" />
+<meta property="og:url" content="http://localhost:4000/slam/2022/07/31/pgo-toy.html" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-07-31T12:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-31T12:00:00+09:00","datePublished":"2022-07-31T12:00:00+09:00","description":"Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자.","headline":"🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"},"url":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/slam/2022/07/31/pgo-toy.html">
+    <h2 class="post-title">🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)</h2>
+  </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jul 31, 2022</div><ul class="post-categories"><li>SLAM</li></ul></div>
+  <div class="post">
+    <h1 id="pose-graph-optimization-이란">Pose-graph optimization 이란?</h1>
+<ul>
+  <li>계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다.</li>
+  <li>그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다.</li>
+  <li>SymForce 를 이용해서 Pose-graph Optimization을 구현해보자.</li>
+</ul>
+
+<h2 id="why-symforce-for-pgo">Why SymForce for PGO?</h2>
+<ul>
+  <li>사실 Pose-graph optimization 에 대해서는 GTSAM에서 이미 그 기능을 (API도 쓰기 쉽게) 너무 잘 제공하고 있기 때문에 새로운 library가 굳이 필요해? 라는 생각이 들기도 한다.
+    <ul>
+      <li>LIO-SAM이 그중 가장 유명한 GTSAM을 PGO에 사용한 예시이다 (거의 star도 이제 2천개가 다 되어 간다).
+        <ul>
+          <li>https://github.com/TixiaoShan/LIO-SAM 에서 <code class="language-plaintext highlighter-rouge">mapOptmization.cpp</code> 을 보면된다.</li>
+        </ul>
+      </li>
+      <li>하지만 보통 이렇게 되면 엔지니어가 할일은 매우 추상화되게 된다.
+        <ol>
+          <li><code class="language-plaintext highlighter-rouge">isam = new ISAM2(parameters);</code>를 선언하고,</li>
+          <li><code class="language-plaintext highlighter-rouge">gtSAMgraph.add(some factor)</code> 하고,</li>
+          <li><code class="language-plaintext highlighter-rouge">isam-&gt;update(gtSAMgraph, initialEstimate);</code> 하는 식이다 ..</li>
+        </ol>
+      </li>
+      <li>그래서 내부적으로 어떻게 실제로 최적화가 이루어지는지 어지간한 열정이 없으면 모르고 쓰게 된다.
+        <ul>
+          <li>내 얘기다 ..</li>
+        </ul>
+      </li>
+      <li>GTSAM은 C++에서 custom loss 를 작성할 수 있지만 Ceres에 비해 공개된 구현체나 docs 가 적은 느낌이다. 그래서 기존 built-in cost 들의 구현을 톺아보며 따라 작성해야 했고 .. 그리고 왠지 뭔가 내부구조를 좀 알기가 어렵다는 인상이 있었다. 내부적으로는 traits 과 Template 으로 복잡하게 짜여져있는데 .. 파악하기가 좀 복잡하다.</li>
+      <li>반면 SymForce는 Jacobian 을 Symbolic 하게 계산해서 보여주므로 명확한 인상이 있다..
+        <ul>
+          <li><a href="/slam/2022/07/10/symforce_icp.html">앞의 블로그 튜토리얼</a> 에서 Symforce 가 구해준 Jacobain을 가져다 사용해서 직접 Gauss-Newton iteration 을 구성해볼 수 있었다.</li>
+          <li>무엇보다 python 에서도 custom loss 를 쉽게 작성할 수 있어서 이것저것 해보기가 좋은듯 하다.</li>
+        </ul>
+      </li>
+      <li>ps. 한편, GTSAM 을 사용하는 그룹이 몇 있었고, 그 외에는 대체로 Ceres 를 많이들 사용하는 듯하다. Ceres 로 PGO를 구현한 가장 유명한 사례는 아마 VINS-mono일 것이다.
+        <ul>
+          <li><code class="language-plaintext highlighter-rouge">https://github.com/HKUST-Aerial-Robotics/VINS-Mono/tree/master/pose_graph</code> 여기를 보면된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>그래서 SymForce tutorial 차원에서 이것저것 작성해보고 있다.
+    <ul>
+      <li>Iterative optimizatino을 From scratch 로 구현하는 것은 지난 포스팅에서 해보았고, <a href="/slam/2022/07/10/symforce_icp.html#todo">앞의 블로그 튜토리얼의 todo</a> 에서 얘기했듯 SymForce 가 제공하는 optimizer class 를 사용해보자.</li>
+      <li>관련 예시는 landmark 를 bearing measurement 로 측정해서 global localization 을 수행하는 것이 <a href="https://github.com/symforce-org/symforce#solve-the-problem">공식readme 에</a> 있다.</li>
+      <li>PGO가 딱 있지는 않은데 어짜피 구조는 비슷하니까 직접 작성해보자.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="symforce기반의-pgo-구현">SymForce기반의 PGO 구현</h2>
+<ul>
+  <li><a href="https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb">여기에 전체 실습 코드</a>가 있다.</li>
+</ul>
+
+<h3 id="cost-functions">Cost functions</h3>
+<ul>
+  <li>PGO에서 사용하는 cost function 은 (최소한으로) prior 와 odometry, loop closure 가 있다.</li>
+  <li>SymForce 로는 다음과 같이 구현된다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">eps</span> <span class="o">=</span> <span class="mf">0.000001</span>
+
+  <span class="k">def</span> <span class="nf">prior_residual</span><span class="p">(</span>
+          <span class="n">pose</span>    <span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span> 
+          <span class="n">pose_prior</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span>
+          <span class="n">diagonal_sigmas</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span> 
+      <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">:</span>
+
+      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">pose</span><span class="o">.</span><span class="n">local_coordinates</span><span class="p">(</span><span class="n">pose_prior</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sfT</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="o">.</span><span class="n">to_flat_list</span><span class="p">())</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">odometry_residual</span><span class="p">(</span>
+          <span class="n">pose_prev</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span> 
+          <span class="n">pose_next</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span> 
+          <span class="n">movement</span> <span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span>
+          <span class="n">diagonal_sigmas</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">,</span>
+      <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">:</span>
+        
+      <span class="c1"># The original reference of the below lines 
+</span>      <span class="c1">#  - see https://github.com/symforce-org/symforce/blob/main/symforce/examples/robot_3d_localization/robot_3d_localization.py#L63
+</span>      <span class="n">movement_predicted</span> <span class="o">=</span> <span class="n">pose_prev</span><span class="o">.</span><span class="n">inverse</span><span class="p">()</span> <span class="o">*</span> <span class="n">pose_next</span>
+      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">movement_predicted</span><span class="o">.</span><span class="n">local_coordinates</span><span class="p">(</span><span class="n">movement</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sfT</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">M</span><span class="o">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="o">.</span><span class="n">to_flat_list</span><span class="p">())</span><span class="o">.</span><span class="n">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
+
+  <span class="k">def</span> <span class="nf">loop_residual</span><span class="p">(</span>
+          <span class="n">pose_prev</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span> 
+          <span class="n">pose_next</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span> 
+          <span class="n">movement</span> <span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">Pose3</span><span class="p">,</span>
+          <span class="n">diagonal_sigmas</span><span class="p">:</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">,</span>
+      <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sf</span><span class="o">.</span><span class="n">V6</span><span class="p">:</span>
+
+      <span class="k">return</span> <span class="n">odometry_residual</span><span class="p">(</span><span class="n">pose_prev</span><span class="p">,</span> <span class="n">pose_next</span><span class="p">,</span> <span class="n">movement</span><span class="p">,</span> <span class="n">diagonal_sigmas</span><span class="p">)</span>
+</code></pre></div>    </div>
+  </li>
+  <li>설명
+    <ol>
+      <li>prior 는 pose 의 SE(3)을 direct 로 추정하는 unary factor (인수가 하나만 쓰인다는 뜻) 이다.</li>
+      <li>odometry 는 consecutive 한 node 사이의 motion 을 제약한다.
+        <ul>
+          <li>따라서 pose $i$ 와 pose $i+1$ 사이의 예측된 값 (motion model) 이 실제로 측정된 값 (measurement)과 일치되도록 pose $i$와 $i+1$ 의 위치가 조정된다.
+            <ul>
+              <li>이런 특성 때문에 GTSAM에서는 이를 between factor 라고 칭하기도 한다.</li>
+            </ul>
+          </li>
+          <li>즉, 둘 사이의 relative 한 제약만을 만족하면 되기 때문에 두 노드의 전역적인 위치 자체는 어디에 놓여있든 상관이 없게 된다.
+            <ul>
+              <li>예를 들어, 두 노드가 1과 2에 있어도 그 사이 간격은 1이고, 2와 3에 있어도 그 사이 간격은 1이므로 여전히 제약을 만족한다.</li>
+              <li>따라서 최소한의 prior 가 필요하며 보통 SLAM에서는 첫 node 에 아주 강한 (==매우 작은 covariance를 가지는) prior 제약을 걸어주게 된다.</li>
+              <li>혹은 GPS 같은 값을 사용하여 전역적인 위치를 고정할 수도 있다.
+                <ul>
+                  <li>rotation 정보가 없이 translation (즉, lat, lng, altitude) 만 사용가능한 경우, 하나의 node 만 prior 를 걸어주는 것으로는 부족하고 둘 이상의 서로 다른 노드에 prior 를 걸어주어야 global heading 을 알 수 있게 된다.</li>
+                </ul>
+              </li>
+              <li>ps. 만약 prior 를 안걸어주면 이 노드들이 모양새는 유지하면서 전역적으로 미쳐날뛰게 (…) 되는데, 이를 게이지 프라블럼 이라고도 하는 듯하다. <a href="https://ceres-solver.googlesource.com/ceres-solver/+/master/examples/slam/pose_graph_3d/pose_graph_3d.cc#89">Ceres 의 공식 example</a> 에서도 딱 이 이야기가 있다.
+                <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// The pose graph optimization problem has six DOFs that are not fully
+// constrained. This is typically referred to as gauge freedom. You can apply
+// a rigid body transformation to all the nodes and the optimization problem
+// will still have the exact same cost. The Levenberg-Marquardt algorithm has
+// internal damping which mitigates this issue, but it is better to properly
+// constrain the gauge freedom. This can be <span class="k">done </span>by setting one of the poses
+// as constant so the optimizer cannot change it.
+</code></pre></div>                </div>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>loop closure 는 not consecutive 한 두 node 사이의 motion을 제약한다.
+        <ul>
+          <li>따라서 수학적으로는 odometry 와 완전히 동일하다.
+            <ul>
+              <li>그래서 위의 구현에서도 <code class="language-plaintext highlighter-rouge">loop_residual</code> 에서는 내부적으로 <code class="language-plaintext highlighter-rouge">odometry_residual</code> 을 call하도록 구현하였다.</li>
+            </ul>
+          </li>
+          <li>다만 분리해서 이야기하는 것이 좋은 이유는,
+            <ul>
+              <li>odometry와 loop closure 에는 noise scale 을 다르게 적용하는 것이 현실 문제를 풀 때에 도움이 되기 때문이다.
+                <ul>
+                  <li>이는 본인이 사용하는 센서의 품질에 따라 달리 적용해야 한다. 예를 들어 odometry로 wheel odometer 를 사용하는데 그것의 품질이 좋지 않다면 odometry residual에 대해서는 높은 noise 를 부여할 수 있겠다. 반면, 고정밀의 lidar 센서 scan 을 통해 loop closing 을 수행한다면 loop closure residual에 대해서는 낮은 noise (==높은 신뢰도) 를 사용할 수 있겠다.</li>
+                </ul>
+              </li>
+              <li>또한 loop closure factor 를 추가하기 이전에, loop closure detection (or aka place recognition) 이라는 과정을 수행해야 하는데, 이것이 100% 항상 맞지가 않다. 따라서 odometry factor 와 달리 loop closure factor 에 대해서는 robust kernel 을 씌워주는 작업 등이 요구되기도 한다.
+                <ul>
+                  <li><a href="https://github.com/gisbi-kim/SC-A-LOAM/blob/main/src/laserPosegraphOptimization.cpp#L298">여기에서 GTSAM의 Cauchy kernel 을 사용한 예제</a> 를 참고바람.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>따라서 프랙티컬하게는 loop closure factor 와 odometry factor 를 분리해서 생각하는 편이 좋다.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>설명 2
+    <ul>
+      <li>위의 코드를 보면 $\text{SE}(3)$를 인풋으로 받지만 실제로 diff는 local_coordinates라는 함수를 통해서 계산되는 것을 알 수 있다.
+        <ul>
+          <li>SymForce 의 코드를 뜯어보면 Pose3에 대해 local_coordinates 은 아래(<a href="https://symforce.org/_modules/sym/ops/pose3/lie_group_ops.html#LieGroupOps.local_coordinates">원본링크</a>)와 같이 구현되어 있다.
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">@</span><span class="nb">staticmethod</span>
+  <span class="k">def</span> <span class="nf">local_coordinates</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
+      <span class="c1"># type: (sym.Pose3, sym.Pose3, float) -&gt; T.List[float]
+</span>
+      <span class="c1"># Total ops: 50
+</span>
+      <span class="c1"># Input arrays
+</span>      <span class="n">_a</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">data</span>
+      <span class="n">_b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">data</span>
+
+      <span class="c1"># Intermediate terms (4)
+</span>      <span class="n">_tmp0</span> <span class="o">=</span> <span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+      <span class="n">_tmp1</span> <span class="o">=</span> <span class="n">_a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+      <span class="n">_tmp2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">_tmp0</span> <span class="o">-</span> <span class="n">_tmp1</span><span class="p">))</span>
+      <span class="n">_tmp3</span> <span class="o">=</span> <span class="p">(</span>
+          <span class="mi">2</span>
+          <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span> <span class="k">if</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">math</span><span class="o">.</span><span class="n">copysign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+          <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">_tmp2</span><span class="p">)</span>
+          <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_tmp2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+      <span class="p">)</span>
+
+      <span class="c1"># Output terms
+</span>      <span class="n">_res</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">]</span> <span class="o">*</span> <span class="mi">6</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">_tmp3</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">_a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">_a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">_tmp3</span> <span class="o">*</span> <span class="p">(</span><span class="n">_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">_a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">_tmp3</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">+</span> <span class="n">_a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="n">_b</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">+</span> <span class="n">_b</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>
+      <span class="n">_res</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span> <span class="o">+</span> <span class="n">_b</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+      <span class="k">return</span> <span class="n">_res</span>
+</code></pre></div>            </div>
+          </li>
+          <li>여기서 return 값은 두 Pose3인 a, b의 difference 이며 3-4-5 인덱스가 translation 차이에 해당하고, 0-1-2 인덱스가 rotation 차이에 해당한다.
+            <ul>
+              <li>매번 게시글에서 이야기하지만 rotation 의 minimal representation은 3-dim 이기 때문에 …
+                <ul>
+                  <li>ps. <a href="https://gisbi-kim.github.io/blog/2021/10/03/slam-textbooks.html">Rotation 공부자료 추천은 여기</a> 를 참고바람.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><code class="language-plaintext highlighter-rouge">Total ops</code> 를 명기한 것도 흥미로운 부분이다. 즉, 저 연산이 Pose3에 대해서 deterministic 하게 최적화되어 있다는 뜻.</li>
+        </ul>
+      </li>
+      <li>아무튼 우리가 알아야 할 것 한줄요약은, rotation matrix은 vector space 가 아니기 때문에, Pose3 (== $\text{SE}(3)$) type 사이의 error 를 계산하고 싶을 때는 <code class="language-plaintext highlighter-rouge">local_coordinates</code> 라는 함수를 사용해야 한다는 것이다.
+        <ul>
+          <li>ps. 지난 from scratch 게시글에서는 minimal 한 vector3 인 rotvec을 먼저 정의하고, 이를 이용해서 SO(3)인 rotmat을 만들어서 썼었다.
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
+</span>    <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="o">.</span><span class="n">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
+</span></code></pre></div>            </div>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="experiments-setting">Experiments Setting</h2>
+<ul>
+  <li>암튼 사설이 길었는데 실험은 다음과 같다.</li>
+</ul>
+
+<h3 id="dataset-generation">Dataset generation</h3>
+<ul>
+  <li>먼저 토이 데이터셋을 직접 만들어보자. 자세한 건 [코드를 참고[(https://github.com/gisbi-kim/symforce-tutorials/blob/main/pgo/1_pgo3d_toy/pose_graph_opt_3d_toy.ipynb)바람.</li>
+  <li><code class="language-plaintext highlighter-rouge">move()</code> 함수를 통해 정다각형 모양의 trajectory를 구성하는 n개의 pose 를 생성한다. 예시는 아래와 같다.</li>
+</ul>
+<p align="center">
+     <img src="/assets/data/2022-07-31-pgo-toy/toy_data.png" width="900" />
+</p>
+
+<h3 id="hyper-parameter-setting">Hyper parameter setting</h3>
+<ul>
+  <li>PGO에서 hyper parameter 라고 하면 위에서 이야기한 3종류의 factors 에 대한 noise 를 결정하는 일이 되겠다.</li>
+  <li>이 예제에서는 다음과 같이 구성해보았다.
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">## noises 
+</span>  <span class="n">prior_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.001</span>
+  <span class="n">odometry_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span> 
+  <span class="n">loop_diagonal_sigmas</span> <span class="o">=</span> <span class="n">odometry_diagonal_sigmas</span> <span class="o">*</span> <span class="mf">0.1</span>
+</code></pre></div>    </div>
+    <ol>
+      <li>prior 의 경우 어짜피 제일 첫 노드에만 부여할 것이며, 전체 trajectory 가 흔들리지 않아야 하므로 (==gauge problem에 빠지지 않아야 하므로) 아주 작은 값으로 설정하였다.</li>
+      <li>odometry 는 적당한 값으로 설정하였다.
+        <ul>
+          <li>ps. 이 때 이 값은 std일수도 있고 covariance (std의 제곱) 일수도 있는데, library마다 다를 수 있으므로 문맥상 파악하여야 한다. 예를 들어 GTSAM에서는 covariance 이다.
+            <ul>
+              <li>하지만 그것보다 더 중요한 건 어짜피 적정 스케일은 실험적으로도 파악하는 것이 요구된다.</li>
+              <li>이 예제에서는 앞서 <code class="language-plaintext highlighter-rouge">sfT.cast(sf.V6, sf.M.diag(diagonal_sigmas.to_flat_list()).inv() * sf.V6(tangent_error))</code> 와 같이 error 에 noise 의 inverse 를 바로 곱해주는 형태로 구현되었다.
+                <ul>
+                  <li>즉, std가 된다. 아래 수식을 참고하면 이해가 된다. (출처: Factor Graphs for Robot Perception, 2017). error $e$에 바로 (역수가)곱해지는 것은 covariance 의 sqrt임을 알 수 있다. 그래서 앞서 구현에서도 변수 이름을 diagonal_<code class="language-plaintext highlighter-rouge">sigma</code> 라고 칭해두었다.</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <p align="center">
+       <img src="/assets/data/2022-07-31-pgo-toy/cov_eq.png" width="700" />
+   </p>
+      </li>
+      <li>loop closure 의 noise 는 odometry보다 더 작게 (더 강력하게 작용하도록) 설정하였다.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="key-based-value-management">Key-based Value Management</h3>
+<ul>
+  <li>SymForce 가 또 좋은 점이 바로 Key 기반으로 value 를 관리하는 것이다.</li>
+  <li>factors들을 실제로 선언할 때 다음과 같이 하면 된다.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1/ Prior factors 
+</span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'prior'</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+            <span class="k">continue</span>        
+        <span class="c1"># only add at the first node 
+</span>        <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+            <span class="n">residual</span><span class="o">=</span><span class="n">prior_residual</span><span class="p">,</span>
+            <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="s">"poses[{i}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"poses_prior[{i}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"prior_diagonal_sigmas"</span><span class="p">],</span>
+        <span class="p">))</span>
+
+<span class="c1"># 2/ Odometry factors
+</span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'odometry'</span><span class="p">]:</span>        
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>        
+        <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+            <span class="n">residual</span><span class="o">=</span><span class="n">odometry_residual</span><span class="p">,</span>
+            <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="s">"poses[{i}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"poses[{i+1}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"odoms[{i}]"</span><span class="p">,</span> <span class="s">"odometry_diagonal_sigmas"</span><span class="p">],</span>
+        <span class="p">))</span>
+
+<span class="c1"># 3/ Loop factors
+</span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'loop'</span><span class="p">]:</span>
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">loops_index_pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loops_indexes</span><span class="p">):</span>        
+        <span class="n">idx_from</span> <span class="o">=</span> <span class="n">loops_index_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">idx_to</span> <span class="o">=</span> <span class="n">loops_index_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">factors</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+            <span class="n">residual</span><span class="o">=</span><span class="n">odometry_residual</span><span class="p">,</span>
+            <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="s">"poses[{idx_from}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"poses[{idx_to}]"</span><span class="p">,</span> <span class="n">f</span><span class="s">"loops[{ii}]"</span><span class="p">,</span> <span class="s">"loop_diagonal_sigmas"</span><span class="p">],</span>
+        <span class="p">))</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위의 코드에서 보다시피, <code class="language-plaintext highlighter-rouge">residual=</code>에 함수를 입력해주고, <code class="language-plaintext highlighter-rouge">keys=</code> 에 이 함수에 인자로 들어갈 변수들을 차례로 나열해주면 된다.
+    <ul>
+      <li>그런데 이 stringfied된 변수이름들은 어디에 있는가? 다음과 같이 Values 라는 곳에다가 다 담아주면 된다.
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">initial_values</span> <span class="o">=</span> <span class="n">Values</span><span class="p">(</span>
+      <span class="c1"># poses=[sf.Pose3.identity()] * num_poses, # may not converge.
+</span>      <span class="n">poses</span><span class="o">=</span><span class="n">initial_poses</span><span class="p">,</span>
+            
+      <span class="n">poses_prior</span><span class="o">=</span><span class="n">poses_prior</span><span class="p">,</span>
+      <span class="n">prior_diagonal_sigmas</span><span class="o">=</span><span class="n">prior_diagonal_sigmas</span><span class="p">,</span>
+
+      <span class="n">odoms</span><span class="o">=</span><span class="n">odoms_obs</span><span class="p">,</span>
+      <span class="n">odometry_diagonal_sigmas</span><span class="o">=</span><span class="n">odometry_diagonal_sigmas</span><span class="p">,</span>
+            
+      <span class="n">loops</span><span class="o">=</span><span class="n">loops_obs</span><span class="p">,</span>
+      <span class="n">loop_diagonal_sigmas</span><span class="o">=</span><span class="n">loop_diagonal_sigmas</span><span class="p">,</span>
+  <span class="p">)</span>
+</code></pre></div>        </div>
+        <ul>
+          <li>우변에 있는 것이 우리가 사전에 정의해둔 변수들이며</li>
+          <li>좌변에 사용한 이름이 key로 쓰이게 된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>그러면 최종적으로 <code class="language-plaintext highlighter-rouge">Optimizer</code> class를 사용하는 것은 쉽다. 아래와 같이 해주면 끝!
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">(</span>
+  <span class="n">factors</span><span class="o">=</span><span class="n">factors</span><span class="p">,</span>
+  <span class="n">optimized_keys</span><span class="o">=</span><span class="p">[</span><span class="n">f</span><span class="s">"poses[{i}]"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">)],</span>
+  <span class="n">debug_stats</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
+<span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>여기서는 최적화할 변수에 대한 key만 또 넣어주게 되는데, 이 부분은 좀 Pytorch와 닮은 것 같기도 하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="results">Results</h2>
+<ul>
+  <li>사설이 또 역시 길었는데, 결과는 다음과 같다.</li>
+</ul>
+
+<h3 id="without-a-loop-constraint">Without a Loop constraint</h3>
+<ul>
+  <li>odometry factors 에 대해 ground-truth 대비 perturbation noise 를 섞어주었기 때문에 (see <code class="language-plaintext highlighter-rouge">perturb_alpha</code> in the codes), loop closure factor 없이는 아래와 같이 trajectory에 drift 가 누적되는 것을 볼 수 있다.</li>
+</ul>
+<p align="center">
+     <img src="/assets/data/2022-07-31-pgo-toy/result_odom.png" width="500" />
+</p>
+
+<h3 id="with-only-a-single-loop-constraint">With only a single Loop constraint</h3>
+<ul>
+  <li>한편, 처음 노드와 마지막 노드 사이에 loop closure factor 를 단 하나만 넣어주더라도, 아래와 같이 전체 trajectory의 shape 이 많이 개선되는 것을 볼 수 있다.</li>
+</ul>
+<p align="center">
+     <img src="/assets/data/2022-07-31-pgo-toy/result_lc.png" width="500" />
+</p>
+
+<ul>
+  <li>사실 수학적으로 당연한 결과이다ㅎㅎ 그래도 새로운 툴을 이용해서 간단하게 이렇게 실습해보는 것은 참 재미있다.
+    <ul>
+      <li>이런 류의 (꽤 작은 코드베이스 규모의) PGO 는 SLAM계의 hello-world 라고 할 수 있지 않을까?</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="결론">결론</h1>
+<ul>
+  <li>SymForce 로 Pose-graph Optimization 을 수행해보았다.
+    <ul>
+      <li>Pose3 들에 대해 unary (prior factor) or binary (between factor) constraints 를 걸어주기 위해서, measurement 와 estimated (direct value or error value) 사이에 error 를 계산해야 한다. 이를 계산하기 위해서 local_coordinates 이라는 함수를 사용한다. 이런 프로세스를 <code class="language-plaintext highlighter-rouge">tangent space optimization</code> 라고도 부른다.</li>
+    </ul>
+  </li>
+  <li>ps. 그 외에.. simularity 를 방지하기 위해 epsilon을 잘 사용해주어야 한다.</li>
+</ul>
+
+<h2 id="todo">TODO</h2>
+<ul>
+  <li>직접 제작한 toy example 에 대해서 해보았으니, <a href="https://lucacarlone.mit.edu/datasets/">SLAM 논문들에서 많이 쓰이는 데이터셋</a> 에 대해서도 실험을 해보자.
+    <ul>
+      <li>이 때 잘못된 (사실은 loop가 아닌데) loop closure factors 들이 많이 삽입될 때, 어떻게 방어할 수 있는지 알아보자.</li>
+    </ul>
+  </li>
+</ul>
+
+
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/slam/2022/07/31/pgo-toy.html';
+      this.page.identifier = 'http://localhost:4000/slam/2022/07/31/pgo-toy.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://robotics.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)",
+      "title-lower"    : "🌈 symforce 기반 pose-graph optimization 실습 (toy example)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2022/07/31/pgo-toy.html",
+      "date"     : "2022-07-31 12:00:00 +0900",
+      "content"     : "Pose-graph optimization 이란?  계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다.  그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose..."
+    } ,
+  
+    {
       "title"    : "🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 ",
       "title-lower"    : "🌈 slam에서의 sim(3) 최적화에 대해 알아보고 구현해보자 ",
       "sub-titile" : "",

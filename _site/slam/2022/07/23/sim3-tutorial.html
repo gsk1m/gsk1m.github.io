@@ -176,7 +176,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>여기에서 그저 scalar 값 하나만 추가 해주면 된다.
         <ul>
           <li>
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">scale</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V1</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"s"</span><span class="p">)</span>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">scale</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V1</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"s"</span><span class="p">)</span>
   <span class="n">p_tgt_est</span> <span class="o">=</span> <span class="p">(</span><span class="n">rotmat</span> <span class="o">*</span> <span class="n">p_src</span><span class="p">)</span><span class="o">*</span><span class="n">scale</span> <span class="o">+</span> <span class="n">transvec</span> <span class="c1"># The constraint: (sR*p) + t == p'
 </span></code></pre></div>            </div>
           </li>
@@ -185,7 +185,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>너무 쉽다. 그리고 다음과 같이 scale 에 대해서도 미분해주고
         <ul>
           <li>
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">Je_scale_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">Je_scale_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">scale</span><span class="p">)</span>
 </code></pre></div>            </div>
           </li>
         </ul>
@@ -193,7 +193,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>아래와 같이 update 할 때 Jacobian이 기존의 6 dim (for $\text{SE}(3)$) 에서 7-dim 이 되도록 scale 에 대한 미분값을 append해주면 된다.
         <ul>
           <li>
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span><span class="p">,</span> <span class="n">Je_scale</span><span class="p">))</span> 
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span><span class="p">,</span> <span class="n">Je_scale</span><span class="p">))</span> 
 </code></pre></div>            </div>
           </li>
           <li>나머지 Gauss-Newton 과정은 앞의 블로그 포스트와 완전 동일하다 (자세한 ICP routine 은 <a href="/slam/2022/07/10/symforce_icp.html">앞의 블로그</a> 및 <a href="https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp/2_nonlinear_icp_Sim3/nonlinear_icp_Sim3.ipynb">코드</a>) 참고)!</li>
