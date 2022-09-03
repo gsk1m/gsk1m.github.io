@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial | Giseop Kim Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Robust Optimization 이란? 현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다. 따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다. 이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자." />
+<meta property="og:description" content="Robust Optimization 이란? 현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다. 따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다. 이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자." />
+<link rel="canonical" href="http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html" />
+<meta property="og:url" content="http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2022-09-01T12:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-09-01T12:00:00+09:00","datePublished":"2022-09-01T12:00:00+09:00","description":"Robust Optimization 이란? 현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다. 따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다. 이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자.","headline":"🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html"},"url":"http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/slam/2022/09/01/robust-opt-tutorial1.html">
+    <h2 class="post-title">🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial</h2>
+  </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Sep 1, 2022</div><ul class="post-categories"><li>SLAM</li></ul></div>
+  <div class="post">
+    <h1 id="robust-optimization-이란">Robust Optimization 이란?</h1>
+<ul>
+  <li>현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다.</li>
+  <li>따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다.</li>
+  <li>이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자.</li>
+</ul>
+
+<h2 id="robust-optimization의-필요성">Robust Optimization의 필요성</h2>
+<h3 id="recap">Recap</h3>
+<ul>
+  <li>지난 포스트 (<a href="/slam/2022/07/23/sim3-tutorial.html">Sim(3) ICP</a>, <a href="/slam/2022/07/31/pgo-toy.html">Pose-graph Optimization</a>)에 이어 계속해서, Robotics 에서의 Nonlinear Optimization 을 풀어보는 실습을 해보자.
+    <ul>
+      <li><em><a href="https://symforce.org/">SymForce</a></em> 를 이용해서!</li>
+      <li>ps. Robotics 에서 <code class="language-plaintext highlighter-rouge">어떤</code> (Non)-linear problem 들을 Least square optimization 으로 <code class="language-plaintext highlighter-rouge">어떻게</code> 푸는지에 관해서는 <a href="https://scholar.google.com/citations?hl=ko&amp;user=yD-SFG4AAAAJ&amp;view_op=list_works&amp;sortby=pubdate">Grisetti 교수님</a>의 <a href="https://arxiv.org/abs/2002.11051">Least squares optimization: From theory to practice</a> 논문을 읽어보기를 추천함.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="이상-vs-현실">이상 vs 현실</h3>
+<ul>
+  <li>그런데 앞의 예제들에서는 <a href="/slam/2022/07/23/sim3-tutorial.html#setting"> <strong>True correspondence</strong> </a> 를 가정했었다.</li>
+  <li>하지만 현실 세계에서는, 센서 노이즈, 유사한 장소, 알고리즘의 한계 등 다양한 이유로 인해 False correspondence가 생기는 것을 피할 수 없다.</li>
+  <li>예를 들면 아래 그림과 같다. (Full 튜토리얼 영상은 <a href="https://youtu.be/p54avTphKFw">여기서</a> 볼 수 있다)
+    <ul>
+      <li><a href="/slam/2022/07/23/sim3-tutorial.html">앞선 포스트</a> 와 동일한 Sim(3) Registration 문제이다.</li>
+    </ul>
+    <p align="center">
+       <img src="/assets/data/2022-09-03-robust/main.png" width="1000" />
+  </p>
+
+    <ul>
+      <li>여기서 제일 왼쪽 그림에서, 초록색 선은 True correspondence 를 의미하고, 빨강색 pair lines 는 False correspondences 를 의미한다.
+        <ul>
+          <li>즉, 초록 pair 는 실제로 의미적으로 동일한 부분이며, 빨강 pair는 실제로 다른 부분이기 때문에 이 두 부분이 같아져서는 안된다.</li>
+        </ul>
+      </li>
+      <li>하지만 Solver 입장에서는 어떤 pair 가 true 이고 false 인지 알 수 없기 때문에, 이들 모든 constraints 를 동시에 만족하려고 하다보면, solution이 망가진다. 중앙의 그림은 그런 예시이다.</li>
+      <li>반면, 이 Robust optimization 을 통하면 오른쪽 그림처럼, 회색 용이 하늘색 용의 수준까지 복구가 된 것을 알 수 있다.</li>
+      <li>이제부터 어떻게 하는지 간단 이론 + 실습 을 통해 알아보자!</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="robust-optimization-을-위한-접근-두-종류">Robust optimization 을 위한 접근 두 종류</h2>
+
+
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html';
+      this.page.identifier = 'http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://robotics.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2022</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

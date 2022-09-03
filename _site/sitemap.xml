@@ -6,9 +6,14 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-08-01T01:42:57+09:00</lastmod>
+	    <lastmod>2022-09-03T18:51:52+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
+                <loc>http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html</loc>
+                <lastmod>2022-09-01T12:00:00+09:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
                 <loc>http://localhost:4000/slam/2022/07/31/pgo-toy.html</loc>
                 <lastmod>2022-07-31T12:00:00+09:00</lastmod>
                 <changefreq>weekly</changefreq>
@@ -19,13 +24,13 @@
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html</loc>
-                <lastmod>2022-07-16T06:03:36+09:00</lastmod>
+                <loc>http://localhost:4000/slam/2022/07/10/symforce_icp.html</loc>
+                <lastmod>2022-07-10T06:03:36+09:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/slam/2022/07/10/symforce_icp.html</loc>
-                <lastmod>2022-07-10T06:03:36+09:00</lastmod>
+                <loc>http://localhost:4000/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/09/effective-remote-work.html</loc>
+                <lastmod>2022-07-09T06:03:36+09:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>

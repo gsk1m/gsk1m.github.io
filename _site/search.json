@@ -1,8 +1,20 @@
 [
   
     {
-      "title"    : "🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)",
-      "title-lower"    : "🌈 symforce 기반 pose-graph optimization 실습 (toy example)",
+      "title"    : "🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial",
+      "title-lower"    : "🌈 [symforce tutorial 4편] robust optimization tutorial",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2022/09/01/robust-opt-tutorial1.html",
+      "date"     : "2022-09-01 12:00:00 +0900",
+      "content"     : "Robust Optimization 이란?  현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다.  따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다.  이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자.Robust Optimization의..."
+    } ,
+  
+    {
+      "title"    : "🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)",
+      "title-lower"    : "🌈 [symforce tutorial 3편] pose-graph optimization 실습 (toy example)",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
@@ -13,8 +25,8 @@
     } ,
   
     {
-      "title"    : "🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 ",
-      "title-lower"    : "🌈 slam에서의 sim(3) 최적화에 대해 알아보고 구현해보자 ",
+      "title"    : "🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 ",
+      "title-lower"    : "🌈 [symforce tutorial 2편] sim(3) 최적화에 대해 알아보고 구현해보자 ",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
@@ -25,20 +37,8 @@
     } ,
   
     {
-      "title"    : "🌈 원격작업을 도와주는 3가지 방법",
-      "title-lower"    : "🌈 원격작업을 도와주는 3가지 방법",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "생산성",
-      "tags"     : "",
-      "url"      : "/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/16/effective-remote-work.html",
-      "date"     : "2022-07-16 06:03:36 +0900",
-      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      jupyter notebook 이용      directory mount 와 vscode를 이용      0) disk mount  먼저, 작업할..."
-    } ,
-  
-    {
-      "title"    : "🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기",
-      "title-lower"    : "🌈 symforce를 이용해서 nonlinear icp 밑바닥부터 구현해보기",
+      "title"    : "🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기",
+      "title-lower"    : "🌈 [symforce tutorial 1편] nonlinear icp 밑바닥부터 구현해보기",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
@@ -46,6 +46,18 @@
       "url"      : "/slam/2022/07/10/symforce_icp.html",
       "date"     : "2022-07-10 06:03:36 +0900",
       "content"     : "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다.  Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결..."
+    } ,
+  
+    {
+      "title"    : "🌈 원격작업을 도와주는 3가지 방법",
+      "title-lower"    : "🌈 원격작업을 도와주는 3가지 방법",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "생산성",
+      "tags"     : "",
+      "url"      : "/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/09/effective-remote-work.html",
+      "date"     : "2022-07-09 06:03:36 +0900",
+      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      jupyter notebook 이용      directory mount 와 vscode를 이용      0) disk mount  먼저, 작업할..."
     } ,
   
     {

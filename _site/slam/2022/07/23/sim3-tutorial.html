@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 
-<title>🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 </title>
+<title>🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 </title>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 | Giseop Kim Blog</title>
+<title>🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 | Giseop Kim Blog</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자" />
+<meta property="og:title" content="🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Sim(3) Optimization 이란? $\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다. monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다. 카메라 하나로 SLAM을 하는 경우 (i.e., monocular visual SLAM or SfM), keyframe 및 local map 들의 true scale 을 알 수 없기 때문이다 (up-to-scale 이라고 불린다)." />
@@ -25,9 +25,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-07-23T06:03:36+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자" />
+<meta property="twitter:title" content="🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-23T06:03:36+09:00","datePublished":"2022-07-23T06:03:36+09:00","description":"Sim(3) Optimization 이란? $\\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다. monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다. 카메라 하나로 SLAM을 하는 경우 (i.e., monocular visual SLAM or SfM), keyframe 및 local map 들의 true scale 을 알 수 없기 때문이다 (up-to-scale 이라고 불린다).","headline":"🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/23/sim3-tutorial.html"},"url":"http://localhost:4000/slam/2022/07/23/sim3-tutorial.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-23T06:03:36+09:00","datePublished":"2022-07-23T06:03:36+09:00","description":"Sim(3) Optimization 이란? $\\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다. monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다. 카메라 하나로 SLAM을 하는 경우 (i.e., monocular visual SLAM or SfM), keyframe 및 local map 들의 true scale 을 알 수 없기 때문이다 (up-to-scale 이라고 불린다).","headline":"🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/23/sim3-tutorial.html"},"url":"http://localhost:4000/slam/2022/07/23/sim3-tutorial.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -111,7 +111,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/slam/2022/07/23/sim3-tutorial.html">
-    <h2 class="post-title">🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 </h2>
+    <h2 class="post-title">🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 </h2>
   </a>
   <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">
@@ -205,6 +205,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <h2 id="실습">실습</h2>
 <h3 id="실험세팅">실험세팅</h3>
+<p align="center" id="setting">
+</p>
 <ul>
   <li>true correspondence 를 사용하고, true transformation 에 noise 를 충분히 주어 initial guess 로 사용하였다.</li>
 </ul>

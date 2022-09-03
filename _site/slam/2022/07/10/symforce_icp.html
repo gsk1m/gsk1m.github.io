@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 
-<title>🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기</title>
+<title>🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기</title>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기 | Giseop Kim Blog</title>
+<title>🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기 | Giseop Kim Blog</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기" />
+<meta property="og:title" content="🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다." />
@@ -25,9 +25,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-07-10T06:03:36+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기" />
+<meta property="twitter:title" content="🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다.","headline":"🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다.","headline":"🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -111,7 +111,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/slam/2022/07/10/symforce_icp.html">
-    <h2 class="post-title">🌈 SymForce를 이용해서 Nonlinear ICP 밑바닥부터 구현해보기</h2>
+    <h2 class="post-title">🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기</h2>
   </a>
   <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">

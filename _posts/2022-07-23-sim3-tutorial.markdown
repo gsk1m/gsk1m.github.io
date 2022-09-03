@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🌈 SLAM에서의 Sim(3) 최적화에 대해 알아보고 구현해보자 "
+title:  "🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 "
 date:   2022-07-22 21:03:36 +0000
 categories: SLAM 
 ---
@@ -52,6 +52,8 @@ categories: SLAM
 
 ## 실습
 ### 실험세팅 
+<p align="center" id='setting'>
+</p>
 - true correspondence 를 사용하고, true transformation 에 noise 를 충분히 주어 initial guess 로 사용하였다. 
 
 ### 결과 

@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 
-<title>🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)</title>
+<title>🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)</title>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example) | Giseop Kim Blog</title>
+<title>🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example) | Giseop Kim Blog</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)" />
+<meta property="og:title" content="🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자." />
@@ -25,9 +25,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-07-31T12:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)" />
+<meta property="twitter:title" content="🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-31T12:00:00+09:00","datePublished":"2022-07-31T12:00:00+09:00","description":"Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자.","headline":"🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"},"url":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-31T12:00:00+09:00","datePublished":"2022-07-31T12:00:00+09:00","description":"Pose-graph optimization 이란? 계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다. 그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose만을 최적화 하는 것이 더욱 대중화된 듯하다. SymForce 를 이용해서 Pose-graph Optimization을 구현해보자.","headline":"🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"},"url":"http://localhost:4000/slam/2022/07/31/pgo-toy.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -111,7 +111,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/slam/2022/07/31/pgo-toy.html">
-    <h2 class="post-title">🌈 SymForce 기반 Pose-graph Optimization 실습 (Toy Example)</h2>
+    <h2 class="post-title">🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)</h2>
   </a>
   <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">
