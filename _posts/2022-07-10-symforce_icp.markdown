@@ -47,6 +47,7 @@ categories: SLAM
 
 ## 구현 
 
+<p id="grisetti-tuto"> </p> 
 ### Iterative update 
 - 자코비안을 구한다음, 이것을 이용해서 iterative 하게 최적의 $d[\theta, t]$ 를 구하고, 조금씩 이 값을 업데이트 해나가는 루틴은 너무나 자명하다. 이에 대해서는 Grisetti 교수님의 [2016년 ICRA tutorial 자료](http://www.diag.uniroma1.it//~labrococo/tutorial_icra_2016/icra16_slam_tutorial_grisetti.pdf) 를 추천한다. 여기에 보면 이런 식이 있다. Octave (Matlab) 구현체이다. 
 <p align="center">
