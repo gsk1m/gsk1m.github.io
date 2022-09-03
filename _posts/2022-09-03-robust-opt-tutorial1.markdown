@@ -167,6 +167,7 @@ categories: SLAM
             - 딥러닝 초기 (2015년) 에는 네트워크에 (input, output) data 만 주고 end-to-end 로 학습시키면 뭔가 그안에서 마법같은 일이 일어나서 새로운 input이 들어가도 그것의 pose 를 잘 알려줄 거야 (15 CVPR Posenet: A convolutional network for real-time 6-dof camera relocalization) 라는 믿음이 있었는데 .., 
             - 이걸 해보면 생각보다 잘 안된다. 이런 심증이 연구자들 사이에서 계속 있다가, 
             - 이후 CVPR 2019에 와서 Understanding the Limitations of CNN-based Absolute Camera Pose Regression 라는 논문에서 그 믿음이 제대로 지적당한다. 그리고 [SuperGlue저자의 Hloc](https://github.com/cvg/Hierarchical-Localization) 이 실험적으로도 보여주게 된다: 딥러닝은 feature correspondence 만 잘 지어주면 된다. 2D-3D matches 만 잘 생성되면 그 이후는 기존에 잘 정립된 수학인 PnP 만으로도 충분하다 (이 부분은 딥이 할 게 아니라는 것).. 라는 이야기.
+                - 물론 이런 conventional 한 geometric pipeline (e.g., svd, pnp, ...) 자체를 differentiable 하게 구성하는 것은 옳은 방향이다! 그 노력이 바로 [Kornia](https://github.com/kornia/kornia) 라는 프로젝트.
     - 사설이 길었으니 Localization 이야기는 나중에 또 따로 해보도록 하자. 
 
 
