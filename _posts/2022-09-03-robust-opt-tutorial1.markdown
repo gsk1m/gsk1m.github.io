@@ -17,7 +17,7 @@ categories: SLAM
     - ps. Robotics 에서 `어떤` (Non)-linear problem 들을 Least square optimization 으로 `어떻게` 푸는지에 관해서는 [Grisetti 교수님](https://scholar.google.com/citations?hl=ko&user=yD-SFG4AAAAJ&view_op=list_works&sortby=pubdate)의 [Least squares optimization: From theory to practice](https://arxiv.org/abs/2002.11051) 논문을 읽어보기를 추천함.
 
 ### 이상 vs 현실 
-- 이상: 그런데 앞의 예제들에서는 <a href="/slam/2022/07/23/sim3-tutorial.html#setting"> **True correspondence** </a> 를 가정했었다. 
+- 이상: 그런데 앞의 예제들에서는 <a href="/slam/2022/07/22/sim3-tutorial.html#setting"> **True correspondence** </a> 를 가정했었다. 
 - 현실: 하지만 현실 세계에서는, 센서 노이즈, 유사한 장소, 알고리즘의 한계 등 다양한 이유로 인해 False correspondence가 생기는 것을 피할 수 없다. 
     - 예를 들면 아래 그림과 같은 상황이 발생할 수 있다. (Full 튜토리얼 영상은 [여기서](https://youtu.be/p54avTphKFw) 볼 수 있다)
         - [앞선 포스트]({{ site.baseurl }}{% post_url 2022-07-23-sim3-tutorial %}) 와 동일한 Sim(3) Registration 문제이다. 
