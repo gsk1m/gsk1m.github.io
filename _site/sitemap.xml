@@ -6,9 +6,19 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-09-05T22:40:00+09:00</lastmod>
+	    <lastmod>2022-09-24T17:59:16+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
+                <loc>http://localhost:4000/slam/2022/09/24/kf-tutorial1.html</loc>
+                <lastmod>2022-09-24T08:00:00+09:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
+                <loc>http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html</loc>
+                <lastmod>2022-09-23T08:00:00+09:00</lastmod>
+                <changefreq>weekly</changefreq>
+                <priority>0.80</priority>
+            </url><url>
                 <loc>http://localhost:4000/slam/2022/09/01/robust-opt-tutorial1.html</loc>
                 <lastmod>2022-09-01T12:00:00+09:00</lastmod>
                 <changefreq>weekly</changefreq>

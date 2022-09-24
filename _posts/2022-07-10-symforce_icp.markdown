@@ -151,10 +151,9 @@ def icp(src, tgt, tf_init, max_iter=5, verbose=False):
 # 결론 
 ## 요약
 1. SymForce 는 로보틱스 문제를 풀 때 필요한 자코비안을 잘 생성해준다.
-2. Gauss-Newton pipeline 을 구성해볼 때 가장 애먹는 부분이 Jacobian 을 구하는 부분인데, 이 부분을 추상화하고 나니, nonliear update pipeline 을 구현하는 데 좀 더 집중하여 최적화 과정을 더 잘 파악해볼 수 있다.
-    - 전체 코드는 [여기 https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp_from_scratch/symforce_icp.ipynb) 서 볼 수 있다
-    - ps. 이 부분을 추상화하지 않으면, 매번 너무 쉬운 예제만을 다루게 되므로 로보틱스 실전 문제 중 항상 일부만 다루게 되므로 + 2D space 에 한정되므로 .. 아쉽다.. (e.g., 2D에서의 differential wheel motion 등)
-
+2. Gauss-Newton pipeline 을 구성해볼 때 가장 애먹는 부분이 Jacobian 을 구하는 부분인데, 이 부분을 캡슐화하고 나니, nonliear update pipeline 을 구현하는 데 좀 더 집중하여 최적화 과정을 더 잘 파악해볼 수 있다.
+    - 전체 코드는 [여기 (link)](https://github.com/gisbi-kim/symforce-tutorials/blob/main/nonlinear_icp/1_nonlinear_icp_SE3/nonlinear_icp_SE3.ipynb) 서 볼 수 있다
+    - ps. 복잡한 nonlinear cost 의 Jacobian 구하는 것부터 신경쓰게 되는 것은 입문자 입장에서 (수학적으로) 어렵다. 그렇다고 이를 회피하다 보면, 매번 너무 쉬운 예제만을 다루게 된다. 즉 로보틱스 실전 문제 중 항상 일부만 다루게 되거나 2D space 에 한정되므로 아쉽다.. (e.g., 2D에서의 differential wheel motion 등). 
 
 ## <a name="todo"></a>TODO
 - 공부삼아 Gauss-Newton update 과정을 구성해보았지만, 아마 optimizer 라는 class 로 이런 과정들이 이미 wrapping 되어있는 듯 하다. SymForce 가 제공하는 [조금 더 high-level에서의 optim API](https://github.com/symforce-org/symforce#build-an-optimization-problem)를 사용해보자
