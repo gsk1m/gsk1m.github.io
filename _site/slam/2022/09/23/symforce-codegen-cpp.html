@@ -17,8 +17,8 @@
 <meta property="og:title" content="🌈 [SymForce Tutorial 5편] C++ Code Generation Tutorial" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Codegen이란? TBA" />
-<meta property="og:description" content="Codegen이란? TBA" />
+<meta name="description" content="Codegen이란? Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다. 그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다. Codegen을 이용해서 C++ 로 Jacobian 함수를 만들고, 이전 포스팅의 Sim(3) optimization 을 C++에서 구현해보자." />
+<meta property="og:description" content="Codegen이란? Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다. 그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다. Codegen을 이용해서 C++ 로 Jacobian 함수를 만들고, 이전 포스팅의 Sim(3) optimization 을 C++에서 구현해보자." />
 <link rel="canonical" href="http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html" />
 <meta property="og:url" content="http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html" />
 <meta property="og:site_name" content="Giseop Kim Blog" />
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="🌈 [SymForce Tutorial 5편] C++ Code Generation Tutorial" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-09-23T08:00:00+09:00","datePublished":"2022-09-23T08:00:00+09:00","description":"Codegen이란? TBA","headline":"🌈 [SymForce Tutorial 5편] C++ Code Generation Tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html"},"url":"http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-09-23T08:00:00+09:00","datePublished":"2022-09-23T08:00:00+09:00","description":"Codegen이란? Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다. 그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다. Codegen을 이용해서 C++ 로 Jacobian 함수를 만들고, 이전 포스팅의 Sim(3) optimization 을 C++에서 구현해보자.","headline":"🌈 [SymForce Tutorial 5편] C++ Code Generation Tutorial","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html"},"url":"http://localhost:4000/slam/2022/09/23/symforce-codegen-cpp.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -118,6 +118,44 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <div class="post-date"><i class="icon-calendar"></i>Sep 23, 2022</div><ul class="post-categories"><li>SLAM</li></ul></div>
   <div class="post">
     <h1 id="codegen이란">Codegen이란?</h1>
+<ul>
+  <li>Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다.</li>
+  <li>그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다.</li>
+  <li>Codegen을 이용해서 C++ 로 Jacobian 함수를 만들고, 이전 포스팅의 Sim(3) optimization 을 C++에서 구현해보자.</li>
+</ul>
+
+<h2 id="codegen">Codegen</h2>
+<ul>
+  <li>사용법은 다음과 같다.
+    <ul>
+      <li>TBA</li>
+    </ul>
+  </li>
+  <li>간단예시
+    <ul>
+      <li>TBA</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="sim3-jacobian-c-예시">Sim(3) Jacobian C++ 예시</h2>
+<ul>
+  <li>Codegen 을 이용해서 이전 포스트의 Loss와 Jacobian 을 C++로 변환하면 다음과 같다.</li>
+  <li>TBA</li>
+</ul>
+
+<h2 id="c-version-of-the-sim3-icp-example">C++ version of the Sim(3) ICP example</h2>
+<ul>
+  <li>Eigen 을 이용해서 C++ 로 예제를 다시 짜보았다.</li>
+  <li>TBA</li>
+</ul>
+
+<h3 id="결과">결과</h3>
+<ul>
+  <li>TBA</li>
+</ul>
+
+<h2 id="결론">결론</h2>
 <ul>
   <li>TBA</li>
 </ul>

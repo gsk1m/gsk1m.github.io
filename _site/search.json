@@ -1,15 +1,15 @@
 [
   
     {
-      "title"    : "🌈 Kalman Filter 이야기 (+공부자료 추천)",
-      "title-lower"    : "🌈 kalman filter 이야기 (+공부자료 추천)",
+      "title"    : "🌈 Error-state Kalman Filter 이야기",
+      "title-lower"    : "🌈 error-state kalman filter 이야기",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
       "tags"     : "",
       "url"      : "/slam/2022/09/24/kf-tutorial1.html",
       "date"     : "2022-09-24 08:00:00 +0900",
-      "content"     : "Test"
+      "content"     : "Error-state Kalman Filter 란?  최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다.          이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다.        그래서 Error-state..."
     } ,
   
     {
@@ -21,7 +21,7 @@
       "tags"     : "",
       "url"      : "/slam/2022/09/23/symforce-codegen-cpp.html",
       "date"     : "2022-09-23 08:00:00 +0900",
-      "content"     : "Codegen이란?  TBA"
+      "content"     : "Codegen이란?  Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다.  그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다.  Codegen을 이용해서 C++ 로 Jacobian..."
     } ,
   
     {

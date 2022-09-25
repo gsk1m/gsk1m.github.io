@@ -123,14 +123,23 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       
     </li><li>
         <hr style="border:1px foo rgb(193, 198, 200)"><a class="post-link" href="/slam/2022/09/24/kf-tutorial1.html">
-          <h2 class="post-title">🌈 Kalman Filter 이야기 (+공부자료 추천)</h2>
+          <h2 class="post-title">🌈 Error-state Kalman Filter 이야기</h2>
         </a>
         <div class="post-meta">
           <div class="post-date">
             <i class="icon-calendar"></i>
             Sep 24, 2022
           </div><ul class="post-categories"><li>SLAM</li></ul></div>
-        <div class="post"><h1 id="test">Test</h1>
+        <div class="post"><h1 id="error-state-kalman-filter-란">Error-state Kalman Filter 란?</h1>
+<ul>
+  <li>최근 SLAM 학/업계에서는 visual은 <a href="https://github.com/rpng/open_vins">OpenVINS</a>, lidar는 <a href="https://github.com/hku-mars/FAST_LIO">Fast-LIO</a> 가 대세가 된 듯하다.
+    <ul>
+      <li>이 둘은 모두 <strong><code class="language-plaintext highlighter-rouge">on-manifold EKF</code></strong> 혹은 <strong><code class="language-plaintext highlighter-rouge">error-state Kalman filter</code></strong> 라고 불리는 방식을 사용하고 있다.</li>
+    </ul>
+  </li>
+  <li>그래서 Error-state Kalman Filter (ESKF) 에 대해 공부해보았다.</li>
+  <li>최대한 쉽게 큰그림 위주로 이해해보자.</li>
+</ul>
 
             <a class="post-link" href="/slam/2022/09/24/kf-tutorial1.html">
               <p> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp ... read more  </p>
@@ -146,7 +155,9 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           </div><ul class="post-categories"><li>SLAM</li></ul></div>
         <div class="post"><h1 id="codegen이란">Codegen이란?</h1>
 <ul>
-  <li>TBA</li>
+  <li>Symforce 는 Jacobian을 자동으로 계산해주고, 이를 중복 연산 등을 제거하는 방식으로 Efficient 하게 최적화 해준다.</li>
+  <li>그리고 Python에서 간단히 프로토타이핑한 수식을 최적화하여 C++의 함수로 추출해내는 기능까지 제공한다. 이 기능이 Codegen이다.</li>
+  <li>Codegen을 이용해서 C++ 로 Jacobian 함수를 만들고, 이전 포스팅의 Sim(3) optimization 을 C++에서 구현해보자.</li>
 </ul>
 
             <a class="post-link" href="/slam/2022/09/23/symforce-codegen-cpp.html">
