@@ -1,13 +1,25 @@
 [
   
     {
+      "title"    : "🌈 Nerf 실습 (Feat. Nerfstudio)",
+      "title-lower"    : "🌈 nerf 실습 (feat. nerfstudio)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2022/10/10/nerfstudio-example1.html",
+      "date"     : "2022-10-10 08:00:00 +0900",
+      "content"     : "Nerfstudio 를 이용해서 직접 뉴럴 렌더링을 해보자  Nerf로 대표되는 뉴럴렌더링이 요새 유행이다 (Summaries: ECCV 22, CVPR 22, ICCV 21).  최근 nerfstudio 라는 오픈소스+툴이 나왔다.  직접 해보자!뉴럴 렌더링이란  뉴럴 렌더링이란          Advances in Neural Rendering (..."
+    } ,
+  
+    {
       "title"    : "🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)",
       "title-lower"    : "🌈 error-state kalman filter 이야기 (feat. on-manifold optimization)",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
       "tags"     : "",
-      "url"      : "/slam/2022/09/24/kf-tutorial1.html",
+      "url"      : "/slam/2022/09/24/kf-tutorial10.html",
       "date"     : "2022-09-24 08:00:00 +0900",
       "content"     : "Error-state Kalman Filter 란?  최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다.          이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다.        그래서 Error-state..."
     } ,

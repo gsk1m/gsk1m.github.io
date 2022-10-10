@@ -19,15 +19,15 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Error-state Kalman Filter 란? 최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다. 이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다. 그래서 Error-state Kalman Filter (ESKF) 에 대해 공부해보았다. 최대한 쉽게 큰그림 위주로 이해해보자." />
 <meta property="og:description" content="Error-state Kalman Filter 란? 최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다. 이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다. 그래서 Error-state Kalman Filter (ESKF) 에 대해 공부해보았다. 최대한 쉽게 큰그림 위주로 이해해보자." />
-<link rel="canonical" href="http://localhost:4000/slam/2022/09/24/kf-tutorial1.html" />
-<meta property="og:url" content="http://localhost:4000/slam/2022/09/24/kf-tutorial1.html" />
+<link rel="canonical" href="http://localhost:4000/slam/2022/09/24/kf-tutorial10.html" />
+<meta property="og:url" content="http://localhost:4000/slam/2022/09/24/kf-tutorial10.html" />
 <meta property="og:site_name" content="Giseop Kim Blog" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2022-09-24T08:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-09-24T08:00:00+09:00","datePublished":"2022-09-24T08:00:00+09:00","description":"Error-state Kalman Filter 란? 최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다. 이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다. 그래서 Error-state Kalman Filter (ESKF) 에 대해 공부해보았다. 최대한 쉽게 큰그림 위주로 이해해보자.","headline":"🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/09/24/kf-tutorial1.html"},"url":"http://localhost:4000/slam/2022/09/24/kf-tutorial1.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-09-24T08:00:00+09:00","datePublished":"2022-09-24T08:00:00+09:00","description":"Error-state Kalman Filter 란? 최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다. 이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다. 그래서 Error-state Kalman Filter (ESKF) 에 대해 공부해보았다. 최대한 쉽게 큰그림 위주로 이해해보자.","headline":"🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/09/24/kf-tutorial10.html"},"url":"http://localhost:4000/slam/2022/09/24/kf-tutorial10.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -110,7 +110,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     </section>
     <section class="content">
       <div class="post-container">
-  <a class="post-link" href="/slam/2022/09/24/kf-tutorial1.html">
+  <a class="post-link" href="/slam/2022/09/24/kf-tutorial10.html">
     <h2 class="post-title">🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)</h2>
   </a>
   <hr style="border:1px foo rgb(193, 198, 200)">
@@ -555,8 +555,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
   <script>
     var disqus_config = function () {
-      this.page.url = 'http://localhost:4000/slam/2022/09/24/kf-tutorial1.html';
-      this.page.identifier = 'http://localhost:4000/slam/2022/09/24/kf-tutorial1.html';
+      this.page.url = 'http://localhost:4000/slam/2022/09/24/kf-tutorial10.html';
+      this.page.identifier = 'http://localhost:4000/slam/2022/09/24/kf-tutorial10.html';
     };
     (function () {
       var d = document, s = d.createElement('script');
