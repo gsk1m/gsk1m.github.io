@@ -46,7 +46,7 @@ categories: Daily
 1. SW guy must know HW.
   - 개인적으로도 부족한 부분.
 2. Not only estimate, but also measure.
-  - 특히 time cost 리포트할 때, 측정하지 않고 넘겨짚으면 0.1나 0.2를 어기는 상황이 벌어진다.
+  - 특히 time cost 리포트할 때, 측정하지 않고 넘겨짚으면 0.1, 0.2, 0.3을 어기는 상황이 벌어진다.
 3. Not table, but demo.
   - [AJ Davison 교수님께서 하셨던 말](https://twitter.com/ajddavison/status/1359565780095029249).
   - Table은 그 데이터셋에서는 잘 했다는 걸 의미하고 여전히 안되는 건 안된다는 걸 의미한다. 근데 Demo는 아무튼 잘 된다는 걸 의미한다.  
