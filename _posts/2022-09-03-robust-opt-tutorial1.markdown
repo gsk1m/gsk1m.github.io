@@ -27,7 +27,7 @@ categories: SLAM
 
         1. 여기서 제일 왼쪽 그림에서, 초록색 선은 True correspondence 를 의미하고, 빨강색 pair lines 는 False correspondences 를 의미한다.
             - 즉, 초록 pair 는 실제로 의미적으로 동일한 부분이며, 빨강 pair는 실제로 다른 부분이기 때문에 이 두 부분이 같아져서는 안된다.
-        2. 하지만 Solver 입장에서는 어떤 pair 가 true 이고 false 인지 알 수 없기 때문에, 이들 모든 constraints 를 동시에 만족하려고 하다보면, solution이 망가진다. 중앙의 그림은 그런 예시이다. 
+        2. 하지만 Solver 입장에서는 어떤 pair 가 true 이고 false 인지 알 수 없기 때문에, 이들 모든 constraints 를 동시에 만족하려고 하다보면, solution이 망가진다. 중앙의 그림은 그런 예시이다.
             - ps. 여기서는 과장해서 절반 (50%) 이 outlier 인 상황을 가정했지만, 본 튜토리얼에서 설명하는 robust kernel 을 적용하지 않으면, 단 5%의 outlier 만 있더라도 해가 수렴하지 않을 수 있다 (뒤에서 실습에서 알아볼 예정).
                 - ps2. 사실 실제상황에서 50% 까지는 _low_ outlier 라고 여겨지는 듯.
                     - Robotics 에서 Robust optimization 연구를 많이 하는 MIT의 Luca Carlone 교수님의 최근 논문 Estimation Contracts for Outlier-Robust Geometric Perception 을 보면 이런 말이 나온다... (이 교수님은 사전에 outlier 의 비율이 알려져있지 않을 때에도, 그리고 99%의 outlier 가 있을 때에도 어떻게 강건하게 최적화를 할 것인가.. 이런 연구들을 하신다)
