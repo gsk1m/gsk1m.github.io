@@ -6,15 +6,15 @@
                 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
         <url>
             <loc>http://localhost:4000</loc>
-	    <lastmod>2022-11-27T13:55:02+09:00</lastmod>
+	    <lastmod>2022-11-27T14:10:31+09:00</lastmod>
             <priority>1.00</priority>
         </url><url>
-                <loc>http://localhost:4000/slam/2022/11/27/robotics-engineer-1.html</loc>
+                <loc>http://localhost:4000/slam/2022/11/27/fastlio-gain.html</loc>
                 <lastmod>2022-11-27T08:00:00+09:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>
             </url><url>
-                <loc>http://localhost:4000/daily/2022/11/13/fast-lio-kalman-gain.html</loc>
+                <loc>http://localhost:4000/daily/2022/11/13/robotics-engineer.html</loc>
                 <lastmod>2022-11-13T08:00:00+09:00</lastmod>
                 <changefreq>weekly</changefreq>
                 <priority>0.80</priority>

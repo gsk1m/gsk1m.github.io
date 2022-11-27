@@ -7,7 +7,7 @@
       "sub-titile-lower" : "",
       "categories" : "SLAM",
       "tags"     : "",
-      "url"      : "/slam/2022/11/27/robotics-engineer-1.html",
+      "url"      : "/slam/2022/11/27/fastlio-gain.html",
       "date"     : "2022-11-27 08:00:00 +0900",
       "content"     : "FAST-LIO가 말 그대로 Fast 한 이유  Kalman Gain 계산에는 matrix inversion 이 포함되어 있다.  근데 Matrix inversion 은 비싸다.  FAST-LIO의 K 계산 과정에서의 Matrix 모양을 그림으로 그려서 알아보자."
     } ,
@@ -19,7 +19,7 @@
       "sub-titile-lower" : "",
       "categories" : "Daily",
       "tags"     : "",
-      "url"      : "/daily/2022/11/13/fast-lio-kalman-gain.html",
+      "url"      : "/daily/2022/11/13/robotics-engineer.html",
       "date"     : "2022-11-13 08:00:00 +0900",
       "content"     : "연구 및 일 하는 데 도움이 되었던 생각들  개인적으로 도움이 되어온 생각들을 까먹을까봐 기록해둔다.  바뀔 수 있음.0. Mind 편  Time is the first resource we need to take care of.          물론 어떤 길을 가도 다 말이되기야 하겠지만, 우리는 시간이 없기 때문에… 좋아보이는 것이 아니라 위대한 ..."
     } ,
