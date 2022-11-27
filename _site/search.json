@@ -1,15 +1,15 @@
 [
   
     {
-      "title"    : "🌈 Matrix-illustrated Fast Kalman Gain Computation",
-      "title-lower"    : "🌈 matrix-illustrated fast kalman gain computation",
+      "title"    : "🌈 FAST-LIO가 말 그대로 Fast 한 이유",
+      "title-lower"    : "🌈 fast-lio가 말 그대로 fast 한 이유",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
       "tags"     : "",
       "url"      : "/slam/2022/11/27/fastlio-gain.html",
       "date"     : "2022-11-27 08:00:00 +0900",
-      "content"     : "FAST-LIO가 말 그대로 Fast 한 이유  Kalman Gain 계산에는 matrix inversion 이 포함되어 있다.  근데 Matrix inversion 은 비싸다.  FAST-LIO의 K 계산 과정에서의 Matrix 모양을 그림으로 그려서 알아보자."
+      "content"     : "Illustrated Fast Kalman Gain Computation  Kalman Gain 계산에는 matrix inversion 이 포함되어 있다.  근데 Matrix inversion 은 비싸다.  FAST-LIO의 K 계산 과정에서의 Matrix 모양을 그림으로 그려서 알아보자.대상독자  이 포스트는 FAST-LIO (code, paper ..."
     } ,
   
     {
