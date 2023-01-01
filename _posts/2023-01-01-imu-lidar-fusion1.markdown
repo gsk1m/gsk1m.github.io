@@ -123,4 +123,4 @@ categories: SLAM
 - 이 과정 (lidar 퓨전)을 python만 이용해서 동일하게 구현해보자.
   - [앞의 실험코드 pypose-practice/tree/main/imu/integration](https://github.com/gisbi-kim/pypose-practice/tree/main/imu/integration) 를 기반으로 확장해보자.
     - ps. 그런데 사실 KITTI 는 쉬운 데이터셋이라 [A-LOAM](https://github.com/HKUST-Aerial-Robotics/A-LOAM) 같은 코드들을 보면 IMU를 쓰지 않고 lidar 만으로도 KITTI05 와 같은 곳은 충분히 좋아보이는 odometry 결과를 보여준다. 하지만 이런 성능들은 scan to scan이 아니라 scan to map registration 과 같은 registration 쪽에서의 기법들로부터 얻어진 것들도 많다.
-- 혹은 별도 추가센서 없이 global rotation guide 를 잘 해줄 수 있다면? 예를 들어서 자동차는 roll 과 pitch motion 이 많이 없음을 가정할 수 있다. 이런 가정들을 정량화해서 virtual measurement 로 넣어주면 발산을 늦츨 수 있을 것이다. 
+- 혹은 별도 추가센서 없이 global rotation guide 를 잘 해줄 수 있다면? 예를 들어서 자동차는 roll 과 pitch motion 이 많이 없음을 가정할 수 있다. 이런 가정들을 정량화해서 virtual measurement 로 넣어주면 발산을 늦츨 수 있을 것이다.
