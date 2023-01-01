@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose) | Giseop Kim Blog</title>
+<meta name="generator" content="Jekyll v4.2.2" />
+<meta property="og:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!" />
+<meta property="og:description" content="IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!" />
+<link rel="canonical" href="http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html" />
+<meta property="og:url" content="http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-01-01T09:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2023-01-01T09:00:00+09:00","datePublished":"2023-01-01T09:00:00+09:00","description":"IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!","headline":"🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"},"url":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2023</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/slam/2023/01/01/imu-lidar-fusion1.html">
+    <h2 class="post-title">🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)</h2>
+  </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Jan 1, 2023</div><ul class="post-categories"><li>SLAM</li></ul></div>
+  <div class="post">
+    <h1 id="imu-와-lidar의-상부상조">IMU 와 LiDAR의 상부상조</h1>
+<ul>
+  <li>IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다.</li>
+  <li>LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다.</li>
+  <li>그래서 서로가 필요하다!</li>
+</ul>
+
+<h2 id="pypose">Pypose</h2>
+<ul>
+  <li>Pypose 라고 pytorch 기반의 pose solver 가 지난 11월에 나왔다.
+    <ul>
+      <li><a href="https://pypose.org/">https://pypose.org/</a></li>
+      <li>논문: <a href="https://arxiv.org/pdf/2209.15428.pdf">PyPose: A Library for Robot Learning with Physics-based Optimization</a></li>
+    </ul>
+  </li>
+  <li>나오기를 기다리고 있던 툴이기도 하고 좋아보여서 실습을 해보고 있다.
+    <ul>
+      <li><em><a href="/slam/2022/09/24/kf-tutorial10.html"> 예전 블로그 글</a>들에서 항상 하는 얘기</em> 를 위한 library이기 때문이다.
+        <ul>
+          <li>그 얘기란: robotics 특히 slam 은 pose estimation 이다. pose 에는 rotation이 포함되어 있다. rotation은 nonlinear 하다. 따라서 rotation 성분에 대해서 최적화를 하기 위해서는 그것의 tangent space 인 angle-axis 에서 optimal error state 를 구해서 원래의 manifold space 에 boxplus 로 더하는 작업을 (수렴할 때까지 iterative 하게) 해주어야 한다…</li>
+        </ul>
+      </li>
+      <li>즉, 이렇게 <a href="http://ceres-solver.org/nnls_modeling.html#_CPPv4N5ceres8ManifoldE">manifold 와 ambient space 를 오가는</a> 메커니즘이 구현되어 있어야 pose 를 푸는 문제에서 쓰기 좋은 library라고 할 수 있겠다.
+        <ul>
+          <li>하지만 pytorch 자체로는 특별히 이에 대한 작업을 기본적으로 제공해주지 않기 때문에 (그래서 quaternion을 4-dim tensor 에 담아서 그냥 backprop 해서 최적화하자~ 이러면 안된다), 기존에 python으로 pose 를 풀고 싶거나 (ceres C++를 pybind해서 써야하는 귀찮음이 있음)  deep learning module 들과 pose solving 을 함께 (python에서) 물리고 싶을 때, 답답함이 있었다.</li>
+        </ul>
+      </li>
+      <li>ps. 최근에 facebook 에서는 역시 동일하게 이렇게 nonlinear 한 pose 를 푸는 용도로 쓰일 수 있는 pytorch 기반의 library인 <strong><a href="https://github.com/facebookresearch/theseus">theseus</a></strong> 를 공개하기도 하였다.</li>
+    </ul>
+  </li>
+  <li>library의 특징
+    <ul>
+      <li>Pypose 는 기본적으로 rotation에 관한 연산과 이에 대한 (pytorch기반) 미분을 지원하는 것도 특징이고</li>
+      <li>게다가 robotics 에서 자주 등장하는 문제에 대해 특화된 예제 코드도 제공하고 있는게 특징이다.
+        <ul>
+          <li>아직 (2022.12) 많지는 않지만 <a href="https://pypose.org/tutorials/">imu preintegration 과 pose-graph optimization 이 보인다</a>.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>암튼 사설이 길었는데 pypose 의 imu preintegration 실습을 해보다가 재미있는 이야기포인트가 있어서 글을 쓰게 되었다.
+    <ul>
+      <li>예제 코드 원본: <a href="https://pypose.org/tutorials/imu/imu_integrator_tutorial.html#what-is-imu-integration">https://pypose.org/tutorials/imu/imu_integrator_tutorial.html#what-is-imu-integration</a></li>
+      <li>조금 손 본 코드: <a href="https://github.com/gisbi-kim/pypose-practice/tree/main/imu/integration">https://github.com/gisbi-kim/pypose-practice/tree/main/imu/integration</a>
+        <ul>
+          <li>docker 로 구성하여 쉽게 실습할 수 있도록 하였고,</li>
+          <li>argument 받는 것을 yaml로 좀 더 깔끔하게 구성하였고,</li>
+          <li>Covariance visualization 을 좀 더 예쁘게 해보았다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="pypose-imu-integration-실습">Pypose imu integration 실습</h2>
+<h3 id="imu-integration-이란">IMU integration 이란?</h3>
+<ul>
+  <li>짧은 시간 $\delta t$ 사이의 gyro로부터 오는 angular velocity 와 accelerometer 로 부터 오는 linear acceleration 정보를 이용해서, 아래 수식 (출처: <a href="https://pypose.org/docs/main/generated/pypose.module.IMUPreintegrator/#pypose.module.IMUPreintegrator.forward">Pypose docs</a>)에 의해, IMU센서의 relative pose (여기서는 position, attitude, and velocity) 를 계산하는 것을 의미한다.
+    <ul>
+      <li>note: attitude 라는 용어는 global coordinate 에서의 rotation 을 의미하는 목적으로 사용하고자 한다 (rotation이라는 단어는 relative 를 의미할 때도 자주 쓰이므로).
+        <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/imu_integration_eq.png" width="700" />
+</p>
+      </li>
+    </ul>
+  </li>
+  <li>이렇게 얻은 relative transformation 을 직전 pose 에 계속 더해나간다면, 그것이 바로 inertial odometry라고 할 수 있겠다.
+    <ul>
+      <li>state 뿐 아니라 uncertainty 도 함께 evolve 하는 것이 특징이다.</li>
+    </ul>
+  </li>
+  <li>이러한 IMU kinematics에 관한 내용에 대한 설명은 여기서는 생략하며 아래 자료를 (늘) 추천한다.
+    <ul>
+      <li><a href="https://www.iri.upc.edu/people/jsola/JoanSola/objectes/notes/kinematics.pdf">Quaternion kinematics for the error-state Kalman filter</a></li>
+      <li><a href="https://arxiv.org/pdf/1704.06053.pdf">Using Inertial Sensors for Positionand Orientation Estimation</a></li>
+      <li><a href="https://rpg.ifi.uzh.ch/docs/RSS15_Forster_Supplementary.pdf">Supplementary Material to: IMU Preintegration on Manifold for Ecient Visual-Inertial Maximum-a-Posteriori Estimation</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="데이터-준비">데이터 준비</h3>
+<ul>
+  <li>먼저, KITTI dataset 의 raw data를 다운받자.
+    <ul>
+      <li><a href="https://www.cvlibs.net/datasets/kitti/raw_data.php?type=residential">여기에 로그인</a> 하면 이런 화면이 보일 것이다.
+        <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/kitti_download.png" width="800" />
+</p>
+      </li>
+      <li>여기서 synced+rectified data 와 calibration 을 다운받고 unzip해주면 된다.
+        <ul>
+          <li>data들과 calib 파일은 다음 예시와 같이 날짜이름으로 정리가 되어있으면 된다.
+            <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/data_directory_structure_example.png" width="300" />
+</p>
+            <ul>
+              <li>이렇게 디렉토리 구조를 구성하면 <a href="https://github.com/gisbi-kim/pypose-practice/tree/main/imu/integration">위의 코드</a> 의 yaml 및 dataloader가 알맞게 작동할 것이다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="실습">실습</h3>
+<ul>
+  <li>sh docker_build.sh 하고 sh docker_run.sh 하면 log 밑에 결과 그림이 저장될 것이다.
+    <ul>
+      <li>docker_run.sh 에 경로가 하드코딩되어 있으니 본인경로로 바꾸어 주어야 한다.</li>
+      <li>yaml에 있는 noise 등등을 바꿔보면서 실습해보면 재밌다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="결과-희망편">결과 (희망편)</h3>
+<ul>
+  <li>꽤나 그럴듯 하게 나온다.
+    <ul>
+      <li>예시 1: KITTI06 으로 잘 알려진 2011_09_30_0020
+        <ul>
+          <li>파랑색이 IMU로만 예측한 경로, 빨간색이 ground-truth (고가의 GPS+INS 센서가 제공한 값) 이다.</li>
+          <li>Gaussian ellipsoids 는 xy space에 대해서 3-sigma 의 uncertainty bounds 를 시각화한 것이다.</li>
+        </ul>
+        <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/aka_kitti06_2011_09_30_0020_gyrStd0.01_accStd0.05.png" width="500" />
+</p>
+      </li>
+      <li>예시 2: KITTI05 로 잘 알려진 2011_09_30_0018 의 2D/3D view.
+        <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/aka_kitti05_2011_09_30_0018_gyrStd0.0032_accStd0.01_merged.png" width="1200" />
+</p>
+        <ul>
+          <li>역시 꽤나 그럴듯하다. drift 가 있기는 하지만 주변 구조물 정보를 참고하거나 GPS를 사용하지 않고 IMU 만 이용했다는 것을 생각해보면, 원래의 궤적을 거의 유지하고 있는 것이 신기하다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>그런데 이 결과에는 비밀이 하나 있다.
+    <ul>
+      <li>위의 <a href="https://github.com/pypose/pypose/blob/5437b71e3dd972f6d140a2becbfde5850a0a43aa/pypose/module/imu_preintegrator.py#L61">pypose 예제 코드에서, integrator</a>는 rot 이라는 arguement 를 인자로 optional 하게 받도록 되어 있다.</li>
+      <li>위의 결과들은 <a href="https://github.com/gisbi-kim/pypose-practice/blob/fd49a9c045f379816ca1f7b4299b738e9c6154d6/imu/integration/python/main.py#L73">이 rot 에 ground-truth 의 global attitude 값을 줘서</a> 얻은 결과이다.
+        <ul>
+          <li>어떻게 보면 치팅이라고 할 수 있겠다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>이걸 왜 줘야 하는가?
+    <ul>
+      <li>가속도값의 measurement 에는 사실 중력이 포함되어 있기 때문에, 이를 빼주어야 하고, 이를 빼주려면 현재 자세(attitude) 를 알아야 한다.
+        <ul>
+          <li>이 관계는 아래 식 230과 같이 정의된다 (출처: <a href="https://www.iri.upc.edu/people/jsola/JoanSola/objectes/notes/kinematics.pdf">Quaternion kinematics for the error-state Kalman filter</a>). $a_m$ 이 실측값 (raw measurement from a sensor) 이다. 앞서 ‘IMU integration 이란?’ 에서 소개한 imu integration 모델에 사용될 값은 true (nominal) acceleration 값 $a_t$ 이므로 식 230 의 양변을 옮기고 정리하면 식 232와 같이 된다. 즉 실측값에 현재 자세를 곱하고 중력 (좁은 수백미터 영역의 mobile robot application에서는 보통 constant로 가정) 을 더해주어야 한다.
+            <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/imu_acc_derot_eq.png" width="800" />
+</p>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="https://github.com/pypose/pypose/blob/5437b71e3dd972f6d140a2becbfde5850a0a43aa/pypose/module/imu_preintegrator.py#L316">이 과정이 당연히 pypose 에도 구현되어 있다</a>.
+    <ul>
+      <li>따라서 이 때 정밀한 global attitude (rotation) 을 알 고 있다면 gravity 보상을 그만큼 더 잘할테고, 그만큼 더 실제 모션에 가까운 relative transformation 을 imu kinematics model 이 계산해낼 수 있을 것이다. 좋은 인풋이 들어갔으니 좋은 아웃풋이 나오는 것. 이 때 가장 좋을 수 있는 (ground-truth global attitude를 공급하였을 때) 결과가 위의 결과 캡처라고 생각할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="결과-실전편">결과 (실전편)</h3>
+<ul>
+  <li>이 값이 별도로 외부에서 주어지지 않는다면, 직전 pose 의 attitude 를 사용해야 할 것이다.</li>
+  <li>그 결과는 다음과 같다.
+    <p align="center">
+    <img src="/assets/data/2023-01-01-imu-lidar-fusion1/aka_kitti05_2011_09_30_0018_gyrStd0.0032_accStd0.01_3dview_nogtrot.png" width="800" />
+  </p>
+    <ul>
+      <li>처음에 ㄱ자 턴 정도는 따라가는가 싶더니 어느새 발산해버렸다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="레슨">레슨</h3>
+<ul>
+  <li>이 실험을 통해서 다음 (당연한) 사실을 체감할 수 있었다.
+    <ol>
+      <li>IMU 기반의 motion propagation 을 위해서는 좋은 global rotation 이 필요하다.
+        <ul>
+          <li>IMU Only 기반의 navigation (== relative motion estimation, == odometry) 가 왜 발산하게 되는지 알게 되었다.</li>
+        </ul>
+        <ul>
+          <li>== 어떻게 하면 IMU Only에서도 발산을 막을 수 있는지 알게 되었다.
+      - 따라서 imu 센서는 짧은 시간의 drift 를 보상 (특히 global rotation) 하기 위해서 다른 센서와 융합되어야 한다!</li>
+          <li>그래서 항법쪽에는 gps-aided inertial navigation 이런 용어로 많이 연구되어 왔고, robotics 에서는 visual-inertial slam, lidar-inertial odometry, 이런 식의 용어로 많이 연구되어 왔다.</li>
+        </ul>
+      </li>
+      <li>그런데 gps, camera, lidar 등의 보완센서가 imu좋은일만 시키는 것인가? 하면 그것도 아니다. 그래서 imu와 visual or lidar 의 궁합이 좋은 것이다.
+        <ul>
+          <li>visual sensor 나 lidar sensor 는 보통 10-30hz 정도이며 이는 fast motion (or highly dynamic environment such as urban sites) 에서 a big pose jump 나 data의 degradation (image 의 motion blur 또는 lidar point cloud scan의 motion distrotion) 을 유발한다. 이는 결국 front-end 에서 cost function을 만들 때, wrong correspondences 를 야기하게 되고, 결국 올바르게 relative motion cost 를 줄이지 못하고, relative motion estimation 에 결국 실패 (혹은 성능저하)하게 된다.</li>
+          <li>그런데 visual or lidar 센서가 좋은 global rotation 값을 imu에 직전까지 공급해왔다면, 빠른 모션에서도 imu 는 100-500~ hz 의 빠른 데이터를 공급하므로 짧은 시간동안에는 여전히 성능을 유지하는 (initial) relative transformation 결과를 제공해줄 수 있다. 이는 앞의 실험에서 보았듯이, KITTI 05 와 같은 긴 경로의 주행에서도 전체 trajectory 의 궤적의 모양새를 유지할 정도로 신뢰가능하다 (물론 여전히 drift는 누적되며, 짧은 시간내에서 신뢰가능하다는 것이다). 따라서 빠른 모션에서도 imu는 visual or lidar sensor 에 좋은 initial 을 공급해주게 되고, 이는 harsh 한 input data 품질에서도 강건한 correspondences를 구축할 수 있게 해주며 결과적으로 좋은 relative motion estimation 품질을 보장할 수 있다.</li>
+          <li>결국 lidar 가 보완한 imu가 다시 lidar 에게 도움을 주고 이게 다시 imu의 good integration 에 기여하고 … 의 상부상조.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="결론">결론</h1>
+<ul>
+  <li>너무 당연한 소리 (IMU센서와 다른 exteroceptive sensor의 퓨전이 필요한 이유)를 실험까지 곁들여 가며 알아보았다.</li>
+</ul>
+
+<h2 id="future-works">Future works</h2>
+<ul>
+  <li>위의 실험에서는 ground-truth global attitude 를 공급해서 저정도의 성능을 얻었지만, 실전에서 ground-truth global attitude 를 줄 수는 없다. 그래서 레슨2 에서 이야기했듯 gps, camera, or lidar 센서를 이용해서 global attitude 를 계속 잘 유지해나가는 식으로 fusion system 을 구성하게 되는데, lidar 쪽에서는 fast-lio 가 요즘 가장 유명한 예시인 듯하다.
+    <ul>
+      <li><a href="https://github.com/gaoxiang12/faster-lio/blob/main/include/imu_processing.hpp#L226">faster-lio의 C++ 코드를 보면</a> 앞의 pypose 의 integrate() 함수와 마찬가지로 rot을 곱하고 g를 더해주는 것을 볼 수 있다.
+        <p align="center">
+    <img src="/assets/data/2023-01-01-imu-lidar-fusion1/fasterliorot.png" width="670" />
+  </p>
+        <ul>
+          <li>다만 이 때의 rot 은 imu only 로 계속 쌓아가는 것이 아니라, lidar-aiding 을 통해서 계속 매 스캔마다 보정(filtering) 되는 값이기 때문에, 좋은 품질의 gravity 보정이 이루어질 것으로 기대할 수 있다 (실제로 fast lio의 데모 비디오들도 그러하고).</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>이 과정 (lidar 퓨전)을 python만 이용해서 동일하게 구현해보자.
+    <ul>
+      <li><a href="https://github.com/gisbi-kim/pypose-practice/tree/main/imu/integration">앞의 실험코드 pypose-practice/tree/main/imu/integration</a> 를 기반으로 확장해보자.
+        <ul>
+          <li>ps. 그런데 사실 KITTI 는 쉬운 데이터셋이라 <a href="https://github.com/HKUST-Aerial-Robotics/A-LOAM">A-LOAM</a> 같은 코드들을 보면 IMU를 쓰지 않고 lidar 만으로도 KITTI05 와 같은 곳은 충분히 좋아보이는 odometry 결과를 보여준다. 하지만 이런 성능들은 scan to scan이 아니라 scan to map registration 과 같은 registration 쪽에서의 기법들로부터 얻어진 것들도 많다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>혹은 별도 추가센서 없이 global rotation guide 를 잘 해줄 수 있다면? 예를 들어서 자동차는 roll 과 pitch motion 이 많이 없음을 가정할 수 있다. 이런 가정들을 정량화해서 virtual measurement 로 넣어주면 발산을 늦츨 수 있을 것이다.</li>
+</ul>
+
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html';
+      this.page.identifier = 'http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://robotics.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2023</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>

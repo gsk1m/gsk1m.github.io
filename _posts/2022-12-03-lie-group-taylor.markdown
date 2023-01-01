@@ -1,11 +1,14 @@
 ---
 layout: post
 title:  "🌈 직관적으로 Lie theory 수식 이해해보기"
-date:   2023-12-03 23:00:00 +0000
+date:   2050-12-03 23:00:00 +0000
 categories: SLAM
 ---
 
-<!-- publishing data is future means no publishing, and wip backup -->
+<!-- date:   2050-12-03 23:00:00 +0000
+ means
+  publishing data is future means no publishing, and wip backup
+ -->
 
 # 대학교 1학년 수준으로 설명해보기
 - [IMU Preintegration on Manifold](http://www.roboticsproceedings.org/rss11/p06.pdf) 논문의 II.Preliminaries 에 나오는 수식을 직관적으로 이해해보자.

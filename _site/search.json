@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)",
+      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 (feat. pypose)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2023/01/01/imu-lidar-fusion1.html",
+      "date"     : "2023-01-01 09:00:00 +0900",
+      "content"     : "IMU 와 LiDAR의 상부상조  IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다.  LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생..."
+    } ,
+  
+    {
       "title"    : "🌈 FAST-LIO가 말 그대로 Fast 한 이유",
       "title-lower"    : "🌈 fast-lio가 말 그대로 fast 한 이유",
       "sub-titile" : "",
