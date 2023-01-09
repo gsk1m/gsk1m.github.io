@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)"
+title:  "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)"
 date:   2023-01-01 00:00:00 +0000
 categories: SLAM
 ---
@@ -54,6 +54,9 @@ categories: SLAM
     </p>
   - 여기서 synced+rectified data 와 calibration 을 다운받고 unzip해주면 된다.
     - data들과 calib 파일은 다음 예시와 같이 날짜이름으로 정리가 되어있으면 된다.
+      <p align="center">
+        <img src="/assets/data/2023-01-01-imu-lidar-fusion1/data_directory_structure_example.gif" width="900"/>
+      </p>
       <p align="center">
         <img src="/assets/data/2023-01-01-imu-lidar-fusion1/data_directory_structure_example.png" width="300"/>
       </p>

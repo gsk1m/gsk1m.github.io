@@ -17,8 +17,8 @@
 <meta property="og:title" content="🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다." />
-<meta property="og:description" content="SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다." />
+<meta name="description" content="SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 한 번 공부할겸 써보았다." />
+<meta property="og:description" content="SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 한 번 공부할겸 써보았다." />
 <link rel="canonical" href="http://localhost:4000/slam/2022/07/10/symforce_icp.html" />
 <meta property="og:url" content="http://localhost:4000/slam/2022/07/10/symforce_icp.html" />
 <meta property="og:site_name" content="Giseop Kim Blog" />
@@ -27,7 +27,7 @@
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 그래서 한 번 공부할겸 써보았다.","headline":"🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2022-07-10T06:03:36+09:00","datePublished":"2022-07-10T06:03:36+09:00","description":"SymForce 란? 최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다. Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과들도 보여주고 있어서, 이들의 기술력은 어떤 수준일지 궁금했었다. SymForce 논문을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 symbolic 기반 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다. 한 번 공부할겸 써보았다.","headline":"🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"},"url":"http://localhost:4000/slam/2022/07/10/symforce_icp.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -120,15 +120,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <!-- --- -->
 <h1 id="symforce-란">SymForce 란?</h1>
 <ul>
-  <li>최근 RSS 2022 에서 <a href="https://symforce.org/" target="_blank">SymForce</a> 라는 framework 이 공개되었다.</li>
-  <li>Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.</li>
+  <li>최근 RSS 2022 에서 <a href="https://symforce.org/" target="_blank">SymForce</a> 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.</li>
   <li>Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 <a href="https://youtu.be/ncZmnfIRIWE" target="_blank">멋진 결과들도 보여주고 있어서</a>, 이들의 기술력은 어떤 수준일지 궁금했었다.</li>
-  <li><a href="https://arxiv.org/abs/2204.07889" target="_blank">SymForce 논문</a>을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 <strong>symbolic 기반</strong> 의 미분이 더 좋다고 주장하고 있다.
-    <ul>
-      <li>원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다.</li>
-    </ul>
-  </li>
-  <li>그래서 한 번 공부할겸 써보았다.</li>
+  <li><a href="https://arxiv.org/abs/2204.07889" target="_blank">SymForce 논문</a>을 보면 robotics (특히 드론 등)와 같이 빠른 계산이 실시간으로 요구될 때에는, (Ceres 같은) 계산그래프 기반보다 <strong>symbolic 기반</strong> 의 미분이 더 좋다고 주장하고 있다. 원래 Robotics 에서 Ceres 가 많이 쓰이고 있어서 새로운 solver 의 필요성을 못 느끼고 있었는데, 이 논문의 말을 들어보면 왠지 설득이 된다.</li>
+  <li>한 번 공부할겸 써보았다.</li>
 </ul>
 
 <!-- --- -->
@@ -210,12 +205,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
           <span class="n">src_pt</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="n">pt_idx</span><span class="p">,</span> <span class="p">:]</span>
           <span class="n">tgt_pt</span> <span class="o">=</span> <span class="n">tgt</span><span class="p">[</span><span class="n">pt_idx</span><span class="p">,</span> <span class="p">:]</span>
-            
+
           <span class="n">e</span><span class="p">,</span> <span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span> \
               <span class="o">=</span> <span class="n">evaluate_error_and_jacobian</span><span class="p">(</span><span class="n">src_pt</span><span class="p">,</span> <span class="n">tgt_pt</span><span class="p">,</span> <span class="n">tf</span><span class="p">)</span>
-            
+
           <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span><span class="p">))</span> <span class="c1"># thus, 3x6
-</span>            
+</span>
           <span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">J</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">J</span> <span class="c1"># H: 6x3 * 3x6 =&gt; thus H is 6x6
 </span>          <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">J</span><span class="o">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e</span> <span class="c1"># b: 6x3 * 3x1 =&gt; thus b is 6x1
 </span>
@@ -240,10 +235,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
               <span class="n">model</span><span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rotvec</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span> \
                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">transvec</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span> \
                    <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p_src</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="p">(</span><span class="n">src_pt</span><span class="p">))</span> \
-                   <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p_tgt</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="p">(</span><span class="n">tag_pt</span><span class="p">))</span> 
+                   <span class="o">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p_tgt</span><span class="p">,</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="p">(</span><span class="n">tag_pt</span><span class="p">))</span>
           <span class="k">return</span> <span class="n">model_evaluated</span>
-                
-      <span class="n">error</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">error_model</span><span class="p">)</span> 
+
+      <span class="n">error</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">error_model</span><span class="p">)</span>
       <span class="n">Je_rot</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">Je_rot_model</span><span class="p">)</span>
       <span class="n">Je_trans</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">Je_trans_model</span><span class="p">)</span>
 
@@ -257,10 +252,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </span>  <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="o">.</span><span class="n">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="o">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
 </span>
   <span class="c1"># Redisual (loss function)
-</span>  <span class="c1">#  note: the rotation 'matrix' is used to formulate the below constraint, 
+</span>  <span class="c1">#  note: the rotation 'matrix' is used to formulate the below constraint,
 </span>  <span class="c1">#        but it was parametrized as a 3-dim vector 'rotvec'!
-</span>  <span class="n">p_src</span>        <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_src"</span><span class="p">)</span>     <span class="c1"># p means a single 3D point 
-</span>  <span class="n">p_tgt</span>        <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_tgt"</span><span class="p">)</span> 
+</span>  <span class="n">p_src</span>        <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_src"</span><span class="p">)</span>     <span class="c1"># p means a single 3D point
+</span>  <span class="n">p_tgt</span>        <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">V3</span><span class="o">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_tgt"</span><span class="p">)</span>
   <span class="n">p_tgt_est</span>    <span class="o">=</span> <span class="p">(</span><span class="n">rotmat</span> <span class="o">*</span> <span class="n">p_src</span><span class="p">)</span> <span class="o">+</span> <span class="n">transvec</span> <span class="c1"># The constraint: R*p + t == p'
 </span>
   <span class="n">error_val</span> <span class="o">=</span> <span class="n">p_tgt_est</span> <span class="o">-</span> <span class="n">p_tgt</span>
@@ -268,12 +263,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">error_V3</span><span class="p">):</span>
       <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
           <span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sf</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
-      <span class="k">return</span> <span class="n">error_V3</span> 
+      <span class="k">return</span> <span class="n">error_V3</span>
 
   <span class="n">error_model</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="n">error_val</span><span class="p">)</span>
 
   <span class="c1"># residual jacobian
-</span>  <span class="c1">#  this is the powerful moment of symforce. It automatically generate the Jacobian equations explicitly. 
+</span>  <span class="c1">#  this is the powerful moment of symforce. It automatically generate the Jacobian equations explicitly.
 </span>  <span class="n">Je_trans_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">transvec</span><span class="p">)</span>
   <span class="n">Je_rot_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="o">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">rotvec</span><span class="p">)</span>
 </code></pre></div>        </div>

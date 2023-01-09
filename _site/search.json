@@ -1,8 +1,20 @@
 [
   
     {
-      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)",
-      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 (feat. pypose)",
+      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 2 (Feat. PyPose and Open3D)",
+      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 2 (feat. pypose and open3d)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2023/01/09/imu-lidar-fusion2.html",
+      "date"     : "2023-01-09 09:00:00 +0900",
+      "content"     : "Loosely-coupled Lidar-Inertial odometry 실습   저번 블로그 글  에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다 (물론 PVA: position, velocity, attitude 가 모두 중요하다).  LiDAR scan ..."
+    } ,
+  
+    {
+      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)",
+      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 1 (feat. pypose)",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
@@ -117,7 +129,7 @@
       "tags"     : "",
       "url"      : "/slam/2022/07/10/symforce_icp.html",
       "date"     : "2022-07-10 06:03:36 +0900",
-      "content"     : "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다.  Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결..."
+      "content"     : "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과..."
     } ,
   
     {

@@ -9,12 +9,12 @@
 <link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
 <link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
 
-<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)</title>
+<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)</title>
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose) | Giseop Kim Blog</title>
+<title>🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose) | Giseop Kim Blog</title>
 <meta name="generator" content="Jekyll v4.2.2" />
-<meta property="og:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)" />
+<meta property="og:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!" />
@@ -25,9 +25,9 @@
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2023-01-01T09:00:00+09:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)" />
+<meta property="twitter:title" content="🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2023-01-01T09:00:00+09:00","datePublished":"2023-01-01T09:00:00+09:00","description":"IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!","headline":"🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"},"url":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2023-01-01T09:00:00+09:00","datePublished":"2023-01-01T09:00:00+09:00","description":"IMU 와 LiDAR의 상부상조 IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다. LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생성해준다. 그래서 서로가 필요하다!","headline":"🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"},"url":"http://localhost:4000/slam/2023/01/01/imu-lidar-fusion1.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -111,7 +111,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <section class="content">
       <div class="post-container">
   <a class="post-link" href="/slam/2023/01/01/imu-lidar-fusion1.html">
-    <h2 class="post-title">🌈 IMU와 LiDAR를 퓨전해야 하는 이유 (Feat. PyPose)</h2>
+    <h2 class="post-title">🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)</h2>
   </a>
   <hr style="border:1px foo rgb(193, 198, 200)">
   <div class="post-meta">
@@ -209,6 +209,9 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>여기서 synced+rectified data 와 calibration 을 다운받고 unzip해주면 된다.
         <ul>
           <li>data들과 calib 파일은 다음 예시와 같이 날짜이름으로 정리가 되어있으면 된다.
+            <p align="center">
+  <img src="/assets/data/2023-01-01-imu-lidar-fusion1/data_directory_structure_example.gif" width="900" />
+</p>
             <p align="center">
   <img src="/assets/data/2023-01-01-imu-lidar-fusion1/data_directory_structure_example.png" width="300" />
 </p>
