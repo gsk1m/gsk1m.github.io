@@ -132,8 +132,13 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           </div><ul class="post-categories"><li>SLAM</li></ul></div>
         <div class="post"><h1 id="loosely-coupled-lidar-inertial-odometry-실습">Loosely-coupled Lidar-Inertial odometry 실습</h1>
 <ul>
-  <li><a href="/slam/2023/01/01/imu-lidar-fusion1.html"> 저번 블로그 글 </a> 에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다 (물론 PVA: position, velocity, attitude 가 모두 중요하다).</li>
-  <li>LiDAR scan matching (e.g., ICP) 이 PVA correction 을 해줄 수 있다. 좋은 global pose를 공급받은 IMU는 더 좋은 IMU odometry 를 생성한다. 🠒 이는 다음 턴의 ICP가 잘 수행되기 위한 좋은 이니셜이 된다. 🠒 좋은 이니셜을 공급받은 좋은 registration이 IMU의 state (i.e., PVA) 를 더 잘 보정한다 🠒 좋은 IMU pose 는 좋은 IMU odometry를 생성한다 🠒 ICP가 잘 된다 🠒 IMU의 pose 가 또 잘 보정된다 🠒 …</li>
+  <li><a href="/slam/2023/01/01/imu-lidar-fusion1.html"> 저번 블로그 글 </a> 에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다.
+    <ul>
+      <li>물론 PVA (position, velocity, attitude) 가 모두 중요하다.
+<!-- - LiDAR scan matching (e.g., ICP) 이 PVA correction 을 해줄 수 있다. 좋은 global pose를 공급받은 IMU는 더 좋은 IMU odometry 를 생성한다. => 이는 다음 턴의 ICP가 잘 수행되기 위한 좋은 이니셜이 된다. => 좋은 이니셜을 공급받은 좋은 registration이 IMU의 state (i.e., PVA) 를 더 잘 보정한다 => 좋은 IMU pose 는 좋은 IMU odometry를 생성한다 => ICP가 잘 된다 => IMU의 pose 가 또 잘 보정된다 => ... --></li>
+    </ul>
+  </li>
+  <li>하지만 값비싼 GPS+INS 없이도, LiDAR 센서를 이용해서 이러한 보정을 해줄 수 있다.</li>
   <li>Python만 이용해서 간단하게 <strong>loosely-coupled lidar-inertial odometry</strong> (a.k.a mini-pyllio) 를 구현해보자.</li>
 </ul>
 

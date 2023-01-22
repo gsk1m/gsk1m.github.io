@@ -9,7 +9,7 @@
       "tags"     : "",
       "url"      : "/slam/2023/01/09/imu-lidar-fusion2.html",
       "date"     : "2023-01-09 09:00:00 +0900",
-      "content"     : "Loosely-coupled Lidar-Inertial odometry 실습   저번 블로그 글  에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다 (물론 PVA: position, velocity, attitude 가 모두 중요하다).  LiDAR scan ..."
+      "content"     : "Loosely-coupled Lidar-Inertial odometry 실습   저번 블로그 글  에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다.          물론 PVA (position, velocity, attitude) 가 모두 중요하다.    ..."
     } ,
   
     {
