@@ -13,7 +13,7 @@
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example) | Giseop Kim Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
@@ -185,8 +185,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <span class="n">diagonal_sigmas</span><span class="p">:</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span> 
       <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">:</span>
 
-      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">pose</span><span class="p">.</span><span class="n">local_coordinates</span><span class="p">(</span><span class="n">pose_prior</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
-      <span class="k">return</span> <span class="n">sfT</span><span class="p">.</span><span class="n">cast</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">M</span><span class="p">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="p">.</span><span class="n">to_flat_list</span><span class="p">()).</span><span class="n">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
+      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">pose</span><span class="p">.</span><span class="nf">local_coordinates</span><span class="p">(</span><span class="n">pose_prior</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sfT</span><span class="p">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">M</span><span class="p">.</span><span class="nf">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="p">.</span><span class="nf">to_flat_list</span><span class="p">()).</span><span class="nf">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">odometry_residual</span><span class="p">(</span>
           <span class="n">pose_prev</span><span class="p">:</span> <span class="n">sf</span><span class="p">.</span><span class="n">Pose3</span><span class="p">,</span> 
@@ -197,9 +197,9 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
         
       <span class="c1"># The original reference of the below lines 
 </span>      <span class="c1">#  - see https://github.com/symforce-org/symforce/blob/main/symforce/examples/robot_3d_localization/robot_3d_localization.py#L63
-</span>      <span class="n">movement_predicted</span> <span class="o">=</span> <span class="n">pose_prev</span><span class="p">.</span><span class="n">inverse</span><span class="p">()</span> <span class="o">*</span> <span class="n">pose_next</span>
-      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">movement_predicted</span><span class="p">.</span><span class="n">local_coordinates</span><span class="p">(</span><span class="n">movement</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
-      <span class="k">return</span> <span class="n">sfT</span><span class="p">.</span><span class="n">cast</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">M</span><span class="p">.</span><span class="n">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="p">.</span><span class="n">to_flat_list</span><span class="p">()).</span><span class="n">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
+</span>      <span class="n">movement_predicted</span> <span class="o">=</span> <span class="n">pose_prev</span><span class="p">.</span><span class="nf">inverse</span><span class="p">()</span> <span class="o">*</span> <span class="n">pose_next</span>
+      <span class="n">tangent_error</span> <span class="o">=</span> <span class="n">movement_predicted</span><span class="p">.</span><span class="nf">local_coordinates</span><span class="p">(</span><span class="n">movement</span><span class="p">,</span> <span class="n">epsilon</span><span class="o">=</span><span class="n">eps</span><span class="p">)</span>
+      <span class="k">return</span> <span class="n">sfT</span><span class="p">.</span><span class="nf">cast</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">M</span><span class="p">.</span><span class="nf">diag</span><span class="p">(</span><span class="n">diagonal_sigmas</span><span class="p">.</span><span class="nf">to_flat_list</span><span class="p">()).</span><span class="nf">inv</span><span class="p">()</span> <span class="o">*</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V6</span><span class="p">(</span><span class="n">tangent_error</span><span class="p">))</span>
 
   <span class="k">def</span> <span class="nf">loop_residual</span><span class="p">(</span>
           <span class="n">pose_prev</span><span class="p">:</span> <span class="n">sf</span><span class="p">.</span><span class="n">Pose3</span><span class="p">,</span> 
@@ -208,7 +208,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <span class="n">diagonal_sigmas</span><span class="p">:</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">,</span>
       <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">sf</span><span class="p">.</span><span class="n">V6</span><span class="p">:</span>
 
-      <span class="k">return</span> <span class="n">odometry_residual</span><span class="p">(</span><span class="n">pose_prev</span><span class="p">,</span> <span class="n">pose_next</span><span class="p">,</span> <span class="n">movement</span><span class="p">,</span> <span class="n">diagonal_sigmas</span><span class="p">)</span>
+      <span class="k">return</span> <span class="nf">odometry_residual</span><span class="p">(</span><span class="n">pose_prev</span><span class="p">,</span> <span class="n">pose_next</span><span class="p">,</span> <span class="n">movement</span><span class="p">,</span> <span class="n">diagonal_sigmas</span><span class="p">)</span>
 </code></pre></div>    </div>
   </li>
   <li>설명
@@ -275,7 +275,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>위의 코드를 보면 $\text{SE}(3)$를 인풋으로 받지만 실제로 diff는 local_coordinates라는 함수를 통해서 계산되는 것을 알 수 있다.
         <ul>
           <li>SymForce 의 코드를 뜯어보면 Pose3에 대해 local_coordinates 은 아래(<a href="https://symforce.org/_modules/sym/ops/pose3/lie_group_ops.html#LieGroupOps.local_coordinates">원본링크</a>)와 같이 구현되어 있다.
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="o">@</span><span class="nb">staticmethod</span>
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nd">@staticmethod</span>
   <span class="k">def</span> <span class="nf">local_coordinates</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">epsilon</span><span class="p">):</span>
       <span class="c1"># type: (sym.Pose3, sym.Pose3, float) -&gt; T.List[float]
 </span>
@@ -288,12 +288,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <span class="c1"># Intermediate terms (4)
 </span>      <span class="n">_tmp0</span> <span class="o">=</span> <span class="o">-</span><span class="n">_a</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">_a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
       <span class="n">_tmp1</span> <span class="o">=</span> <span class="n">_a</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">*</span> <span class="n">_b</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
-      <span class="n">_tmp2</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">,</span> <span class="nb">abs</span><span class="p">(</span><span class="n">_tmp0</span> <span class="o">-</span> <span class="n">_tmp1</span><span class="p">))</span>
+      <span class="n">_tmp2</span> <span class="o">=</span> <span class="nf">min</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">epsilon</span><span class="p">,</span> <span class="nf">abs</span><span class="p">(</span><span class="n">_tmp0</span> <span class="o">-</span> <span class="n">_tmp1</span><span class="p">))</span>
       <span class="n">_tmp3</span> <span class="o">=</span> <span class="p">(</span>
           <span class="mi">2</span>
-          <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span> <span class="k">if</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">math</span><span class="p">.</span><span class="n">copysign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
-          <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="n">acos</span><span class="p">(</span><span class="n">_tmp2</span><span class="p">)</span>
-          <span class="o">/</span> <span class="n">math</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_tmp2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+          <span class="o">*</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nf">min</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">(</span><span class="mf">0.0</span> <span class="k">if</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span> <span class="o">==</span> <span class="mi">0</span> <span class="k">else</span> <span class="n">math</span><span class="p">.</span><span class="nf">copysign</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="n">_tmp0</span> <span class="o">+</span> <span class="n">_tmp1</span><span class="p">)))</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+          <span class="o">*</span> <span class="n">math</span><span class="p">.</span><span class="nf">acos</span><span class="p">(</span><span class="n">_tmp2</span><span class="p">)</span>
+          <span class="o">/</span> <span class="n">math</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">_tmp2</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
       <span class="p">)</span>
 
       <span class="c1"># Output terms
@@ -322,8 +322,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>아무튼 우리가 알아야 할 것 한줄요약은, rotation matrix은 vector space 가 아니기 때문에, Pose3 (== $\text{SE}(3)$) type 사이의 error 를 계산하고 싶을 때는 <code class="language-plaintext highlighter-rouge">local_coordinates</code> 라는 함수를 사용해야 한다는 것이다.
         <ul>
           <li>ps. 지난 from scratch 게시글에서는 minimal 한 vector3 인 rotvec을 먼저 정의하고, 이를 이용해서 SO(3)인 rotmat을 만들어서 썼었다.
-            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
-</span>    <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="n">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
+            <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
+</span>    <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="nf">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
 </span></code></pre></div>            </div>
           </li>
         </ul>
@@ -351,8 +351,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <li>PGO에서 hyper parameter 라고 하면 위에서 이야기한 3종류의 factors 에 대한 noise 를 결정하는 일이 되겠다.</li>
   <li>이 예제에서는 다음과 같이 구성해보았다.
     <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1">## noises 
-</span>  <span class="n">prior_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.001</span>
-  <span class="n">odometry_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span> 
+</span>  <span class="n">prior_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.001</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">])</span> <span class="o">*</span> <span class="mf">0.001</span>
+  <span class="n">odometry_diagonal_sigmas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">array</span><span class="p">([</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">])</span> 
   <span class="n">loop_diagonal_sigmas</span> <span class="o">=</span> <span class="n">odometry_diagonal_sigmas</span> <span class="o">*</span> <span class="mf">0.1</span>
 </code></pre></div>    </div>
     <ol>
@@ -387,29 +387,29 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1/ Prior factors 
 </span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'prior'</span><span class="p">]:</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">i</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">continue</span>        
         <span class="c1"># only add at the first node 
-</span>        <span class="n">factors</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+</span>        <span class="n">factors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nc">Factor</span><span class="p">(</span>
             <span class="n">residual</span><span class="o">=</span><span class="n">prior_residual</span><span class="p">,</span>
             <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"poses_prior[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"prior_diagonal_sigmas"</span><span class="p">],</span>
         <span class="p">))</span>
 
 <span class="c1"># 2/ Odometry factors
 </span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'odometry'</span><span class="p">]:</span>        
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>        
-        <span class="n">factors</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">num_poses</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>        
+        <span class="n">factors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nc">Factor</span><span class="p">(</span>
             <span class="n">residual</span><span class="o">=</span><span class="n">odometry_residual</span><span class="p">,</span>
             <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"odoms[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="s">"odometry_diagonal_sigmas"</span><span class="p">],</span>
         <span class="p">))</span>
 
 <span class="c1"># 3/ Loop factors
 </span><span class="k">if</span> <span class="n">use_factors</span><span class="p">[</span><span class="s">'loop'</span><span class="p">]:</span>
-    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">loops_index_pair</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">loops_indexes</span><span class="p">):</span>        
+    <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">loops_index_pair</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">loops_indexes</span><span class="p">):</span>        
         <span class="n">idx_from</span> <span class="o">=</span> <span class="n">loops_index_pair</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
         <span class="n">idx_to</span> <span class="o">=</span> <span class="n">loops_index_pair</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-        <span class="n">factors</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">Factor</span><span class="p">(</span>
+        <span class="n">factors</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="nc">Factor</span><span class="p">(</span>
             <span class="n">residual</span><span class="o">=</span><span class="n">odometry_residual</span><span class="p">,</span>
             <span class="n">keys</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">idx_from</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">idx_to</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="sa">f</span><span class="s">"loops[</span><span class="si">{</span><span class="n">ii</span><span class="si">}</span><span class="s">]"</span><span class="p">,</span> <span class="s">"loop_diagonal_sigmas"</span><span class="p">],</span>
         <span class="p">))</span>
@@ -419,7 +419,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <li>위의 코드에서 보다시피, <code class="language-plaintext highlighter-rouge">residual=</code>에 함수를 입력해주고, <code class="language-plaintext highlighter-rouge">keys=</code> 에 이 함수에 인자로 들어갈 변수들을 차례로 나열해주면 된다.
     <ul>
       <li>그런데 이 stringfied된 변수이름들은 어디에 있는가? 다음과 같이 Values 라는 곳에다가 다 담아주면 된다.
-        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">initial_values</span> <span class="o">=</span> <span class="n">Values</span><span class="p">(</span>
+        <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="n">initial_values</span> <span class="o">=</span> <span class="nc">Values</span><span class="p">(</span>
       <span class="c1"># poses=[sf.Pose3.identity()] * num_poses, # may not converge.
 </span>      <span class="n">poses</span><span class="o">=</span><span class="n">initial_poses</span><span class="p">,</span>
             
@@ -441,9 +441,9 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     </ul>
   </li>
   <li>그러면 최종적으로 <code class="language-plaintext highlighter-rouge">Optimizer</code> class를 사용하는 것은 쉽다. 아래와 같이 해주면 끝!
-    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">optimizer</span> <span class="o">=</span> <span class="n">Optimizer</span><span class="p">(</span>
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">optimizer</span> <span class="o">=</span> <span class="nc">Optimizer</span><span class="p">(</span>
   <span class="n">factors</span><span class="o">=</span><span class="n">factors</span><span class="p">,</span>
-  <span class="n">optimized_keys</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">)],</span>
+  <span class="n">optimized_keys</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s">"poses[</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s">]"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">num_poses</span><span class="p">)],</span>
   <span class="n">debug_stats</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span>
 <span class="p">)</span>
 </code></pre></div>    </div>

@@ -13,7 +13,7 @@
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기 | Giseop Kim Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
@@ -195,26 +195,26 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <span class="n">tf</span> <span class="o">=</span> <span class="n">tf_init</span> <span class="c1"># 6 dim
 </span>  <span class="n">num_pts</span> <span class="o">=</span> <span class="n">src</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 
-  <span class="k">for</span> <span class="n">_iter</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+  <span class="k">for</span> <span class="n">_iter</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
       <span class="c1"># reset for each iter
-</span>      <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
-      <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+</span>      <span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+      <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">zeros</span><span class="p">((</span><span class="mi">6</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
       <span class="c1"># gathering measurements
-</span>      <span class="k">for</span> <span class="n">pt_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_pts</span><span class="p">):</span>
+</span>      <span class="k">for</span> <span class="n">pt_idx</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">num_pts</span><span class="p">):</span>
 
           <span class="n">src_pt</span> <span class="o">=</span> <span class="n">src</span><span class="p">[</span><span class="n">pt_idx</span><span class="p">,</span> <span class="p">:]</span>
           <span class="n">tgt_pt</span> <span class="o">=</span> <span class="n">tgt</span><span class="p">[</span><span class="n">pt_idx</span><span class="p">,</span> <span class="p">:]</span>
 
           <span class="n">e</span><span class="p">,</span> <span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span> \
-              <span class="o">=</span> <span class="n">evaluate_error_and_jacobian</span><span class="p">(</span><span class="n">src_pt</span><span class="p">,</span> <span class="n">tgt_pt</span><span class="p">,</span> <span class="n">tf</span><span class="p">)</span>
+              <span class="o">=</span> <span class="nf">evaluate_error_and_jacobian</span><span class="p">(</span><span class="n">src_pt</span><span class="p">,</span> <span class="n">tgt_pt</span><span class="p">,</span> <span class="n">tf</span><span class="p">)</span>
 
-          <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">hstack</span><span class="p">((</span><span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span><span class="p">))</span> <span class="c1"># thus, 3x6
+          <span class="n">J</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">hstack</span><span class="p">((</span><span class="n">Je_rot</span><span class="p">,</span> <span class="n">Je_trans</span><span class="p">))</span> <span class="c1"># thus, 3x6
 </span>
           <span class="n">H</span> <span class="o">=</span> <span class="n">H</span> <span class="o">+</span> <span class="n">J</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">J</span> <span class="c1"># H: 6x3 * 3x6 =&gt; thus H is 6x6
 </span>          <span class="n">b</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">J</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">e</span> <span class="c1"># b: 6x3 * 3x1 =&gt; thus b is 6x1
 </span>
-      <span class="n">dtf</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">solve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">b</span><span class="p">).</span><span class="n">squeeze</span><span class="p">()</span> <span class="c1"># note the step direction is minus
+      <span class="n">dtf</span> <span class="o">=</span> <span class="o">-</span><span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="nf">solve</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">b</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span> <span class="c1"># note the step direction is minus
 </span>      <span class="n">tf</span> <span class="o">=</span> <span class="n">tf</span> <span class="o">+</span> <span class="n">dtf</span> <span class="c1"># updated within the tangent space
 </span>
   <span class="k">return</span> <span class="n">tf</span>
@@ -232,45 +232,45 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 </span>
       <span class="k">def</span> <span class="nf">inject_values</span><span class="p">(</span><span class="n">model</span><span class="p">):</span>
           <span class="n">model_evaluated</span> <span class="o">=</span> \
-              <span class="n">model</span><span class="p">.</span><span class="n">subs</span><span class="p">(</span><span class="n">rotvec</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span> \
-                   <span class="p">.</span><span class="n">subs</span><span class="p">(</span><span class="n">transvec</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span> \
-                   <span class="p">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p_src</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">(</span><span class="n">src_pt</span><span class="p">))</span> \
-                   <span class="p">.</span><span class="n">subs</span><span class="p">(</span><span class="n">p_tgt</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">(</span><span class="n">tag_pt</span><span class="p">))</span>
+              <span class="n">model</span><span class="p">.</span><span class="nf">subs</span><span class="p">(</span><span class="n">rotvec</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[:</span><span class="mi">3</span><span class="p">]))</span> \
+                   <span class="p">.</span><span class="nf">subs</span><span class="p">(</span><span class="n">transvec</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V3</span><span class="p">(</span><span class="n">transformation</span><span class="p">[</span><span class="mi">3</span><span class="p">:]))</span> \
+                   <span class="p">.</span><span class="nf">subs</span><span class="p">(</span><span class="n">p_src</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V3</span><span class="p">(</span><span class="n">src_pt</span><span class="p">))</span> \
+                   <span class="p">.</span><span class="nf">subs</span><span class="p">(</span><span class="n">p_tgt</span><span class="p">,</span> <span class="n">sf</span><span class="p">.</span><span class="nc">V3</span><span class="p">(</span><span class="n">tag_pt</span><span class="p">))</span>
           <span class="k">return</span> <span class="n">model_evaluated</span>
 
-      <span class="n">error</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">error_model</span><span class="p">)</span>
-      <span class="n">Je_rot</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">Je_rot_model</span><span class="p">)</span>
-      <span class="n">Je_trans</span> <span class="o">=</span> <span class="n">inject_values</span><span class="p">(</span><span class="n">Je_trans_model</span><span class="p">)</span>
+      <span class="n">error</span> <span class="o">=</span> <span class="nf">inject_values</span><span class="p">(</span><span class="n">error_model</span><span class="p">)</span>
+      <span class="n">Je_rot</span> <span class="o">=</span> <span class="nf">inject_values</span><span class="p">(</span><span class="n">Je_rot_model</span><span class="p">)</span>
+      <span class="n">Je_trans</span> <span class="o">=</span> <span class="nf">inject_values</span><span class="p">(</span><span class="n">Je_trans_model</span><span class="p">)</span>
 
-  <span class="k">return</span> <span class="n">error</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">Je_rot</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">(),</span> <span class="n">Je_trans</span><span class="p">.</span><span class="n">to_numpy</span><span class="p">()</span>
+  <span class="k">return</span> <span class="n">error</span><span class="p">.</span><span class="nf">to_numpy</span><span class="p">(),</span> <span class="n">Je_rot</span><span class="p">.</span><span class="nf">to_numpy</span><span class="p">(),</span> <span class="n">Je_trans</span><span class="p">.</span><span class="nf">to_numpy</span><span class="p">()</span>
 </code></pre></div>        </div>
       </li>
       <li>참고로 여기에 쓰이는 <code class="language-plaintext highlighter-rouge">error_model</code>, <code class="language-plaintext highlighter-rouge">Je_rot_model</code>, <code class="language-plaintext highlighter-rouge">Je_trans_model</code> 등은 아래 코드와 같이 편하게 생성할 수 있다.
         <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># Model parameters (as symbolic)
-</span>  <span class="n">transvec</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"t"</span><span class="p">)</span>
-  <span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
-</span>  <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="n">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
+</span>  <span class="n">transvec</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"t"</span><span class="p">)</span>
+  <span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
+</span>  <span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="nf">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
 </span>
   <span class="c1"># Redisual (loss function)
 </span>  <span class="c1">#  note: the rotation 'matrix' is used to formulate the below constraint,
 </span>  <span class="c1">#        but it was parametrized as a 3-dim vector 'rotvec'!
-</span>  <span class="n">p_src</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_src"</span><span class="p">)</span>     <span class="c1"># p means a single 3D point
-</span>  <span class="n">p_tgt</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"p_tgt"</span><span class="p">)</span>
+</span>  <span class="n">p_src</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"p_src"</span><span class="p">)</span>     <span class="c1"># p means a single 3D point
+</span>  <span class="n">p_tgt</span>        <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"p_tgt"</span><span class="p">)</span>
   <span class="n">p_tgt_est</span>    <span class="o">=</span> <span class="p">(</span><span class="n">rotmat</span> <span class="o">*</span> <span class="n">p_src</span><span class="p">)</span> <span class="o">+</span> <span class="n">transvec</span> <span class="c1"># The constraint: R*p + t == p'
 </span>
   <span class="n">error_val</span> <span class="o">=</span> <span class="n">p_tgt_est</span> <span class="o">-</span> <span class="n">p_tgt</span>
 
   <span class="k">def</span> <span class="nf">loss</span><span class="p">(</span><span class="n">error_V3</span><span class="p">):</span>
-      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-          <span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+          <span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">error_V3</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
       <span class="k">return</span> <span class="n">error_V3</span>
 
-  <span class="n">error_model</span> <span class="o">=</span> <span class="n">loss</span><span class="p">(</span><span class="n">error_val</span><span class="p">)</span>
+  <span class="n">error_model</span> <span class="o">=</span> <span class="nf">loss</span><span class="p">(</span><span class="n">error_val</span><span class="p">)</span>
 
   <span class="c1"># residual jacobian
 </span>  <span class="c1">#  this is the powerful moment of symforce. It automatically generate the Jacobian equations explicitly.
-</span>  <span class="n">Je_trans_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">transvec</span><span class="p">)</span>
-  <span class="n">Je_rot_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="n">jacobian</span><span class="p">(</span><span class="n">rotvec</span><span class="p">)</span>
+</span>  <span class="n">Je_trans_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="nf">jacobian</span><span class="p">(</span><span class="n">transvec</span><span class="p">)</span>
+  <span class="n">Je_rot_model</span> <span class="o">=</span> <span class="n">error_model</span><span class="p">.</span><span class="nf">jacobian</span><span class="p">(</span><span class="n">rotvec</span><span class="p">)</span>
 </code></pre></div>        </div>
         <ul>
           <li><code class="language-plaintext highlighter-rouge">V3</code>등은 3 dimension vector 를 의미한다. 이렇듯 SymForce 에서 지원하는 symbolic class 로 변수를 잘 이어붙여서 error function 을 정의해주고, 여기에 <code class="language-plaintext highlighter-rouge">.jacobian(w.r.t what)</code> 라고만 해주면 준비 끝.

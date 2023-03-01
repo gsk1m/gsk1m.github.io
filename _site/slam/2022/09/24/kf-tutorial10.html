@@ -13,7 +13,7 @@
 
 <!-- Begin Jekyll SEO tag v2.8.0 -->
 <title>🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization) | Giseop Kim Blog</title>
-<meta name="generator" content="Jekyll v4.2.2" />
+<meta name="generator" content="Jekyll v4.3.2" />
 <meta property="og:title" content="🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)" />
 <meta name="author" content="Giseop Kim" />
 <meta property="og:locale" content="en_US" />
@@ -332,8 +332,8 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
           <li>관련 실습
             <ul>
               <li>이미 앞선 포스트 <a href="https://gsk1m.github.io/slam/2022/09/01/robust-opt-tutorial1.html">Robust Optimization Tutorial</a> 에서 SymForce를 이용해서 위의 1-3 step 을 거쳐 rotation 을 최적화 해본 바 있다. 아래 코드처럼 rotation 을 3-dim vector로 parametrization 했었었다. (ps. SymForce 의 장점은, 접평면에서 그래서 기울기를 어떻게 계산해? 와 같은 수학적인 부분을 기계적으로 자동화+최적화 하여 엔지니어가 신경쓰지 않아도 되게 한 것)
-                <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="n">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
-</span><span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="n">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
+                <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">rotvec</span>   <span class="o">=</span> <span class="n">sf</span><span class="p">.</span><span class="n">V3</span><span class="p">.</span><span class="nf">symbolic</span><span class="p">(</span><span class="s">"Theta"</span><span class="p">)</span> <span class="c1"># i.e., angle-axis parametrization
+</span><span class="n">rotmat</span>   <span class="o">=</span> <span class="n">LieGroupOps</span><span class="p">.</span><span class="nf">from_tangent</span><span class="p">(</span><span class="n">sf</span><span class="p">.</span><span class="n">Rot3</span><span class="p">,</span> <span class="n">rotvec</span><span class="p">)</span> <span class="c1"># for debug, display(rotmat.to_rotation_matrix())
 </span></code></pre></div>                </div>
               </li>
             </ul>

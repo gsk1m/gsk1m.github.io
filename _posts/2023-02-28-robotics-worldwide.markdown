@@ -12,9 +12,10 @@ categories: Productivity
 ## robotics-worldwide 란?
 
 - 아래와 같이 전세계 로보틱스 연구자들의 여러 홍보 소식들을 받아볼 수 있다. 
-<p align="center">
-	<img src="/assets/data/2023-02-28-robotics-worldwide/list.png" width="1200"/>
-</p>
+
+	<p align="center">
+		<img src="/assets/data/2023-02-28-robotics-worldwide/list.png" width="1200"/>
+	</p>
 
 ## 신청 방법 
 
