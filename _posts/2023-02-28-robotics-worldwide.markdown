@@ -29,7 +29,7 @@ categories: Productivity
 		- 약탈학회나 스팸성 홍보가 여기에는 별로 없는 듯해서 좋다.   
 	- 특히, IROS/ICRA 등에서 열리는 워크샵 홍보들도 많은 편이다. 어떤 워크샵들이 가장 최근에 있는지, 학계의 최신 관심사는 어떤 것인지 쉽게 받아볼 수 있어 좋다.   
 - 그리고 그 외 유익한 최신 논문/Talk 등의 내용들도 많이 공유가 된다. 예를 들어서, 
-	1. 저번 <a href="/daily/2022/10/29/iros-post1.html">IROS2022 탐방기</a> 에서 소개한 manifold optimization tutorial 의 레코딩 비디오들이 모두 올라왔다는 소식이 공유되기도 했다. 
+	1. 저번 <a href="/daily/2022/10/28/iros-post1.html">IROS2022 탐방기</a> 에서 소개한 manifold optimization tutorial 의 레코딩 비디오들이 모두 올라왔다는 소식이 공유되기도 했다. 
 		<p align="left">
 			<img src="/assets/data/2023-02-28-robotics-worldwide/iros1.png" width="900"/>
 		</p>
