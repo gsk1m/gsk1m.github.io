@@ -1,6 +1,9 @@
 
 # Readme myself
 
+## latest running commands .. 
+- 2023.03.01 
+  - after updated ubuntu 22.04, I need some error resolving steps and finanlly run the server using `bundle exec jekyll serve` command.
 ## Tips 
 - search 가 latest 를 반영하기 위해서는 _site/search.json 를 업데이트해야 함 (컨텐츠 자체는 자동업데이트 되므로, _site 를 add and push만 하면 됨 )
 

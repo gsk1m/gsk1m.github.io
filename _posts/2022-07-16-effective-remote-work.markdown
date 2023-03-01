@@ -1,25 +1,16 @@
 ---
 layout: post
-title:  "🌈 원격작업을 도와주는 3가지 방법"
+title:  "🌈 원격작업을 도와주는 2가지 방법"
 date:   2022-07-08 21:03:36 +0000
-categories: 생산성
+categories: Productivity
 ---
 
 # 원격작업 생산성 향상을 위하여
 - 미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.
 1. ssh 접속 후 백그라운드에서 실행 후 빠져나오기  
-2. jupyter notebook 이용
-3. directory mount 와 vscode를 이용
+2. directory mount 와 vscode를 이용
 
-## 0) disk mount
-- 먼저, 작업할 코드와 데이터들이 저장되는 원격 directory 를 로컬(주로 이 경우 노트북, 집의 데스크탑 등)에 마운트 함
-- 이러면 아래에서 소개할 3가지 방법에서 모두 도움이 된다.
-- 방법
-    - /etc/fstab 에 ...
-    - TBA
-
-
-## 1) ssh 접속 후 백그라운드에서 실행 후 빠져나오기  
+## 1. Using tmux: ssh 접속 후 백그라운드에서 실행 후 빠져나오기  
 - (주로 시간이 오래걸리는) **shell script 를 실행을 시작시키고, 빠져나오기** 위해 사용중이다.
 - 그 중에서도, **도커 컨테이너**와 **tmux** 를 이용한 방법을 사용 중이다.  
 - 요약하면 다음과 같다.
@@ -41,9 +32,5 @@ categories: 생산성
 - 작업이 다 끝나면 mount 한 directory 에서 바로 파일을 copy 해와도 되고, \
     혹은 `$ scp -r {ID}${IP}:{ABSOLUTE_PATH} {YOUR_LOCAL_PATH}` 와 같이 복사해와서 결과물을 확인할 수 있겠다.
 
-## 2) jupyter notebook 이용
-- **좀 더 interactive 한 개발을 할 때** 사용 중이다.
-- TBA
-
-## 3) directory mount 와 vscode를 이용
+## 2. vscode's remote-ssh
 - 원격에서 코드를 **빠르게** 훑어보고 작성하고 수정할 때, Remote-SSH 를 사용한다. 그러면 원격지의 폴더를 vscode 에서 바로 마운트할 수 있다. 

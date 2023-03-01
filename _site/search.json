@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 Robotics 최신 학계 소식 받아보기 (Feat. robotics-worldwide)",
+      "title-lower"    : "🌈 robotics 최신 학계 소식 받아보기 (feat. robotics-worldwide)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2023/03/01/robotics-worldwide.html",
+      "date"     : "2023-03-01 08:00:00 +0900",
+      "content"     : "robotics-worldwide 를 구독해보자  메일로 최신 학계 소식을 보내준다.robotics-worldwide 란?  아래와 같이 전세계 로보틱스 연구자들의 여러 홍보 소식들을 받아볼 수 있다.	신청 방법  아래 링크에서 신청할 수 있다.          https://www.lists.kit.edu/sympa/subscribe/robotics..."
+    } ,
+  
+    {
       "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 2 (Feat. PyPose and Open3D)",
       "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 2 (feat. pypose and open3d)",
       "sub-titile" : "",
@@ -133,15 +145,15 @@
     } ,
   
     {
-      "title"    : "🌈 원격작업을 도와주는 3가지 방법",
-      "title-lower"    : "🌈 원격작업을 도와주는 3가지 방법",
+      "title"    : "🌈 원격작업을 도와주는 2가지 방법",
+      "title-lower"    : "🌈 원격작업을 도와주는 2가지 방법",
       "sub-titile" : "",
       "sub-titile-lower" : "",
-      "categories" : "생산성",
+      "categories" : "Productivity",
       "tags"     : "",
-      "url"      : "/%EC%83%9D%EC%82%B0%EC%84%B1/2022/07/09/effective-remote-work.html",
+      "url"      : "/productivity/2022/07/09/effective-remote-work.html",
       "date"     : "2022-07-09 06:03:36 +0900",
-      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      jupyter notebook 이용      directory mount 와 vscode를 이용      0) disk mount  먼저, 작업할..."
+      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      directory mount 와 vscode를 이용      1. Using tmux: ssh 접속 후 백그라운드에서 실행 후 빠져나오기  (주로..."
     } ,
   
     {
