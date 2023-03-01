@@ -180,14 +180,14 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       <li>준비 단계
         <ul>
           <li><code class="language-plaintext highlighter-rouge">LLIO</code> (Loosely-coupled LiDAR Inertial Odometry) 객체를 생성하면 dataset을 load 한다.
-            <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="nb">self</span><span class="p">):</span>
-   <span class="nb">self</span><span class="p">.</span><span class="nf">dataset</span> <span class="o">=</span> <span class="no">KittiDataloader</span><span class="p">(</span>
-   <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"dataroot"</span><span class="p">],</span>
-   <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"dataname"</span><span class="p">],</span>
-   <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"datadrive"</span><span class="p">],</span>
-   <span class="n">duration</span><span class="o">=</span><span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"step_size"</span><span class="p">],</span>
-   <span class="n">step_size</span><span class="o">=</span><span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"step_size"</span><span class="p">],</span>
-   <span class="p">)</span>
+            <div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">def</span> <span class="nf">load_dataset</span><span class="p">(</span><span class="nb">self</span><span class="p">):</span>
+     <span class="nb">self</span><span class="p">.</span><span class="nf">dataset</span> <span class="o">=</span> <span class="no">KittiDataloader</span><span class="p">(</span>
+         <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"dataroot"</span><span class="p">],</span>
+         <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"dataname"</span><span class="p">],</span>
+         <span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"input"</span><span class="p">][</span><span class="s2">"datadrive"</span><span class="p">],</span>
+         <span class="n">duration</span><span class="o">=</span><span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"step_size"</span><span class="p">],</span>
+         <span class="n">step_size</span><span class="o">=</span><span class="nb">self</span><span class="p">.</span><span class="nf">cfg</span><span class="p">[</span><span class="s2">"step_size"</span><span class="p">],</span>
+     <span class="p">)</span>
 </code></pre></div>            </div>
           </li>
           <li>교육용 목적이기 때문에 lidar scan 을 한번에 다 읽어서 메모리에 올리도록 간단하게 구현하였다. 그래서 수 초가 소요되고 (데이터셋의 크기에 따라) 수G 정도의 여분의 메모리가 필요할 수 있다 (ps. 2011_09_30_0020 가 frame이 1000개 정도되는 꽤 짧은 시퀀스이기 때문에 이걸로 실습하면 편리할 것이다).</li>

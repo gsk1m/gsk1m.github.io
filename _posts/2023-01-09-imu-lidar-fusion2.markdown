@@ -48,14 +48,14 @@ categories: SLAM
   1. 준비 단계
     - `LLIO` (Loosely-coupled LiDAR Inertial Odometry) 객체를 생성하면 dataset을 load 한다.
     ```ruby
-        def load_dataset(self):
-        self.dataset = KittiDataloader(
-            self.cfg["input"]["dataroot"],
-            self.cfg["input"]["dataname"],
-            self.cfg["input"]["datadrive"],
-            duration=self.cfg["step_size"],
-            step_size=self.cfg["step_size"],
-        )
+      def load_dataset(self):
+              self.dataset = KittiDataloader(
+                  self.cfg["input"]["dataroot"],
+                  self.cfg["input"]["dataname"],
+                  self.cfg["input"]["datadrive"],
+                  duration=self.cfg["step_size"],
+                  step_size=self.cfg["step_size"],
+              )
     ```
     - 교육용 목적이기 때문에 lidar scan 을 한번에 다 읽어서 메모리에 올리도록 간단하게 구현하였다. 그래서 수 초가 소요되고 (데이터셋의 크기에 따라) 수G 정도의 여분의 메모리가 필요할 수 있다 (ps. 2011_09_30_0020 가 frame이 1000개 정도되는 꽤 짧은 시퀀스이기 때문에 이걸로 실습하면 편리할 것이다).
     - 위의 configuration에서 `step_size` 는 lidar aiding 을 받을 간격을 의미한다.
