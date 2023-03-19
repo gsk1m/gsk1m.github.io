@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 arXiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
+      "title-lower"    : "🌈 arxiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2023/03/19/arxiv-searcher-automation.html",
+      "date"     : "2023-03-19 08:00:00 +0900",
+      "content"     : "최신 논문을 좀 더 스마트하게 트래킹해보자  ChatGPT 야 도와줘!먼저, 데모  https://arxiv-searcher.onrender.com 에 접속하거나  로컬에서 실행하려면, git clone https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation 하고 sh run_app.py 해주면 된..."
+    } ,
+  
+    {
       "title"    : "🌈 Robotics 최신 학계 소식 받아보기 (Feat. robotics-worldwide)",
       "title-lower"    : "🌈 robotics 최신 학계 소식 받아보기 (feat. robotics-worldwide)",
       "sub-titile" : "",

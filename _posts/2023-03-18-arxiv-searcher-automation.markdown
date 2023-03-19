@@ -1,0 +1,105 @@
+---
+layout: post
+title:  "🌈 arXiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기"
+date:   2023-03-18 23:00:00 +0000
+categories: Productivity
+---
+
+# 최신 논문을 좀 더 스마트하게 트래킹해보자
+- ChatGPT 야 도와줘!
+
+
+
+    
+## 먼저, 데모
+- [https://arxiv-searcher.onrender.com](https://arxiv-searcher.onrender.com) 에 접속하거나 
+- 로컬에서 실행하려면, `git clone` [https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation) 하고 `sh run_app.py` 해주면 된다. 
+
+<div align="center">
+  <iframe width="1020" height="630" src="https://www.youtube.com/embed/zC3zGxWPa2Y" frameborder="0" allowfullscreen></iframe>
+</div>
+
+## 필요성
+- arxiv 논문을 원래 다음 방법으로 팔로업하고 있었다: RSS (e.g., http://export.arxiv.org/rss/cs/RO)를 slack이나 jandi 같은 메신저앱에 물려서 본다. 그런데 검색이 느리거나 용이하지 않아서 (멀티 키워드 검색 등) 직접 만들어 보기로 했다. 
+- 대충 이렇게 저렇게 하고 싶어 라고 설명하니까 ChatGPT가 만들어주었다. 이 포스트는 그 과정에 대한 기록!
+
+## 구축 과정
+### 단계 1: RSS 파싱해서 DB에 저장하기
+- 파이썬의 sqlite3 API를 사용하면 db 와 소통할 때 python으로 할 수 있다. 별도의 문법이 있는 것은 아니고 SQL 구문을 그냥 execute 해주는 구조이다. 
+- [예시  code](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation/blob/main/arxiv_saver_to_db.py) 
+    <p align="center">
+      <img src="/assets/data/2023-03-18-arxiv-searcher-automation/src_db.png" width="700"/>
+    </p>
+- 파싱한 결과를 파일 기반의 DB인 sqlite로 저장한다. 그래서 현재는 github repository 에서 db 를 파일로 직접 가지고 있는 구조이다.
+
+### 단계 2: 이 과정을 Github Action이 자동으로 주기적으로 수행하도록 하기 
+- 필요성: [RSS](http://export.arxiv.org/rss/cs/RO)는 매일 쌓이는데, 매일 내가 직접 `python3 arxiv_saver_to_db.py` 하고 다시 commit 하고 ... 이 과정을 수행하는 것은 피곤하다. 그리고 까먹고 며칠 동안 못할수도 있고. 그래서 이 작업이 주기적으로 자동으로 수행되도록 하게 하자. 
+- GitHub Action을 활용하였다. .github/workflows 을 만들고 그 아래에 yml 파일 규격에 따라서 필요한 절차를 기록해두면 된다. 
+- [예시 code](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation/blob/main/.github/workflows/main.yml)
+    - 각 name 들이 각각의 subtask라고 보면된다. 
+    - cron은 얼마 주기로 실행될 것인지 기입하는 문법이다. 저 문법을 굳이 공부하기는 어려우니+실수할여지가 있으니 [다음과 같이 생성해주는 사이트](http://www.cronmaker.com/;jsessionid=node0hxmjvt4ulpe0m68sfraahavj190150.node0?0) 들에서 생성해서 기입해두면 된다. 
+    <p align="center">
+      <img src="/assets/data/2023-03-18-arxiv-searcher-automation/src_action.png" width="800"/>
+    </p>
+    - **`workflow_dispatch:`** 를 적어두면 action 을 직접 트리거 해서 실행시켜볼 수 있다. 
+        <p align="center">
+          <img src="/assets/data/2023-03-18-arxiv-searcher-automation/trigger.png" width="800"/>
+        </p>
+- 실제로 위의 루틴이 수행되기 위해서는 github-actions bot 이 내 대신 push할 권한을 가져야 한다. 
+    - 그래서 Settings/Secrets\ and\ variables/Actions 등에서 비번(토큰)이 적힌 환경변수도 만들고, read 권한 외에 write 권한도 주어야 한다. 
+        - 자세한 설명은 생략한다...
+- 그러면 다음과 같이 주기적으로 수행되고, 알림도 뜬다. 
+    <p align="center">
+      <img src="/assets/data/2023-03-18-arxiv-searcher-automation/action_alert.png" width="700"/>
+    </p>
+     
+### 단계 3: 검색서버 만들기 
+- 이제 db가 있으니 app을 만들어야 한다.
+- 사용자로부터 검색키워드를 받으면, DB로부터 해당하는 결과를 json으로 돌려주는 서버를 만들어야 한다. 
+- fastapi를 쓸거고, db에는 어떤 형식의 table들이 있고, api route 는 어땠으면 좋겠어, 라고 하니까 ChatGPT가 다음과 같이 만들어 주었다. 
+    - [예시 code](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation/blob/main/app/search_server.py)
+- `IP:port/{table_name}/keywords/OR/{keywords}` 이런식으로 API를 받도록 하였다. 
+- 그러면 `python3 app/search_server.py`해서 서버를 켜고, 브라우저에 예를 들어 `127.0.0.1:8000/RO/keywords/AND/slam,lidar`와 같이 입력하면 다음과 같이 결과가 추출된다. 파이어폭스에서의 예시: 
+    <p align="center">
+      <img src="/assets/data/2023-03-18-arxiv-searcher-automation/search_fp.png" width="1000"/>
+    </p>
+    - ps. 한편, 크롬은 raw json text 를 시각화해줘서, 이 상태로는 보기가 좀 어려웠다. 
+        <p align="center">
+          <img src="/assets/data/2023-03-18-arxiv-searcher-automation/search_cr.png" width="900"/>
+        </p>
+        
+### 단계 4: Web UI 만들기 
+- 앞서 json을 바로 받으면 보기가 좀 어려우니 web UI를 만들어보자. 
+- Streamlit 을 이용하였다. 역시 ChatGPT에게 해줘 라고 하였다. 이후 리팩토링만 좀 진행하였다. 
+- [예시 code](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation/blob/main/app/search_viewer_app.py)
+    - 사용 예시: [위의 데모 유튜브](https://www.youtube.com/watch?v=zC3zGxWPa2Y) 참고 
+    - 캡처 
+        <p align="center">
+          <img src="/assets/data/2023-03-18-arxiv-searcher-automation/webapp_home.png" width="1100"/>
+        </p>
+        <p align="center">
+          <img src="/assets/data/2023-03-18-arxiv-searcher-automation/search-result.png" width="1100"/>
+        </p>
+        - 최신 결과부터 보여준다.
+
+### 단계 5: 배포하기 
+- 원래는 Heroku 를 쓰려고 했는데 22년 하반기부터 free tier 가 사라진 듯하다. 
+- 그래서 대체재로 [render.com](https://render.com/) 을 사용하였다. 그 외에 https://fly.io/, https://www.cyclic.sh/, https://railway.app/ 등도 있다고 한다. 
+- 해보니 오히려 heroku보다 더더쉬웠다. 
+- [requirements.txt](https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation/blob/main/requirements.txt) 를 만들어주고 (깃헙 리포지토리 루트에 위치),
+- 아래 캡처화면처럼 슥슥 하면 배포 준비 끝. 칸을 몇개만 채우면 끝이다. 그러면 자동으로 github 특정 (여기서는 main) branch 를 끌어와서, 거기에 기입된 requirements.txt대로 환경을 빌드하고, start command 를 실행한다. 
+    - 이 앱의 경우 server와 web app 두개의 프로세스를 띄워야 해서 shell 파일로 구성하였고 run_app.sh 를 실행하게 해주면 된다. 
+    <p align="center">
+      <img src="/assets/data/2023-03-18-arxiv-searcher-automation/render.png" width="900"/>
+    </p>
+    - 프리티어는 한달 동안 750 인스턴스 시간이 무료이다. 즉, 하나의 노드를 돌리는 경우, 한달 전체 free이고, 네트워크는 100G까지 무료이다.
+        - 그리고 15분이상 앱 사용이 없을 시에 잠자기에 들어가고 그 이후에 접근 시 웨이크업타임이 30초까지도 걸릴 수 있다고 한다. 하지만 체감상 30초까지는 아니었고 5초 정도 걸리는 듯 했다.  
+
+## 결론
+- 최신 논문들을 읽고 키워드를 파악하는 데 걸리는 시간을 줄이고 이해를 돕는 툴들을 만들어 보았다.
+
+### TODO
+- GitHub repository에서 업로드 가능한 파일 하나의 사이즈 상한이 100MB이다. 이후에 DB에 논문들 내용이 많아져서 100MB를 초과하면 어떻게 관리할 지 고민해보자.
+- arxiv 외에 저널들의 RSS도 추가해보자 
+
+
