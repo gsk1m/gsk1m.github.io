@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 1편",
+      "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 1편",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2023/04/09/thrust-practice-1.html",
+      "date"     : "2023-04-09 08:00:00 +0900",
+      "content"     : "모던하게 GPU 병렬처리 하자  CUDA 직접 짜는 것도 좋지만  좀 더 편하고 싶다.개요  SLAM을 하다보면 센서 데이터로부터 수만개에서 수백만개까지 raw data 들을 다룰 일이 많다.          예를 들어서, cleaned static point cloud map을 만들기 위해 수행했던 Removert (IROS 2020) 를 구현할 때..."
+    } ,
+  
+    {
       "title"    : "🌈 arXiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
       "title-lower"    : "🌈 arxiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
       "sub-titile" : "",

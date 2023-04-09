@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="/assets/css/style.css">
+<link rel="stylesheet" href="/assets/css/academicons-1.9.2/css/academicons.css">
+<link rel="stylesheet" href="/assets/css/fontawesome-free-6.1.1-web/css/all.css">
+<link href="https://fonts.googleapis.com/css?family=Merriweather:300|Raleway:400,700" rel="stylesheet">
+
+<title>🌈 CUDA 프로그래밍: Thrust 실습 1편</title>
+
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>🌈 CUDA 프로그래밍: Thrust 실습 1편 | Giseop Kim Blog</title>
+<meta name="generator" content="Jekyll v4.3.2" />
+<meta property="og:title" content="🌈 CUDA 프로그래밍: Thrust 실습 1편" />
+<meta name="author" content="Giseop Kim" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="모던하게 GPU 병렬처리 하자 CUDA 직접 짜는 것도 좋지만 좀 더 편하고 싶다." />
+<meta property="og:description" content="모던하게 GPU 병렬처리 하자 CUDA 직접 짜는 것도 좋지만 좀 더 편하고 싶다." />
+<link rel="canonical" href="http://localhost:4000/slam/2023/04/09/thrust-practice-1.html" />
+<meta property="og:url" content="http://localhost:4000/slam/2023/04/09/thrust-practice-1.html" />
+<meta property="og:site_name" content="Giseop Kim Blog" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2023-04-09T08:00:00+09:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="🌈 CUDA 프로그래밍: Thrust 실습 1편" />
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Giseop Kim"},"dateModified":"2023-04-09T08:00:00+09:00","datePublished":"2023-04-09T08:00:00+09:00","description":"모던하게 GPU 병렬처리 하자 CUDA 직접 짜는 것도 좋지만 좀 더 편하고 싶다.","headline":"🌈 CUDA 프로그래밍: Thrust 실습 1편","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/slam/2023/04/09/thrust-practice-1.html"},"url":"http://localhost:4000/slam/2023/04/09/thrust-practice-1.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<script type="text/javascript" src="/assets/js/darkmode.js"></script>
+
+
+<!-- fabicon -->
+<link rel="icon" type="image/png" href="/assets/icon/me.png">
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        TeX: {
+          equationNumbers: {
+            autoNumber: "AMS"
+          }
+        },
+        tex2jax: {
+        inlineMath: [ ['$', '$'] ],
+        displayMath: [ ['$$', '$$'] ],
+        processEscapes: true,
+      }
+    });
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+        alert("Math Processing Error: "+message[1]);
+    });
+</script>
+<script type="text/javascript" async
+    src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+    
+</head><body>
+  <main class="container">
+    <section class="about">
+      <div class="about-header condensed">
+      <div class="about-title">
+      <a href="/">
+        
+        <img src="/assets/giseopkim_thermal.png" alt="Giseop Kim" />
+        
+      </a>
+      <h2 id="title">
+        <a href="/">Giseop Kim</a>
+      </h2>
+      </div><p class="tagline">SLAM Engineer</p></div>
+      
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2023</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </section>
+    <section class="content">
+      <div class="post-container">
+  <a class="post-link" href="/slam/2023/04/09/thrust-practice-1.html">
+    <h2 class="post-title">🌈 CUDA 프로그래밍: Thrust 실습 1편</h2>
+  </a>
+  <hr style="border:1px foo rgb(193, 198, 200)">
+  <div class="post-meta">
+    <div class="post-date"><i class="icon-calendar"></i>Apr 9, 2023</div><ul class="post-categories"><li>SLAM</li></ul></div>
+  <div class="post">
+    <h1 id="모던하게-gpu-병렬처리-하자">모던하게 GPU 병렬처리 하자</h1>
+<ul>
+  <li>CUDA 직접 짜는 것도 좋지만</li>
+  <li>좀 더 편하고 싶다.</li>
+</ul>
+
+<h2 id="개요">개요</h2>
+<ul>
+  <li>SLAM을 하다보면 센서 데이터로부터 수만개에서 수백만개까지 raw data 들을 다룰 일이 많다.
+    <ul>
+      <li>예를 들어서, cleaned static point cloud map을 만들기 위해 수행했던 <a href="https://github.com/irapkaist/removert">Removert (IROS 2020)</a> 를 구현할 때, submap 을 만들고 이를 한 노드의 viewpoint 에 projection해서 projective range image를 얻었어야 했다. 그런데 100m 정도만 쌓아도 서브맵의 포인트 개수는 500만개에서 1000만개가 된다. 이 과정을 빠르게 하기 위해서 OpenMP를 사용하였지만, 여전히 느린게 아쉬웠다 (<code class="language-plaintext highlighter-rouge">removert</code> 는 여전히 느린 채로 남아 있다).</li>
+    </ul>
+  </li>
+  <li>근본적으로 이러한 작업에는 CPU (를 아무리 수십코어 병렬 처리 한다고 하더라도 느리다) 가 아니라 GPU를 사용해야 함을 느끼고 있던 차에</li>
+  <li>Thrust 라는 library를 실습해보았다.
+    <ul>
+      <li>CUDA library를 한번 더 하이레벨로 감싼 라이브러리라고 생각하면 된다.</li>
+      <li>Modern C++ (C++11 이상) 스타일로 구현가능한 것이 특징이다. std::algorithm 의 문법과 상당히 닮아있다.
+        <ul>
+          <li>코드 비교 예시 (아래 실습비디오에서 사용한): <strong>숫자 10억개 더하기</strong>
+            <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/src-comp.png" width="1500" />
+</p>
+
+            <ul>
+              <li>ps. 보다시피 사용법은 너무 쉽고 직관적이다 (빌드하는데 시간이 더 걸렸다 ㅠㅠ).</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+      <li>그리고 CUDA 예제들에서 nvcc 로 커맨드라인에서 빌드하는 경우가 많은데, modern C++ 및 다른 라이브러리들과 함께 thrust 를 사용하기 위해서는 아무래도 cmake를 사용하는 것이 좀 더 깔끔하다. cmake 를 사용해서 실습을 진행해보자 (== CMakeLists.txt 를 만들자).</li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="실습">실습</h1>
+<ul>
+  <li>실습 리포: <a href="https://github.com/gisbi-kim/thrust_examples">gisbi-kim/thrust_examples</a></li>
+</ul>
+
+<h2 id="준비과정">준비과정</h2>
+<ol>
+  <li>Thrust 빌드
+    <ul>
+      <li><a href="https://github.com/NVIDIA/thrust#developing-thrust">공식 github readme</a> 에 나와있는대로 하면 된다.
+        <ul>
+          <li>이 때 클린한 호스트 유지를 위해 docker 사용을 권장하고, 아래 예제에서도 docker 로 수행해볼 것이다.</li>
+          <li>첫번째 방법인 ci/local/build.bash 를 하니까 뭔가 안되서 그냥 아래 방법대로 스텝바이스텝 (git clone 하고 cmake .. 하고 make install) 으로 직접 빌드하였다.</li>
+          <li>대충 아무 시작 이미지 (e.g., <code class="language-plaintext highlighter-rouge">docker pull ubuntu:jammy</code>) 를 받아두고 docker run 해서 들어가자.
+            <ul>
+              <li>근데 너무 아무것도 없는 베이스를 땡겨오면 좀 귀찮고, 나는 ci/local/build.bash 를 하니 이것저것이 잘 설치되어있는 이미지가 하나 땡겨와져서 그것을 베이스로 사용했다.</li>
+            </ul>
+          </li>
+          <li>run할 때 gpu 를 잡아주면서 들어가야 한다. 즉, 옵션으로 <code class="language-plaintext highlighter-rouge">--gpus all</code> 를 넣어주면 된다.
+            <ul>
+              <li>예시: <a href="https://github.com/gisbi-kim/thrust_examples/blob/main/batch_sum/docker_run.sh">docker_run.sh
+</a></li>
+            </ul>
+          </li>
+          <li>docker run해서 image 안으로 들어간 다음에, 늘 하듯이 git clone 하고 cmake .. 하고 make install 한다.
+            <ul>
+              <li>그런데 compute_90이 안된다는 어떤 에러가 나와서 ccmake .. 에서 config 를 들어간 다음에 90 옵션을 OFF해주었다. 아마 내가 옛날 아키텍처(6.1)인 gtx1080ti 를 쓰고 있어서 최신 아키텍처 (9번대?) 에서 지원하는 뭔가가 빌드가 안되는 느낌이 든다.
+                <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/off90.png" width="500" />
+</p>
+              </li>
+            </ul>
+          </li>
+          <li>라이브러리를 빌드하는 데에 꽤나 긴 시간 (i5 11gen에서 8core로 2-3시간 걸린 듯하다)이 지난 후… 뭔가 라이브러리 make install 은 다 되었는데, 어플리케이션 (아래 소개할) 빌드를 하고 실행하려고보니 forward compatible 한 HW를 찾을 수 없다는 에러가 떠서 안되었다.
+            <ul>
+              <li>cuda toolkit version과 이에 대응되는 nvidia driver 를 다시 설치해주니 해결되었다. 내 경우 gtx1080ti에 cuda 11.4, nvidia driver 470 을 사용하였다.</li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>CMake를 사용해서 main code 빌드
+    <ul>
+      <li>처음 써보는 라이브러리의 CMakeLists.txt 를 만드는 게 다 하고나서 보일러플레이트가 있으면 엄청 쉬운데, 처음 한 번 하기가 매우 일이다.</li>
+    </ul>
+    <ul>
+      <li>역시 이럴 때는 <a href="https://github.com/NVIDIA/thrust/blob/main/examples/cmake/add_subdir/CMakeLists.txt">공홈에 힌트</a> 가 있다. 이걸 보고 대충 따라하면 아래와 같이 된다.</li>
+      <li>code: <a href="https://github.com/gisbi-kim/thrust_examples/blob/main/batch_sum/CMakeLists.txt">CMakeLists.txt</a>
+        <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/cmake.png" width="900" />
+</p>
+        <ul>
+          <li>처음에 저 <code class="language-plaintext highlighter-rouge">thrust_creat_target</code> 의 규약을 이해하지 못해서 좀 헤매었다. DEVICE뒤에 CPP를 붙이면 thrust code 를 사용하더라도 cpu만 사용한다 (ps. <code class="language-plaintext highlighter-rouge">DEVICE CUDA</code>를 <code class="language-plaintext highlighter-rouge">DEVICE CPP</code>로 바꾸고 <code class="language-plaintext highlighter-rouge">main_gpu_thrust.cu</code>를 <code class="language-plaintext highlighter-rouge">main_gpu_thrust.cpp</code> 로 이름바꿔서 직접 빌드 해보라! 분명 thrust 문법을 사용했지만 cpu를 사용할 때와 동일한 시간이 소요됨을 알 수 있다).</li>
+          <li><code class="language-plaintext highlighter-rouge">DEVICE CUDA</code>인 src에 대해서는, Modern C++ 문법을 사용하고 main이 들어있는 파일이지만 <code class="language-plaintext highlighter-rouge">.cu</code> 확장자로 이름을 지어준다. 왠지모르지만 <code class="language-plaintext highlighter-rouge">.cpp</code>로 끝나게 하니까 컴파일이 안되었다.
+            <ul>
+              <li>예를 들어, <a href="https://github.com/NVIDIA/thrust/tree/main/examples">공식 리포의 예제 코드들</a> 도 모두 각각 main을 가지는 독립된 executables 들이지만 모두 <code class="language-plaintext highlighter-rouge">.cu</code> 확장자를 가짐을 알 수 있다.
+                <ul>
+                  <li>ps. <a href="https://github.com/gisbi-kim/thrust_examples/tree/main/batch_sum">방금 구축한 CMake project directory</a>를 활용해서 공홈의 다른 예제들을 복사해와서 main_gpu.cu 안에 내용을 바꿔서 추가적으로 더 실습해보라!</li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="실습-영상">실습 영상</h2>
+<ul>
+  <li>아무튼 위의 과정을 거쳐서 간단한 예제인, 10억개 숫자 더하기를 해보았다.
+    <ul>
+      <li><code class="language-plaintext highlighter-rouge">std::uniform_int_distribution&lt;&gt; dist(0, 9999)</code> 와 같이 0에서 9999 사이의 int 들이 10억개 있다.</li>
+    </ul>
+  </li>
+</ul>
+<div align="center">
+    <iframe width="840" height="473" src="https://www.youtube.com/embed/W8oPN4cNHLQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen=""></iframe>
+</div>
+
+<h2 id="결과">결과</h2>
+<ul>
+  <li>할 때마다 다르지만, 대충 이정도 나온다. GPU로 돌릴 때 20배 정도 빠르다.
+    <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/result1.png" width="1000" />
+</p>
+    <ul>
+      <li>위 영상에서 나오지만, 꼭 샘플이 10억개씩 있지 않더라도, 즉 1억개 정도에서도 여전히 20-30배 빠른 모습을 보여준다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="ps-실습2">ps. 실습2</h3>
+<ul>
+  <li>참고로 cpp17부터 들어온 execution policy를 통해서 cpu 상에서 병렬처리를 수행해보았다.</li>
+  <li>다만, 이 문법을 사용할 때는 compiler 가 생각하기에 병렬처리가 가능하면 최선을 다해주겠고, 아니면 안해줄 수도 있다, 라는 ‘고려는 해보겠다’ 정도의 의미로 생각해야 한다.
+    <ul>
+      <li>메인 블록은 다음과 같다.
+        <pre><code class="language-C++">      auto do_sum = [&amp;]() {
+          Number init = 0;
+          Number sum = std::transform_reduce(
+              std::execution::par, vec.begin(), vec.end(), init,
+              std::plus&lt;Number&gt;(), [](const Number&amp; num) { return num; });
+          return sum;
+      };
+
+</code></pre>
+      </li>
+      <li>결과는 다음과 같았다. 3번씩 수행했을 때,
+        <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/result2.png" width="1000" />
+</p>
+        <ul>
+          <li>이득이 그리 크지 않음을 알 수 있다.
+            <ul>
+              <li>역시 (당연히) GPU를 사용해야만 유리한 병렬처리가 있다. 쿠다 설치의 마음의 장벽(귀찮음)을 이제는 허물자!
+                <ul>
+                  <li>ps. 그나저나 ChatGPT에게 궁금한 걸 물어보았다.
+                    <p align="center">
+  <img src="/assets/data/2023-04-08-thrust-practice-1/chat.png" width="700" />
+</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h1 id="결론">결론</h1>
+<ul>
+  <li>딥러닝 안해도 GPU 잘 쓰면 좋다.</li>
+  <li>ps. 요즘은 (2018년 이럴 때 대비 …) nvidia driver 삭제 및 재설치도 금방 편하게 되더라.</li>
+</ul>
+
+<h2 id="todo">TODO</h2>
+<ul>
+  <li><a href="https://github.com/NVIDIA/thrust/tree/main/examples">다른 공식 예제들</a>도 돌려보자.</li>
+  <li>Robotics 에서 대용량 데이터 처리에 관한 튜토리얼을 만들어 보자.</li>
+</ul>
+
+  </div>
+
+  <hr style="border:1px foo rgb(193, 198, 200)"><div id="disqus_thread" style="margin-top:25px"></div>
+  <script>
+    var disqus_config = function () {
+      this.page.url = 'http://localhost:4000/slam/2023/04/09/thrust-practice-1.html';
+      this.page.identifier = 'http://localhost:4000/slam/2023/04/09/thrust-practice-1.html';
+    };
+    (function () {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://robotics.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments
+      powered by Disqus.</a></noscript></div>
+
+    </section>
+    <footer class="condensed">
+      <ul class="social about-footer condensed"><a href="https://www.linkedin.com/in/giseop-kim-71683088" target="_blank">
+          <li>
+            <i class="icon-linkedin-squared"></i>
+          </li>
+        </a><a href="https://scholar.google.com/citations?user=9mKOLX8AAAAJ&hl=ko&oi=ao" target="_blank">
+          <li>
+            <i class="ai ai-google-scholar"></i>
+          </li>
+        </a><a href="https://github.com/gisbi-kim" target="_blank">
+          <li>
+            <i class="icon-github-circled"></i>
+          </li>
+        </a><a href="https://bit.ly/giseopkim" target="_blank">
+          <li>
+            <i class="fa fa-user" style="font-size: 2.09em;"></i>
+            <!-- <i> notion</i> -->
+            <!-- <i class="fa fa-user"></i> -->
+          </li>
+        </a><a href="https://youtube.com/channel/UCrmVMJ3KEFbDD9EtnAmDT6g" target="_blank">
+          <li>
+            <i class="icon-youtube"></i>
+          </li>
+        </a></ul><p class="about-footer condensed">&copy;
+        2023</p><div class="about-footer condensed">
+        <p>Dark Mode
+          <i class="icon-moon"></i>
+          <label class="switch">
+            <input type="checkbox" class="dark-mode-toggle">
+            <span class="slider round" onclick="toggleDarkMode()"></span>
+          </label>
+        </p>
+      </div>
+    </footer>
+  </main>
+  
+  <script type="text/javascript" src="/assets/js/darkmode.js"></script>
+  
+  <script src="/assets/js/simple-jekyll-search.min.js"></script>
+  <script src="/assets/js/search.js"></script>
+  
+</body>
+
+</html>
