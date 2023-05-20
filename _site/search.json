@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 2023년 상반기 프로그래밍 책 추천 3권",
+      "title-lower"    : "🌈 2023년 상반기 프로그래밍 책 추천 3권",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2023/05/20/2023-spring-programming-books.html",
+      "date"     : "2023-05-20 08:00:00 +0900",
+      "content"     : "몇 달 뒤 나를 위한 코드를 작성하자  쏙쏙 들어오는 함수형 코딩 (Grokking Simplicity: Taming complex software with functional thinking)  파이브 라인스 오브 코드 (Five Lines of Code: How and when to refactor)  전문가를 위한 C++ 5판 (Professio..."
+    } ,
+  
+    {
       "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 1편",
       "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 1편",
       "sub-titile" : "",
