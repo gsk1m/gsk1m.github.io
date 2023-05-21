@@ -5,7 +5,7 @@ date:   2023-05-19 23:00:00 +0000
 categories: Productivity
 ---
 
-# 몇 달 뒤 나를 위한 코드를 작성하자
+# 몇 달 뒤의 나를 위한 코드를 작성하자
 1. 쏙쏙 들어오는 함수형 코딩 (Grokking Simplicity: Taming complex software with functional thinking)
 2. 파이브 라인스 오브 코드 (Five Lines of Code: How and when to refactor)
 3. 전문가를 위한 C++ 5판 (Professional C++, 5th Edition)
@@ -60,7 +60,7 @@ categories: Productivity
 - ps. 4판이든 5판이든 이정도 문법을 한두번 정도 본 다음에는 [cppcon의 talk들](https://www.youtube.com/@CppCon)을 보는 것이 실무관점에서는 좀 더 도움이 되고 있다. 
 
 ## 결론 
-- 근데 최고로 중요한  (그리고 제일 어려운) 건 [이름짓기](https://blog.frankel.ch/hard-things-computer-science/) 가 아닐까 ...
+- 근데 최고로 중요한  (그리고 제일 어려운) 건 [이름짓기](https://blog.frankel.ch/hard-things-computer-science/) 가 아닐까...
 
     
     
