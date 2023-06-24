@@ -1,219 +1,200 @@
 [
-  
-    {
-      "title"    : "🌈 Row-major, Column-major, 그리고 컴파일러 최적화",
-      "title-lower"    : "🌈 row-major, column-major, 그리고 컴파일러 최적화",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Productivity",
-      "tags"     : "",
-      "url"      : "/productivity/2023/06/24/rowcolfunc.html",
-      "date"     : "2023-06-24 08:00:00 +0900",
-      "content"     : "Compiler 가 해주는 것과 안해주는 것에 대해 알아보자  컴파일러 (와 ChatGPT)는 나의 동료다.개요  일반적인 코딩 팁 같은 이야기는 인터넷에 이미 많으므로 원래 잘 안쓰려고 하지만 …          나름대로 실험해본 바가 있어 기록 차원에서 정리해두려고 한다.      문제 상황  Matrix 가 있을 때 익숙히 알려진 꿀팁이     ..."
-    } ,
-  
-    {
-      "title"    : "🌈 2023년 상반기 프로그래밍 책 추천 3권",
-      "title-lower"    : "🌈 2023년 상반기 프로그래밍 책 추천 3권",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Productivity",
-      "tags"     : "",
-      "url"      : "/productivity/2023/05/20/2023-spring-programming-books.html",
-      "date"     : "2023-05-20 08:00:00 +0900",
-      "content"     : "몇 달 뒤의 나를 위한 코드를 작성하자  쏙쏙 들어오는 함수형 코딩 (Grokking Simplicity: Taming complex software with functional thinking)  파이브 라인스 오브 코드 (Five Lines of Code: How and when to refactor)  전문가를 위한 C++ 5판 (Professi..."
-    } ,
-  
-    {
-      "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 1편",
-      "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 1편",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2023/04/09/thrust-practice-1.html",
-      "date"     : "2023-04-09 08:00:00 +0900",
-      "content"     : "모던하게 GPU 병렬처리 하자  CUDA 직접 짜는 것도 좋지만  좀 더 편하고 싶다.개요  SLAM을 하다보면 센서 데이터로부터 수만개에서 수백만개까지 raw data 들을 다룰 일이 많다.          예를 들어서, cleaned static point cloud map을 만들기 위해 수행했던 Removert (IROS 2020) 를 구현할 때..."
-    } ,
-  
-    {
-      "title"    : "🌈 arXiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
-      "title-lower"    : "🌈 arxiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Productivity",
-      "tags"     : "",
-      "url"      : "/productivity/2023/03/19/arxiv-searcher-automation.html",
-      "date"     : "2023-03-19 08:00:00 +0900",
-      "content"     : "최신 논문을 좀 더 스마트하게 트래킹해보자  ChatGPT 야 도와줘!먼저, 데모  https://arxiv-searcher.onrender.com 에 접속하거나  로컬에서 실행하려면, git clone https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation 하고 sh run_app.py 해주면 된..."
-    } ,
-  
-    {
-      "title"    : "🌈 Robotics 최신 학계 소식 받아보기 (Feat. robotics-worldwide)",
-      "title-lower"    : "🌈 robotics 최신 학계 소식 받아보기 (feat. robotics-worldwide)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Productivity",
-      "tags"     : "",
-      "url"      : "/productivity/2023/03/01/robotics-worldwide.html",
-      "date"     : "2023-03-01 08:00:00 +0900",
-      "content"     : "robotics-worldwide 를 구독해보자  메일로 최신 학계 소식을 보내준다.robotics-worldwide 란?      아래와 같이 전세계 로보틱스 연구자들의 여러 홍보 소식들을 받아볼 수 있다.              신청 방법  아래 링크에서 신청할 수 있다.          https://www.lists.kit.edu/sympa/s..."
-    } ,
-  
-    {
-      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 2 (Feat. PyPose and Open3D)",
-      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 2 (feat. pypose and open3d)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2023/01/09/imu-lidar-fusion2.html",
-      "date"     : "2023-01-09 09:00:00 +0900",
-      "content"     : "Loosely-coupled Lidar-Inertial odometry 실습   저번 블로그 글  에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다.          물론 PVA (position, velocity, attitude) 가 모두 중요하다.    ..."
-    } ,
-  
-    {
-      "title"    : "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)",
-      "title-lower"    : "🌈 imu와 lidar를 퓨전해야 하는 이유 1 (feat. pypose)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2023/01/01/imu-lidar-fusion1.html",
-      "date"     : "2023-01-01 09:00:00 +0900",
-      "content"     : "IMU 와 LiDAR의 상부상조  IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다.  LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생..."
-    } ,
-  
-    {
-      "title"    : "🌈 FAST-LIO가 말 그대로 Fast 한 이유",
-      "title-lower"    : "🌈 fast-lio가 말 그대로 fast 한 이유",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/11/27/fastlio-gain.html",
-      "date"     : "2022-11-27 08:00:00 +0900",
-      "content"     : "Illustrated Fast Kalman Gain Computation  Kalman Gain 계산에는 matrix inversion 이 포함되어 있다.  근데 Matrix inversion 은 비싸다.  FAST-LIO의 K 계산 과정에서의 Matrix 모양을 그림으로 그려서 알아보자.대상독자  이 포스트는 FAST-LIO (code, paper ..."
-    } ,
-  
-    {
-      "title"    : "🌈 Robotics Engineer 로서 자주하는 생각들",
-      "title-lower"    : "🌈 robotics engineer 로서 자주하는 생각들",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Daily",
-      "tags"     : "",
-      "url"      : "/daily/2022/11/13/robotics-engineer.html",
-      "date"     : "2022-11-13 08:00:00 +0900",
-      "content"     : "연구 및 일 하는 데 도움이 되었던 생각들  개인적으로 도움이 되어온 생각들을 까먹을까봐 기록해둔다.  바뀔 수 있음.0. Mind 편  Time is the first resource we need to take care of.          물론 어떤 길을 가도 다 말이되기야 하겠지만, 우리는 시간이 없기 때문에… 좋아보이는 것이 아니라 위대한 ..."
-    } ,
-  
-    {
-      "title"    : "🌈 IROS 2022 참석 후기",
-      "title-lower"    : "🌈 iros 2022 참석 후기",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Daily",
-      "tags"     : "",
-      "url"      : "/daily/2022/10/29/iros-post1.html",
-      "date"     : "2022-10-29 08:00:00 +0900",
-      "content"     : "교토를 다녀오다!  회사에서 보내줘서 2019년 여름 이후 3년만에 on-site 대면 학회를 다녀왔다.  끼야오Note  아래 의견은 회사의 의견과 무관하며 개인적인 생각임. 회사의 의견이 궁금하면 인턴을 지원해주세요. 열려있습니다.발표들  FAST-LIO2 저자에게 질문도 했다. SLAM session은 큰 방을 얻어서 사람이 아주 많았음.    ..."
-    } ,
-  
-    {
-      "title"    : "🌈 Nerf 실습 (Feat. Nerfstudio)",
-      "title-lower"    : "🌈 nerf 실습 (feat. nerfstudio)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/10/10/nerfstudio-example1.html",
-      "date"     : "2022-10-10 08:00:00 +0900",
-      "content"     : "Nerfstudio 를 이용해서 직접 뉴럴 렌더링을 해보자  Nerf로 대표되는 뉴럴렌더링이 요새 유행이다 (Summaries: ECCV 22, CVPR 22, ICCV 21).  최근 nerfstudio 라는 오픈소스+툴이 나왔다.  직접 해보자!뉴럴 렌더링이란  뉴럴 렌더링이란          Advances in Neural Rendering (..."
-    } ,
-  
-    {
-      "title"    : "🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)",
-      "title-lower"    : "🌈 error-state kalman filter 이야기 (feat. on-manifold optimization)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/09/24/kf-tutorial10.html",
-      "date"     : "2022-09-24 08:00:00 +0900",
-      "content"     : "Error-state Kalman Filter 란?  최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다.          이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다.        그래서 Error-state..."
-    } ,
-  
-    {
-      "title"    : "🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial",
-      "title-lower"    : "🌈 [symforce tutorial 4편] robust optimization tutorial",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/09/01/robust-opt-tutorial1.html",
-      "date"     : "2022-09-01 12:00:00 +0900",
-      "content"     : "Robust Optimization 이란?  현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다.  따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다.  이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자.Robust Optimization의..."
-    } ,
-  
-    {
-      "title"    : "🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)",
-      "title-lower"    : "🌈 [symforce tutorial 3편] pose-graph optimization 실습 (toy example)",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/07/31/pgo-toy.html",
-      "date"     : "2022-07-31 12:00:00 +0900",
-      "content"     : "Pose-graph optimization 이란?  계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다.  그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose..."
-    } ,
-  
-    {
-      "title"    : "🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 ",
-      "title-lower"    : "🌈 [symforce tutorial 2편] sim(3) 최적화에 대해 알아보고 구현해보자 ",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/07/23/sim3-tutorial.html",
-      "date"     : "2022-07-23 06:03:36 +0900",
-      "content"     : "Sim(3) Optimization 이란?  $\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다.  monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다.     ..."
-    } ,
-  
-    {
-      "title"    : "🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기",
-      "title-lower"    : "🌈 [symforce tutorial 1편] nonlinear icp 밑바닥부터 구현해보기",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "SLAM",
-      "tags"     : "",
-      "url"      : "/slam/2022/07/10/symforce_icp.html",
-      "date"     : "2022-07-10 06:03:36 +0900",
-      "content"     : "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과..."
-    } ,
-  
-    {
-      "title"    : "🌈 원격작업을 도와주는 2가지 방법",
-      "title-lower"    : "🌈 원격작업을 도와주는 2가지 방법",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Productivity",
-      "tags"     : "",
-      "url"      : "/productivity/2022/07/09/effective-remote-work.html",
-      "date"     : "2022-07-09 06:03:36 +0900",
-      "content"     : "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      directory mount 와 vscode를 이용      1. Using tmux: ssh 접속 후 백그라운드에서 실행 후 빠져나오기  (주로..."
-    } ,
-  
-    {
-      "title"    : "🌈 Blog Redesign",
-      "title-lower"    : "🌈 blog redesign",
-      "sub-titile" : "",
-      "sub-titile-lower" : "",
-      "categories" : "Daily",
-      "tags"     : "",
-      "url"      : "/daily/2022/07/02/init.html",
-      "date"     : "2022-07-02 00:33:36 +0900",
-      "content"     : "개요  기존 블로그 https://gisbi-kim.github.io/ 보다 이 블로그 디자인이 좀 더 수려한 듯 하여… 블로그 글을 작성할 때에는 여기에 추가해나가고자 함."
-    } 
-  
+  {
+    "title": "🌈 Row-major, Column-major, 그리고 컴파일러 최적화",
+    "title-lower": "🌈 row-major, column-major, 그리고 컴파일러 최적화",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Productivity",
+    "tags": "",
+    "url": "/productivity/2023/06/24/rowcolfunc.html",
+    "date": "2023-06-24 08:00:00 +0900",
+    "content": "Compiler 가 해주는 것과 안해주는 것에 대해 알아보자  컴파일러 (와 ChatGPT)는 나의 동료다.개요  일반적인 코딩 팁 같은 이야기는 인터넷에 이미 많으므로 원래 잘 안쓰려고 하지만 …          나름대로 실험해본 바가 있어 기록 차원에서 정리해두려고 한다.      문제 상황  Matrix 가 있을 때 익숙히 알려진 꿀팁이     ..."
+  },
+  {
+    "title": "🌈 2023년 상반기 프로그래밍 책 추천 3권",
+    "title-lower": "🌈 2023년 상반기 프로그래밍 책 추천 3권",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Productivity",
+    "tags": "",
+    "url": "/productivity/2023/05/20/2023-spring-programming-books.html",
+    "date": "2023-05-20 08:00:00 +0900",
+    "content": "몇 달 뒤의 나를 위한 코드를 작성하자  쏙쏙 들어오는 함수형 코딩 (Grokking Simplicity: Taming complex software with functional thinking)  파이브 라인스 오브 코드 (Five Lines of Code: How and when to refactor)  전문가를 위한 C++ 5판 (Professi..."
+  },
+  {
+    "title": "🌈 CUDA 프로그래밍: Thrust 실습 1편",
+    "title-lower": "🌈 cuda 프로그래밍: thrust 실습 1편",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2023/04/09/thrust-practice-1.html",
+    "date": "2023-04-09 08:00:00 +0900",
+    "content": "모던하게 GPU 병렬처리 하자  CUDA 직접 짜는 것도 좋지만  좀 더 편하고 싶다.개요  SLAM을 하다보면 센서 데이터로부터 수만개에서 수백만개까지 raw data 들을 다룰 일이 많다.          예를 들어서, cleaned static point cloud map을 만들기 위해 수행했던 Removert (IROS 2020) 를 구현할 때..."
+  },
+  {
+    "title": "🌈 arXiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
+    "title-lower": "🌈 arxiv 최신논문 트래킹 자동화 및 검색 시스템 구축하고 배포하기",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Productivity",
+    "tags": "",
+    "url": "/productivity/2023/03/19/arxiv-searcher-automation.html",
+    "date": "2023-03-19 08:00:00 +0900",
+    "content": "최신 논문을 좀 더 스마트하게 트래킹해보자  ChatGPT 야 도와줘!먼저, 데모  https://arxiv-searcher.onrender.com 에 접속하거나  로컬에서 실행하려면, git clone https://github.com/gisbi-kim/Daily-Arxiv-Tracking-Automation 하고 sh run_app.py 해주면 된..."
+  },
+  {
+    "title": "🌈 Robotics 최신 학계 소식 받아보기 (Feat. robotics-worldwide)",
+    "title-lower": "🌈 robotics 최신 학계 소식 받아보기 (feat. robotics-worldwide)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Productivity",
+    "tags": "",
+    "url": "/productivity/2023/03/01/robotics-worldwide.html",
+    "date": "2023-03-01 08:00:00 +0900",
+    "content": "robotics-worldwide 를 구독해보자  메일로 최신 학계 소식을 보내준다.robotics-worldwide 란?      아래와 같이 전세계 로보틱스 연구자들의 여러 홍보 소식들을 받아볼 수 있다.              신청 방법  아래 링크에서 신청할 수 있다.          https://www.lists.kit.edu/sympa/s..."
+  },
+  {
+    "title": "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 2 (Feat. PyPose and Open3D)",
+    "title-lower": "🌈 imu와 lidar를 퓨전해야 하는 이유 2 (feat. pypose and open3d)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2023/01/09/imu-lidar-fusion2.html",
+    "date": "2023-01-09 09:00:00 +0900",
+    "content": "Loosely-coupled Lidar-Inertial odometry 실습   저번 블로그 글  에서 IMU만으로 odometry (즉, relative motion 추정) 를 하기 위해서는 global attidue가 중요함을 알아보았다.          물론 PVA (position, velocity, attitude) 가 모두 중요하다.    ..."
+  },
+  {
+    "title": "🌈 IMU와 LiDAR를 퓨전해야 하는 이유 1 (Feat. PyPose)",
+    "title-lower": "🌈 imu와 lidar를 퓨전해야 하는 이유 1 (feat. pypose)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2023/01/01/imu-lidar-fusion1.html",
+    "date": "2023-01-01 09:00:00 +0900",
+    "content": "IMU 와 LiDAR의 상부상조  IMU에게는 (중력 성분을 보상하기 위해) 좋은 global attitude가 필요하다. 그러면 (짧은 시간동안에는) 좋은 relative motion을 생성해준다.  LiDAR에게는 좋은 initial transformation 이 필요하다. 그러면 registration을 잘 해서 좋은 global pose 를 생..."
+  },
+  {
+    "title": "🌈 FAST-LIO가 말 그대로 Fast 한 이유",
+    "title-lower": "🌈 fast-lio가 말 그대로 fast 한 이유",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/11/27/fastlio-gain.html",
+    "date": "2022-11-27 08:00:00 +0900",
+    "content": "Illustrated Fast Kalman Gain Computation  Kalman Gain 계산에는 matrix inversion 이 포함되어 있다.  근데 Matrix inversion 은 비싸다.  FAST-LIO의 K 계산 과정에서의 Matrix 모양을 그림으로 그려서 알아보자.대상독자  이 포스트는 FAST-LIO (code, paper ..."
+  },
+  {
+    "title": "🌈 Robotics Engineer 로서 자주하는 생각들",
+    "title-lower": "🌈 robotics engineer 로서 자주하는 생각들",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Daily",
+    "tags": "",
+    "url": "/daily/2022/11/13/robotics-engineer.html",
+    "date": "2022-11-13 08:00:00 +0900",
+    "content": "연구 및 일 하는 데 도움이 되었던 생각들  개인적으로 도움이 되어온 생각들을 까먹을까봐 기록해둔다.  바뀔 수 있음.0. Mind 편  Time is the first resource we need to take care of.          물론 어떤 길을 가도 다 말이되기야 하겠지만, 우리는 시간이 없기 때문에… 좋아보이는 것이 아니라 위대한 ..."
+  },
+  {
+    "title": "🌈 IROS 2022 참석 후기",
+    "title-lower": "🌈 iros 2022 참석 후기",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Daily",
+    "tags": "",
+    "url": "/daily/2022/10/29/iros-post1.html",
+    "date": "2022-10-29 08:00:00 +0900",
+    "content": "교토를 다녀오다!  회사에서 보내줘서 2019년 여름 이후 3년만에 on-site 대면 학회를 다녀왔다.  끼야오Note  아래 의견은 회사의 의견과 무관하며 개인적인 생각임. 회사의 의견이 궁금하면 인턴을 지원해주세요. 열려있습니다.발표들  FAST-LIO2 저자에게 질문도 했다. SLAM session은 큰 방을 얻어서 사람이 아주 많았음.    ..."
+  },
+  {
+    "title": "🌈 Nerf 실습 (Feat. Nerfstudio)",
+    "title-lower": "🌈 nerf 실습 (feat. nerfstudio)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/10/10/nerfstudio-example1.html",
+    "date": "2022-10-10 08:00:00 +0900",
+    "content": "Nerfstudio 를 이용해서 직접 뉴럴 렌더링을 해보자  Nerf로 대표되는 뉴럴렌더링이 요새 유행이다 (Summaries: ECCV 22, CVPR 22, ICCV 21).  최근 nerfstudio 라는 오픈소스+툴이 나왔다.  직접 해보자!뉴럴 렌더링이란  뉴럴 렌더링이란          Advances in Neural Rendering (..."
+  },
+  {
+    "title": "🌈 Error-state Kalman Filter 이야기 (Feat. On-manifold Optimization)",
+    "title-lower": "🌈 error-state kalman filter 이야기 (feat. on-manifold optimization)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/09/24/kf-tutorial10.html",
+    "date": "2022-09-24 08:00:00 +0900",
+    "content": "Error-state Kalman Filter 란?  최근 SLAM 학/업계에서는 visual은 OpenVINS, lidar는 Fast-LIO 가 대세가 된 듯하다.          이 둘은 모두 on-manifold EKF 혹은 error-state Kalman filter 라고 불리는 방식을 사용하고 있다.        그래서 Error-state..."
+  },
+  {
+    "title": "🌈 [SymForce Tutorial 4편] Robust Optimization Tutorial",
+    "title-lower": "🌈 [symforce tutorial 4편] robust optimization tutorial",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/09/01/robust-opt-tutorial1.html",
+    "date": "2022-09-01 12:00:00 +0900",
+    "content": "Robust Optimization 이란?  현실 세계에서는 다양한 이유로 인해 False Correspondences 가 존재한다.  따라서 이런 잘못된 constraint 로 인해, 전체 해(solution)가 망가질 수 있다.  이런 상황에서도 강건하게 최적화를 수행할 수 있는 방법에 대해 알아보고 실습해보자.Robust Optimization의..."
+  },
+  {
+    "title": "🌈 [SymForce Tutorial 3편] Pose-graph Optimization 실습 (Toy Example)",
+    "title-lower": "🌈 [symforce tutorial 3편] pose-graph optimization 실습 (toy example)",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/07/31/pgo-toy.html",
+    "date": "2022-07-31 12:00:00 +0900",
+    "content": "Pose-graph optimization 이란?  계산 효율성을 높이기 위해 Landmark 를 state vector 에서 제외하는 시도들이 2000년대 후반 SLAM 학계에서 이어졌다.  그리고 3D 정보를 직접 정교하게 측정하는 LiDAR sensor 가 대중화되며, ambiguous landmark를 굳이 최적화할 필요 없이, 로봇의 pose..."
+  },
+  {
+    "title": "🌈 [SymForce Tutorial 2편] Sim(3) 최적화에 대해 알아보고 구현해보자 ",
+    "title-lower": "🌈 [symforce tutorial 2편] sim(3) 최적화에 대해 알아보고 구현해보자 ",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/07/23/sim3-tutorial.html",
+    "date": "2022-07-23 06:03:36 +0900",
+    "content": "Sim(3) Optimization 이란?  $\text{Sim}(3)$ 최적화란, SLAM에서 translation 과 rotation 뿐 아니라 scale 을 함께 최적화하는 과정을 일컫는다.  monocular visual SLAM에서 loop closure 할 때 전체 map의 scale consistency 를 보장하기 위해 쓰인다.     ..."
+  },
+  {
+    "title": "🌈 [SymForce Tutorial 1편] Nonlinear ICP 밑바닥부터 구현해보기",
+    "title-lower": "🌈 [symforce tutorial 1편] nonlinear icp 밑바닥부터 구현해보기",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "SLAM",
+    "tags": "",
+    "url": "/slam/2022/07/10/symforce_icp.html",
+    "date": "2022-07-10 06:03:36 +0900",
+    "content": "SymForce 란?  최근 RSS 2022 에서 SymForce 라는 framework 이 공개되었다. Skydio 가 공개하였다. 내부적으로 5년동안 개발하고 실제로 사용해온 것이라고 한다.  Skydio 는 초기에 GTSAM 저자이신 + SLAM 역사에 큰 획을 그은 Frank Dellaert 교수님의 자문을 받았다고 들었다. 최근에는 멋진 결과..."
+  },
+  {
+    "title": "🌈 원격작업을 도와주는 2가지 방법",
+    "title-lower": "🌈 원격작업을 도와주는 2가지 방법",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Productivity",
+    "tags": "",
+    "url": "/productivity/2022/07/09/effective-remote-work.html",
+    "date": "2022-07-09 06:03:36 +0900",
+    "content": "원격작업 생산성 향상을 위하여  미래의 나를 위해 .. 원격작업을 할 때 시간과 노력을 절약해줄 수 있는 방법들에 대해 정리해본다.          ssh 접속 후 백그라운드에서 실행 후 빠져나오기      directory mount 와 vscode를 이용      1. Using tmux: ssh 접속 후 백그라운드에서 실행 후 빠져나오기  (주로..."
+  },
+  {
+    "title": "🌈 Blog Redesign",
+    "title-lower": "🌈 blog redesign",
+    "sub-titile": "",
+    "sub-titile-lower": "",
+    "categories": "Daily",
+    "tags": "",
+    "url": "/daily/2022/07/02/init.html",
+    "date": "2022-07-02 00:33:36 +0900",
+    "content": "개요  기존 블로그 https://gisbi-kim.github.io/ 보다 이 블로그 디자인이 좀 더 수려한 듯 하여… 블로그 글을 작성할 때에는 여기에 추가해나가고자 함."
+  }
 ]
