@@ -266,21 +266,21 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
               <li>그리고 이것이 SymForce 에서 <code class="language-plaintext highlighter-rouge">BarronNoiseModel</code> 이라는 이름으로 이미 구현이 되어 있기 때문에, 아래 실습에서 우리는 이를 사용해볼 것이다.</li>
               <li>톺아보면, SymForce의 <code class="language-plaintext highlighter-rouge">noise_models.py</code> 에서 이러한 주석을 볼 수 있다.
                 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="c1"># see the class BarronNoiseModel(ScalarNoiseModel) definition in noise_models.py
-</span>  <span class="s">"""
+</span>  <span class="sh">"""</span><span class="s">
       alpha: Controls shape and convexity of the loss function. Notable values:
           alpha = 2 -&gt; L2 loss
           alpha = 1 -&gt; Pseudo-huber loss
           alpha = 0 -&gt; Cauchy loss
           alpha = -2 -&gt; Geman-McClure loss
           alpha = -inf -&gt; Welsch loss
-      delta: Determines the transition point from quadratic to robust. Similar to "delta" as used
+      delta: Determines the transition point from quadratic to robust. Similar to </span><span class="sh">"</span><span class="s">delta</span><span class="sh">"</span><span class="s"> as used
           by the pseudo-huber loss function.
       scalar_information: Scalar representing the inverse of the variance of an element of the
-          unwhitened residual. Conceptually, we use "scalar_information" to whiten (in a
+          unwhitened residual. Conceptually, we use </span><span class="sh">"</span><span class="s">scalar_information</span><span class="sh">"</span><span class="s"> to whiten (in a
           probabalistic sense) the unwhitened residual before passing it through the Barron loss.
       x_epsilon: Small value used for handling the singularity at x == 0.
       alpha_epsilon: Small value used for handling singularities around alpha.
-  """</span>
+  </span><span class="sh">"""</span>
 </code></pre></div>                </div>
               </li>
             </ul>
