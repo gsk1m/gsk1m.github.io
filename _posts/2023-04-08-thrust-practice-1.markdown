@@ -42,7 +42,7 @@ categories: SLAM
               <p align="center">
                 <img src="/assets/data/2023-04-08-thrust-practice-1/off90.png" width="500"/>
               </p>
-        - 라이브러리를 빌드하는 데에 꽤나 긴 시간 (i5 11gen에서 8core로 2-3시간 걸린 듯하다)이 지난 후... 뭔가 라이브러리 make install 은 다 되었는데, 어플리케이션 (아래 소개할) 빌드를 하고 실행하려고보니 forward compatible 한 HW를 찾을 수 없다는 에러가 떠서 안되었다. 
+        - 라이브러리를 빌드하는 데에 꽤나 긴 시간 (i5 11gen에서 8core로 2-3시간 걸린 듯하다 (example 들을 다 빌드하느라..)) 이 지난 후... 뭔가 라이브러리 make install 은 다 되었는데, 어플리케이션 (아래 소개할) 빌드를 하고 실행하려고보니 forward compatible 한 HW를 찾을 수 없다는 에러가 떠서 안되었다. 
             - cuda toolkit version과 이에 대응되는 nvidia driver 를 다시 설치해주니 해결되었다. 내 경우 gtx1080ti에 cuda 11.4, nvidia driver 470 을 사용하였다. 
 
 2. CMake를 사용해서 main code 빌드 
