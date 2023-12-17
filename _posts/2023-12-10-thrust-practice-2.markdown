@@ -2,7 +2,7 @@
 layout: post
 title:  "🌈 CUDA 프로그래밍: Thrust 실습 2편 (Feat. godbolt)"
 date:   2023-12-10 23:00:00 +0000
-categories: SLAM
+categories: Productivity
 ---
 
 # Compiler Explorer (godbolt) 에서 편하게 연습하자
