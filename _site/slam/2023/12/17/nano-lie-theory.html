@@ -229,7 +229,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   </li>
   <li>그것은 normal equation 을 Vector space 에 대해서만 적용할 수 있기 때문이다.
     <ul>
-      <li>만약에 x의 성분에 physically vector space 가 아닌 요소들의 값이 단순히 나열되어서 들어있다면, 애초에 논리적으로 틀린 이야기가 된다는 뜻이다.</li>
+      <li>만약에 x의 성분에 수학적으로 vector space 가 아닌 요소들의 값이 단순히 나열되어서 들어있다면, 애초에 논리적으로 틀린 이야기가 된다는 뜻이다.</li>
       <li>로보틱스에서 이러한 non-vector space인 요소는 rotation 이 대표적이다.
         <ul>
           <li>예를 들어, 앞서 x = (로봇의 위치, 로봇의 자세, 로봇이 느끼는 온도) 라고 했을 때, 로봇의 자세 (attitude)를 3x3 matrix 로 표현했다고 하자 (즉, SO(3)). 이 행렬의 값 9개를 x에 잘 펴서 나열해서 넣으면 될까? 물론 되기는 된다. 하지만 $\textbf{A}\textbf{x} = \textbf{b}$ 를 풀 때, normal equation 을 $\textbf{x}$에 대해서 바로 풀어버리면 그 때 나오는 $\textbf{x}^{\ast}$ 중 자세 부분의 9개 값은 논리적으로 그냥 말이 안된다는 것이다.</li>

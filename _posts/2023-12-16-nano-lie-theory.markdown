@@ -68,7 +68,7 @@ categories: SLAM
     - 그런데 왜 $\textbf{x}$에 대해서는 normal equatoin 을 통해 $\textbf{x}^{\ast}$ 를 바로 계산하면 (하려면 테크니컬리 당연히 할수야 있지만) 논리적으로 말이 안되고, 
     - 왜 $\delta \textbf{x}$에 대해서는 normal equation 을 통해서  $\delta \textbf{x}^{\ast}$를 계산하면 말이 될까? 
 - 그것은 normal equation 을 Vector space 에 대해서만 적용할 수 있기 때문이다. 
-    - 만약에 x의 성분에 physically vector space 가 아닌 요소들의 값이 단순히 나열되어서 들어있다면, 애초에 논리적으로 틀린 이야기가 된다는 뜻이다. 
+    - 만약에 x의 성분에 수학적으로 vector space 가 아닌 요소들의 값이 단순히 나열되어서 들어있다면, 애초에 논리적으로 틀린 이야기가 된다는 뜻이다. 
     - 로보틱스에서 이러한 non-vector space인 요소는 rotation 이 대표적이다. 
         - 예를 들어, 앞서 x = (로봇의 위치, 로봇의 자세, 로봇이 느끼는 온도) 라고 했을 때, 로봇의 자세 (attitude)를 3x3 matrix 로 표현했다고 하자 (즉, SO(3)). 이 행렬의 값 9개를 x에 잘 펴서 나열해서 넣으면 될까? 물론 되기는 된다. 하지만 $\textbf{A}\textbf{x} = \textbf{b}$ 를 풀 때, normal equation 을 $\textbf{x}$에 대해서 바로 풀어버리면 그 때 나오는 $\textbf{x}^{\ast}$ 중 자세 부분의 9개 값은 논리적으로 그냥 말이 안된다는 것이다. 
 - 다시 강조: 최적화를 당하는 x 는 vector space 에 살고 있어야 한다! 
