@@ -90,6 +90,9 @@ categories: SLAM
     - 그곳만이 vector space이기 때문이다. [어떤 논문들에서는 Euclidean space](https://infoscience.epfl.ch/record/214687/files/Conf_Paper_Forster.pdf) 라고 부르기도 한다. 
 - (편의상 $\textbf{x}$에 rotation만 있다고 하면) 
     - SO(3)는 이른 바 $\textbf{x}$이고, Lie algebra 의 최적값은 앞서 이야기했던 $\delta \textbf{x}^{*}$ 인것이다. 
+        - $\textbf{x}$ 가 속한 공간은 꼭 vector space 일 필요는 없고 (어떤 group이어서 연산에 닫혀있기만 하면 되고) 
+        - $\delta \textbf{x}$ 가 사는 공간은 꼭 vector space 여야 한다는 뜻. 
+        - 왜냐하면 최적화는 vector space 에서만 수행될 수 있기 때문.
     - 아직 이 말이 이해가 안가더라도 계속 읽어보자.
     - 혹은 (명확한 notation에 비해 좋아하지 않지만) 굳이 비유를 들어보자면 ... 
         - [기묘한 이야기에 나오는 upside down](https://www.cmon.com/product/stranger-things-upside-down/stranger-things-upside-down%20) 같은거랄까...? 두 공간 사이에는 [bijective map](https://en.wikipedia.org/wiki/Bijection) 이 존재한다.. 지하공간에서만 악마를 처치할 수 있다. 그리고 다시 지상공간으로 올라와야 한다... (~~이 스토리가 맞던가?!~~)

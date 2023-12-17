@@ -276,7 +276,13 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   </li>
   <li>(편의상 $\textbf{x}$에 rotation만 있다고 하면)
     <ul>
-      <li>SO(3)는 이른 바 $\textbf{x}$이고, Lie algebra 의 최적값은 앞서 이야기했던 $\delta \textbf{x}^{*}$ 인것이다.</li>
+      <li>SO(3)는 이른 바 $\textbf{x}$이고, Lie algebra 의 최적값은 앞서 이야기했던 $\delta \textbf{x}^{*}$ 인것이다.
+        <ul>
+          <li>$\textbf{x}$ 가 속한 공간은 꼭 vector space 일 필요는 없고 (어떤 group이어서 연산에 닫혀있기만 하면 되고)</li>
+          <li>$\delta \textbf{x}$ 가 사는 공간은 꼭 vector space 여야 한다는 뜻.</li>
+          <li>왜냐하면 최적화는 vector space 에서만 수행될 수 있기 때문.</li>
+        </ul>
+      </li>
       <li>아직 이 말이 이해가 안가더라도 계속 읽어보자.</li>
       <li>혹은 (명확한 notation에 비해 좋아하지 않지만) 굳이 비유를 들어보자면 …
         <ul>
