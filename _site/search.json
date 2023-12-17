@@ -9,7 +9,7 @@
       "tags"     : "",
       "url"      : "/slam/2023/12/11/thrust-practice-2.html",
       "date"     : "2023-12-11 08:00:00 +0900",
-      "content"     : "Compiler Explorer (godbolt) 에서 편하게 연습하자  난 CUDA 및 Thrust 공부를 빠르고 편하게 + 어디에서나 하고싶지  빌드환경을 구축하는 건 귀찮다…  라는 마음이 들 때티저  … 라는 마음이 들 때      아래처럼 실습을 하면 된다.      개요  최근 (2023년 3분기) thrust 가 CCCL (CUDA C++..."
+      "content"     : "Compiler Explorer (godbolt) 에서 편하게 연습하자  난 CUDA 및 Thrust 공부를 빠르고 편하게 + 어디에서나 하고싶지  빌드환경을 구축하는 건 귀찮다…  라는 마음이 들 때티저  … 라는 마음이 들 때      아래처럼 실습을 하면 된다. (컴파일이 되는 동안 잠시 기다려야 한다)      개요  최근 (2023년 3분기)..."
     } ,
   
     {
