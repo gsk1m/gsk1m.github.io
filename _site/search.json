@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 신년 계획 세우는 법 세우는 법",
+      "title-lower"    : "🌈 신년 계획 세우는 법 세우는 법",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2023/12/25/meta-making-plan.html",
+      "date"     : "2023-12-25 08:00:00 +0900",
+      "content"     : "신년계획을 세워보자  신년계획을 세우는 법에 대한 계획을 세워보자 (i.e., 메타계획).  그 과정에서 나만의 원칙과 프로세스를 정의해보자.계획은 왜 세워야 할까  우리는 새해가 되면 왜 계획을 세운다고 난리일까?  더 나은 사람이 되기 위해서!          는 피상적 이유이고 …        직장인으로서 솔직하게 얘기해보자          회사..."
+    } ,
+  
+    {
       "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 2편 (Feat. godbolt)",
       "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 2편 (feat. godbolt)",
       "sub-titile" : "",
