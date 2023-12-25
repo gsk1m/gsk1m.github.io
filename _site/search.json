@@ -13,15 +13,27 @@
     } ,
   
     {
-      "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 2편 (Feat. godbolt)",
-      "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 2편 (feat. godbolt)",
+      "title"    : "🌈 A nano Lie theory: 1편 (개념 편)",
+      "title-lower"    : "🌈 a nano lie theory: 1편 (개념 편)",
       "sub-titile" : "",
       "sub-titile-lower" : "",
       "categories" : "SLAM",
       "tags"     : "",
-      "url"      : "/slam/2023/12/11/thrust-practice-2.html",
+      "url"      : "/slam/2023/12/17/nano-lie-theory.html",
+      "date"     : "2023-12-17 08:00:00 +0900",
+      "content"     : "A micro Lie theory 논문이 어렵다면 …  이 글을 먼저 읽어보자.  a.k.a A nano Lie theory!개요  앞의 블로그 튜토리얼 및  예전 블로그 에서도 맨날 정리하는 rotation 이야기를 다시 한번, 좀 더 consice하게, 해보려고 한다.  이른바 Nano Lie Theory!          Joan Sola 의 A..."
+    } ,
+  
+    {
+      "title"    : "🌈 CUDA 프로그래밍: Thrust 실습 2편 (Feat. godbolt)",
+      "title-lower"    : "🌈 cuda 프로그래밍: thrust 실습 2편 (feat. godbolt)",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2023/12/11/thrust-practice-2.html",
       "date"     : "2023-12-11 08:00:00 +0900",
-      "content"     : "Compiler Explorer (godbolt) 에서 편하게 연습하자  난 CUDA 및 Thrust 공부를 빠르고 편하게 + 어디에서나 하고싶지  빌드환경을 구축하는 건 귀찮다…  라는 마음이 들 때티저  … 라는 마음이 들 때      아래처럼 실습을 하면 된다.      개요  최근 (2023년 3분기) thrust 가 CCCL (CUDA C++..."
+      "content"     : "Compiler Explorer (godbolt) 에서 편하게 연습하자  난 CUDA 및 Thrust 공부를 빠르고 편하게 + 어디에서나 하고싶지  빌드환경을 구축하는 건 귀찮다…  라는 마음이 들 때티저  … 라는 마음이 들 때      아래처럼 실습을 하면 된다. (컴파일이 되는 동안 잠시 기다려야 한다)      개요  최근 (2023년 3분기)..."
     } ,
   
     {

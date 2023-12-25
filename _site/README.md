@@ -6,10 +6,10 @@
   - after updated ubuntu 22.04, I need some error resolving steps and finanlly run the server using `bundle exec jekyll serve` command.
     - 새롭게 clone 한 경우, 
       - do below lines 새로 해주어야 함
-        sudo apt update
-        sudo apt install ruby-full
-        sudo gem install bundler
-        sudo bundle install
+      - `$ sudo apt update`
+      - `$ sudo apt install ruby-full`
+      - `$ sudo gem install bundler`
+      - `$ sudo bundle install`
 
 
 ## Tips 
