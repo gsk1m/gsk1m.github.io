@@ -85,7 +85,7 @@ categories: SLAM
         ╰─$ ls
         Dockerfile.22.04  main.cpp  run_tbb.22.04.sh
         ```
-    - 터미널에서 이 위치에서, `$ chmod +x run_tbb.20.04.sh` 한 다음에 `$ run_tbb.20.04.sh 3` 이렇게 해주면 CPU 코어 개수를 제한하여 도커 컨테이너 터미널 속으로 들어갈 수 있다. 
+    - 터미널에서 이 위치에서, `$ chmod +x run_tbb.22.04.sh` 한 다음에 `$ run_tbb.22.04.sh 3` 이렇게 해주면 CPU 코어 개수를 제한하여 도커 컨테이너 터미널 속으로 들어갈 수 있다. 
         - 도커빌드할 때 `WORKDIR /usr/src/myapp`라고 지정했기 때문에, 도커 컨테이너 터미널로 들어가면 바로  /usr/src/myapp 라는 위치에 존재하게 된다. 그래서 편의상, `-v $PWD:/usr/src/myapp`라고 해서, 소스코드가 있는 현재 호스트의 디렉토리를 도커이미지의 /usr/src/myapp 에 마운트해주었다.
             
 ### 3. 빌드 및 실행: 1차시도 
@@ -147,7 +147,7 @@ categories: SLAM
     - core 20개 짜리인 i7-13700H 에서 테스트 하였다. 
     - 19 라고 해서 0번부터 19번 코어까지 다 할당해보자. 
         ```sh
-        $ run_tbb.20.04.sh 19
+        $ run_tbb.22.04.sh 19
         ```
 
 1. **1차시도-1 (no par)**

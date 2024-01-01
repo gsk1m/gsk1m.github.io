@@ -240,7 +240,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   </span>Dockerfile.22.04  main.cpp  run_tbb.22.04.sh
 </code></pre></div>        </div>
       </li>
-      <li>터미널에서 이 위치에서, <code class="language-plaintext highlighter-rouge">$ chmod +x run_tbb.20.04.sh</code> 한 다음에 <code class="language-plaintext highlighter-rouge">$ run_tbb.20.04.sh 3</code> 이렇게 해주면 CPU 코어 개수를 제한하여 도커 컨테이너 터미널 속으로 들어갈 수 있다.
+      <li>터미널에서 이 위치에서, <code class="language-plaintext highlighter-rouge">$ chmod +x run_tbb.22.04.sh</code> 한 다음에 <code class="language-plaintext highlighter-rouge">$ run_tbb.22.04.sh 3</code> 이렇게 해주면 CPU 코어 개수를 제한하여 도커 컨테이너 터미널 속으로 들어갈 수 있다.
         <ul>
           <li>도커빌드할 때 <code class="language-plaintext highlighter-rouge">WORKDIR /usr/src/myapp</code>라고 지정했기 때문에, 도커 컨테이너 터미널로 들어가면 바로  /usr/src/myapp 라는 위치에 존재하게 된다. 그래서 편의상, <code class="language-plaintext highlighter-rouge">-v $PWD:/usr/src/myapp</code>라고 해서, 소스코드가 있는 현재 호스트의 디렉토리를 도커이미지의 /usr/src/myapp 에 마운트해주었다.</li>
         </ul>
@@ -314,7 +314,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <ul>
       <li>core 20개 짜리인 i7-13700H 에서 테스트 하였다.</li>
       <li>19 라고 해서 0번부터 19번 코어까지 다 할당해보자.
-        <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>run_tbb.20.04.sh 19
+        <div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nv">$ </span>run_tbb.22.04.sh 19
 </code></pre></div>        </div>
       </li>
     </ul>
