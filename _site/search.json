@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 박사과정을 하면서 도움이 되었던 마인드 5가지 ",
+      "title-lower"    : "🌈 박사과정을 하면서 도움이 되었던 마인드 5가지 ",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "Productivity",
+      "tags"     : "",
+      "url"      : "/productivity/2024/04/09/for-the-qualification.html",
+      "date"     : "2024-04-09 10:00:00 +0900",
+      "content"     : "Competition 이 아니라  Qualification을 위하여먼저… 학부와 대학원이 다른 이유  ‘공부와 연구가 다른 이유’ 라고도 할 수 있겠다.  근본적인 태생 차이?          공부는 Input 이고      연구는 Output 이기 때문이다.        그런데 그것보다 …          학부 (및 10대) 때의 공부는 compet..."
+    } ,
+  
+    {
       "title"    : "🌈 C++17 execution 실습 1편: 빌드부터 실행까지 (Feat. oneTBB and g++-11)",
       "title-lower"    : "🌈 c++17 execution 실습 1편: 빌드부터 실행까지 (feat. onetbb and g++-11)",
       "sub-titile" : "",
