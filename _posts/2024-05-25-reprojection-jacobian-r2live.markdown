@@ -17,7 +17,7 @@ categories: SLAM
 - 그리고 당연히 (model이 잘 설정되어 있고) 현재 state 값 $\textbf{x}$ 가 truth 에 가깝다면, 예측 측정값은 실제 측정값과 거의 같게 (== 작은 cost) 나올 것이다. 
 - 그리고 반대로 생각하면, 그 cost 가 작아지게 하도록 현재 state 값 $\textbf{x}$ 를 조절할 수 있으면, 현재 state 값 $\textbf{x}$ 을 더 truth 에 가깝게 만들었다고 말할 수 있겠다.  
 - 그런데 실제 세계의 문제에서는 cost 도 vector 이고, state 도 vector 이다. 
-    - 예를 들어서, reprojection error 의 cost 는 가로 pixel 차이, 세로 pixel 차이 의 2-dimension vector이고, state 는 정하기 나름이지만 가장 간단하게는 position 과 rotation (attitude) 를 concat 한 6-dimensino vector 라고 할 수 있다. 
+    - 예를 들어서, reprojection error 의 cost 는 가로 pixel 차이, 세로 pixel 차이 의 2-dimension vector이고, state 는 정하기 나름이지만 가장 간단하게는 position 과 rotation (attitude) 를 concat 한 6-dimension vector 라고 할 수 있다. 
 - 따라서 cost 의 각 성분마다, state 의 각 성분에 대해 미분한 것이 scalar 로 나오게 되므로 
 - vector cost에 대한 vector state 의 자코비안은 matrix 가 되게 된다. 
 - 그러면 이 때 자코비안의 shape 은 어떻게 될까요?
