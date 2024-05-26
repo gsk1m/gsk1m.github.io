@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 R2LIVE Reprojection Error Jacobian 유도해보기 ",
+      "title-lower"    : "🌈 r2live reprojection error jacobian 유도해보기 ",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2024/05/25/reprojection-jacobian-r2live.html",
+      "date"     : "2024-05-25 10:00:00 +0900",
+      "content"     : "자코비안 유도  어렵지 않아요개론  자코비안, 야코비안, … 다양하게 불리는 이 녀석  그냥 multi-dimensional 기울기라고 생각하면 된다.  Gauss-Newton optimization 을 하기 위해서는 기울기 값을 알아야 하기 때문.          Kalman Filter 에서도 쓰인다. (ps. 사실 iterative KF는 GN ..."
+    } ,
+  
+    {
       "title"    : "🌈 연구길의 초입에서 ",
       "title-lower"    : "🌈 연구길의 초입에서 ",
       "sub-titile" : "",
