@@ -7,3 +7,4 @@ vendor
 .jekyll-cache
 tags
 *DS_Store*
+assets/.DS_Store
