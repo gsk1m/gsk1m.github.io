@@ -62,8 +62,6 @@ $$
 \end{align*}
 $$
 
-$$
-
 - 위 수식을 각 미소변위 subvector 들에 대해서 편미분 하면, 그 subvector에 대한 submatrix (block) Jacobian들을 얻을 수 있다. 이걸 그저 잘 쌓아서 하나의 Jacobian matrix 를 만들면 된다.
 - 예를 들어서, world 좌표계에서의, position 에 대한 미소변위 ${}^{\mathbf{G}}\delta \check{\mathbf{p}}\_{I_{k+1}}$ 에 대해 위의 cost (reprojection error) 를 미분하면,
     - $\mathbf{M}_{\mathbf{B}}$ 라는 블록을 얻을 수 있다. 
