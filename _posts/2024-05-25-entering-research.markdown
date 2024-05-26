@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "🌈 연구길의 초입에서 "
-date:   2024-04-09 01:00:00 +0000
+date:   2024-05-25 01:00:00 +0000
 categories: Productivity
 ---
 
