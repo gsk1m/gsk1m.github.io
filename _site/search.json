@@ -1,6 +1,18 @@
 [
   
     {
+      "title"    : "🌈 From-scratched Pose-graph SLAM Tutorial: 1편",
+      "title-lower"    : "🌈 from-scratched pose-graph slam tutorial: 1편",
+      "sub-titile" : "",
+      "sub-titile-lower" : "",
+      "categories" : "SLAM",
+      "tags"     : "",
+      "url"      : "/slam/2024/08/24/rot-avg1.html",
+      "date"     : "2024-08-24 10:00:00 +0900",
+      "content"     : "Single Rotation Averaging 을 구현해보자  어렵지 않아요  $\text{SO(3)}$ 와 $\mathfrak{so(3)}$ 미분 고수되는 법개요  Rotation averaging 은 SfM (Structure-from-motion), SLAM 등에서 자주 등장하는 task 이다.          ps. rotation averag..."
+    } ,
+  
+    {
       "title"    : "🌈 R2LIVE Reprojection Error Jacobian 유도해보기 ",
       "title-lower"    : "🌈 r2live reprojection error jacobian 유도해보기 ",
       "sub-titile" : "",
